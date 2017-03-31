@@ -11,9 +11,9 @@ import net.minecraft.block.material.Material;
  * @author DemRat
  *
  */
-public class OreCopper extends Block {
+public class BlockOreCopper extends Block {
 
-	public OreCopper(Material materialIn) {
+	public BlockOreCopper(Material materialIn) {
 		super(materialIn);
 		// TODO Auto-generated constructor stub
 	}

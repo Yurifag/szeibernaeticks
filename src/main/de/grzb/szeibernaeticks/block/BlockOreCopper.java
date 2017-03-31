@@ -1,4 +1,4 @@
-package main.de.grzb.szeibernaeticks;
+package main.de.grzb.szeibernaeticks.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -10,6 +10,7 @@ gradle/
 run/
 
 #Specific files to exclude
+gradlew
 .classpath
 .project
 *.bat

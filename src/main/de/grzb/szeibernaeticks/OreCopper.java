@@ -17,5 +17,4 @@ public class OreCopper extends Block {
 		super(materialIn);
 		// TODO Auto-generated constructor stub
 	}
-
 }

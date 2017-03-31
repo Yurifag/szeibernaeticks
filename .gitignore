@@ -1,5 +1,22 @@
 *.class
 
+#Directories to exclude
+.gradle/
+.settings/
+bin/
+build/
+forge-*/
+gradle/
+run/
+
+#Specific files to exclude
+.classpath
+.project
+*.bat
+*.sh
+*.launch
+
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

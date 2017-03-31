@@ -1,7 +1,7 @@
 [{
   "modid": "szeibernaeticks",
   "name": "Szeibernaeticks",
-  "description": "Modify your body with szeibernaeticks that make you HART AS KRUPPSTAHL and ZÄH WIE LEDER and FLINK WIE EIN WINDHUND",
+  "description": "Modify your body with szeibernaeticks that make you HART AS KRUPPSTAHL and ZÃ„H WIE LEDER and FLINK WIE EIN WINDHUND",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "logoFile": "assets/examplemod/textures/logo.png",

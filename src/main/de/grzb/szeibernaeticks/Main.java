@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 @Mod(modid = Main.MODID, version = Main.VERSION)
-public class Main
-{ //TODO: move curly brace up
+@Mod.EventBusSubscriber
+public class Main {
     public static final String MODID = "szeibernaeticks";
     public static final String VERSION = "0.1";
     

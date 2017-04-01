@@ -1,7 +1,7 @@
 package main.de.grzb.szeibernaeticks.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import main.de.grzb.szeibernaeticks.Main;
+import net.minecraft.block.BlockOre;
 
 /**
  * Copper ore. Used as basis for almost all Items and Blocks.
@@ -11,10 +11,13 @@ import net.minecraft.block.material.Material;
  * @author DemRat
  *
  */
-public class BlockOreCopper extends Block {
+public class BlockOreCopper extends BlockOre {
 
-	public BlockOreCopper(Material materialIn) {
-		super(materialIn);
-		// TODO Auto-generated constructor stub
+	public BlockOreCopper() {
+		super();
+		setHardness(3.0F);
+		setResistance(5.0F);
+		setUnlocalizedName("oreCopper");
+		setRegistryName(Main.MODID + ":" + getUnlocalizedName());
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "szeibernaeticks:block/ore_copper",
+  "textures": {
+    "layer0": "szeibernaeticks:blocks/ore_copper"
+  }
+}

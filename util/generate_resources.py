@@ -56,7 +56,7 @@ def write_file(path, data):
     file.write(data)
 
 def create_json_file(path, data):
-  write_file(path, json.dumps(data, sort_keys=True, indent=2))
+  write_file(path, json.dumps(data, sort_keys=True, indent=2) + "\n")
 
 def create_png(path, image):
   with open(path, "w+b") as file:

@@ -18,21 +18,21 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
-    	e.getModLog().debug("CommonProxy, preInit.");
-    	ModItems.init();
-    	ModBlocks.init();
+        e.getModLog().debug("CommonProxy, preInit.");
+        ModItems.init();
+        ModBlocks.init();
     }
 
     public void init(FMLInitializationEvent e) {
-    	ModRecipes.init();
-    	GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
+        ModRecipes.init();
+        GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-    	
+        
     }
 
-	public void registerItemRenderer(Item item, int meta, String id) {
-		// method stub, client-only method
-	}
+    public void registerItemRenderer(Item item, int meta, String id) {
+        // method stub, client-only method
+    }
 }

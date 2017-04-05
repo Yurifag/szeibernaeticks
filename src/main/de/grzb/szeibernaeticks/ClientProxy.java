@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
-    	e.getModLog().debug("ClientProxy, preInit.");
+        e.getModLog().debug("ClientProxy, preInit.");
         super.preInit(e);
     }
 
@@ -32,6 +32,6 @@ public class ClientProxy extends CommonProxy {
     
     @Override
     public void registerItemRenderer(Item item, int meta, String id) {
-    	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + id, "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + id, "inventory"));
     }
 }

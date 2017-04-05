@@ -7,7 +7,7 @@ package main.de.grzb.szeibernaeticks;
  *
  */
 public class Names {
-	public static final String COPPER_ORE = "ore_copper";
-	public static final String COPPER_INGOT = "ingot_copper";
-	public static final String METAL_BONES = "metal_bones";
+    public static final String COPPER_ORE = "ore_copper";
+    public static final String COPPER_INGOT = "ingot_copper";
+    public static final String METAL_BONES = "metal_bones";
 }

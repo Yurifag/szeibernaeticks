@@ -1,14 +1,14 @@
 {
   "modListVersion": 2,
   "modList": [{
-	  "modid": "szeibernaeticks",
-	  "name": "Szeibernaeticks",
-	  "description": "Modify your body with szeibernaeticks that make you HART AS KRUPPSTAHL and ZÄH WIE LEDER and FLINK WIE EIN WINDHUND",
-	  "version": "0.1",
-	  "mcversion": "1.11.2",
-	  "url": "szeibernaetics.grzb.de",
-	  "updateJSON": "szeibernaetics.grzb.de/versions.json",
-	  "authorList": ["DemRat", "Yuri"],
-	  "credits": "It's like 10 PM"
+      "modid": "szeibernaeticks",
+      "name": "Szeibernaeticks",
+      "description": "Modify your body with szeibernaeticks that make you HART AS KRUPPSTAHL and ZÄH WIE LEDER and FLINK WIE EIN WINDHUND",
+      "version": "0.1",
+      "mcversion": "1.11.2",
+      "url": "szeibernaetics.grzb.de",
+      "updateJSON": "szeibernaetics.grzb.de/versions.json",
+      "authorList": ["DemRat", "Yuri"],
+      "credits": "It's like 10 PM"
   }]
 }

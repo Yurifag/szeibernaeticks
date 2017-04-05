@@ -10,7 +10,7 @@ import main.de.grzb.szeibernaeticks.Names;
  *
  */
 public class BlockOreCopper extends BlockOre {
-	public BlockOreCopper() {
-		super(Names.COPPER_ORE, 3.0F, 5.0F);
-	}
+    public BlockOreCopper() {
+        super(Names.COPPER_ORE, 3.0F, 5.0F);
+    }
 }

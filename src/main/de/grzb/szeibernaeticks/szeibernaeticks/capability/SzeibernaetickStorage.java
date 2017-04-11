@@ -7,15 +7,15 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.ISzeibernaetick;
 import net.minecraft.item.ItemStack;
 
 public class SzeibernaetickStorage implements ISzeibernaetickStorageCapability {
-	
+
 	ConcurrentHashMap<BodyPart, ItemStack> bodyMap;
 	ConcurrentHashMap<ISzeibernaetick, ItemStack> itemMap;
-
+	
 	public SzeibernaetickStorage() {
 		bodyMap = new ConcurrentHashMap<BodyPart, ItemStack>();
 		itemMap = new ConcurrentHashMap<ISzeibernaetick, ItemStack>();
 	}
-	
+
 	@Override
 	public boolean addSzeibernaetick(ItemStack stack) {
 		if (stack.getItem() instanceof ISzeibernaetick) {
@@ -30,17 +30,17 @@ public class SzeibernaetickStorage implements ISzeibernaetickStorageCapability {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public ItemStack getSzeibernaetick(ISzeibernaetick szeiber) {
 		return itemMap.get(szeiber);
 	}
-
+	
 	@Override
 	public Collection<ItemStack> getSzeibernaeticks() {
 		return bodyMap.values();
 	}
-
+	
 	@Override
 	public ItemStack removeSzeibernaetick(ISzeibernaetick szeiber) {
 		ItemStack returnStack = new ItemStack(itemMap.get(szeiber).serializeNBT());
@@ -48,5 +48,5 @@ public class SzeibernaetickStorage implements ISzeibernaetickStorageCapability {
 		bodyMap.remove(szeiber.getBodyPart());
 		return returnStack;
 	}
-	
+
 }

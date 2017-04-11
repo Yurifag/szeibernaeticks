@@ -5,8 +5,17 @@ import java.util.Collection;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.ISzeibernaetick;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Stores {@code ISzeibernaeticks}.<br>
+ * <br>
+ * Provides Methods to store and retrieve {@code ISzeibernaeticks} in the form
+ * of {@code ItemStacks}.
+ *
+ * @author DemRat
+ *
+ */
 public interface ISzeibernaetickStorageCapability {
-	
+
 	/**
 	 * Adds a copy of the given {@code ItemStack} to the Capability.
 	 *
@@ -15,7 +24,7 @@ public interface ISzeibernaetickStorageCapability {
 	 * @return True if successfull
 	 */
 	public boolean addSzeibernaetick(ItemStack stack);
-	
+
 	/**
 	 * Returns the {@code ItemStack} of the given {@code ISzeibernaetick}, or
 	 * null if it is not installed.
@@ -25,14 +34,14 @@ public interface ISzeibernaetickStorageCapability {
 	 * @return The {@code ItemStack} of the {@code ISzeibernaetick}, or null
 	 */
 	public ItemStack getSzeibernaetick(ISzeibernaetick item);
-
+	
 	/**
 	 * Returns an Array containing all installed {@code ISzeibernaeticks}.
 	 *
 	 * @return An Array with all installed {@code ISzeibernaeticks}.
 	 */
 	public Collection<ItemStack> getSzeibernaeticks();
-	
+
 	/**
 	 * Removes the given {@code ISzeibernaetick}, if it is installed, and
 	 * returns its ItemStack.
@@ -43,5 +52,5 @@ public interface ISzeibernaetickStorageCapability {
 	 *         if it wasn't installed.
 	 */
 	public ItemStack removeSzeibernaetick(ISzeibernaetick szeiber);
-	
+
 }

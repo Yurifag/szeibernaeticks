@@ -1,3 +1,4 @@
 item.ingot_copper.name=Copper Ingot
 item.metal_bones.name=Metal Bones
 tile.ore_copper.name=Copper Ore
+tile.test.name=Test

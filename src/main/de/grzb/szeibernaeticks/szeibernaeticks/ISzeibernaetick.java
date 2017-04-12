@@ -16,11 +16,11 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.BodyPart;
  *
  */
 public interface ISzeibernaetick {
-	
-	/**
-	 * Returns what kind of {@code BodyPart} this {@code ISzeibernaetick} is.
-	 *
-	 * @return What kind of {@code BodyPart} this {@code ISzeibernaetick} is.
-	 */
-	public BodyPart getBodyPart();
+
+  /**
+   * Returns what kind of {@code BodyPart} this {@code ISzeibernaetick} is.
+   *
+   * @return What kind of {@code BodyPart} this {@code ISzeibernaetick} is.
+   */
+  public BodyPart getBodyPart();
 }

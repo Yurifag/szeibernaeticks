@@ -16,7 +16,7 @@ gradlew
 *.bat
 *.sh
 *.launch
-
+*.xcf
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

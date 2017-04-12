@@ -15,13 +15,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  */
 public class SzeibernaetickCapabilityAttacher {
-	
-	@SubscribeEvent
-	public void attachToLiving(AttachCapabilitiesEvent<Entity> event) {
-		Szeibernaeticks.getLogger().info("Attaching Capability to Entity!");
 
-		if (event.getObject() instanceof EntityLivingBase) {
-			event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID), new SzeibernaetickStorageProvider());
-		}
-	}
+  @SubscribeEvent
+  public void attachToLiving(AttachCapabilitiesEvent<Entity> event) {
+    Szeibernaeticks.getLogger().info("Attaching Capability to Entity!");
+
+    if(event.getObject() instanceof EntityLivingBase) {
+      event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID), new SzeibernaetickStorageProvider());
+    }
+  }
 }

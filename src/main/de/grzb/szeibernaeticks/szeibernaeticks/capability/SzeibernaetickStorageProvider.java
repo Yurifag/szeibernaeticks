@@ -14,30 +14,30 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  */
 public class SzeibernaetickStorageProvider implements ICapabilitySerializable<NBTBase> {
 
-	@CapabilityInject(ISzeibernaetickStorageCapability.class)
-	public static final Capability<ISzeibernaetickStorageCapability> SZEIBER_CAP = null;
-	
-	private ISzeibernaetickStorageCapability instance = SZEIBER_CAP.getDefaultInstance();
+  @CapabilityInject(ISzeibernaetickStorageCapability.class)
+  public static final Capability<ISzeibernaetickStorageCapability> SZEIBER_CAP = null;
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return capability == SZEIBER_CAP;
-	}
+  private ISzeibernaetickStorageCapability instance = SZEIBER_CAP.getDefaultInstance();
 
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return capability == SZEIBER_CAP ? SZEIBER_CAP.<T>cast(this.instance) : null;
-	}
+  @Override
+  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    return capability == SZEIBER_CAP;
+  }
 
-	@Override
-	public NBTBase serializeNBT() {
-		return SZEIBER_CAP.getStorage().writeNBT(SZEIBER_CAP, instance, null);
-	}
+  @Override
+  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    return capability == SZEIBER_CAP ? SZEIBER_CAP.<T>cast(this.instance) : null;
+  }
 
-	@Override
-	public void deserializeNBT(NBTBase nbt) {
-		SZEIBER_CAP.getStorage().readNBT(SZEIBER_CAP, instance, null, nbt);
-		
-	}
-	
+  @Override
+  public NBTBase serializeNBT() {
+    return SZEIBER_CAP.getStorage().writeNBT(SZEIBER_CAP, instance, null);
+  }
+
+  @Override
+  public void deserializeNBT(NBTBase nbt) {
+    SZEIBER_CAP.getStorage().readNBT(SZEIBER_CAP, instance, null, nbt);
+
+  }
+
 }

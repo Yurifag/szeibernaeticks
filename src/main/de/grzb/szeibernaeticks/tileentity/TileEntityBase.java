@@ -11,14 +11,15 @@ import net.minecraft.tileentity.TileEntity;
  *
  */
 public abstract class TileEntityBase extends TileEntity {
-  private String tileEntityName;
-
-  public TileEntityBase(String tileEntityName) {
-    super();
-    this.tileEntityName = tileEntityName;
-  }
-
-  public String getName() {
-    return this.tileEntityName;
-  }
+    
+    private String tileEntityName;
+    
+    public TileEntityBase(String tileEntityName) {
+        super();
+        this.tileEntityName = tileEntityName;
+    }
+    
+    public String getName() {
+        return this.tileEntityName;
+    }
 }

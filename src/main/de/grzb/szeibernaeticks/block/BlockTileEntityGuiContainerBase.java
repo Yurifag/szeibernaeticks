@@ -22,27 +22,29 @@ import net.minecraft.world.World;
  *
  */
 public abstract class BlockTileEntityGuiContainerBase extends BlockTileEntityContainerBase {
-  private int guiId;
-  private static int guiCount = 0;
-
-  public BlockTileEntityGuiContainerBase(String name, Material material) {
-    super(name, material);
-    this.guiId = BlockTileEntityGuiContainerBase.guiCount;
-    BlockTileEntityGuiContainerBase.guiCount++;
-  }
-
-  /**
-   * Opens the GUI for a player from the server-side.
-   */
-  @Override
-  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(!world.isRemote) {
-      TileEntity tileEntity = world.getTileEntity(pos);
-      if(!(tileEntity instanceof TileEntityGuiContainerBase)) {
-        return false;
-      }
-      player.openGui(Szeibernaeticks.instance, this.guiId, world, pos.getX(), pos.getY(), pos.getZ());
+    
+    private int guiId;
+    private static int guiCount = 0;
+    
+    public BlockTileEntityGuiContainerBase(String name, Material material) {
+        super(name, material);
+        this.guiId = BlockTileEntityGuiContainerBase.guiCount;
+        BlockTileEntityGuiContainerBase.guiCount++;
     }
-    return true;
-  }
+    
+    /**
+     * Opens the GUI for a player from the server-side.
+     */
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+            EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote) {
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (!(tileEntity instanceof TileEntityGuiContainerBase)) {
+                return false;
+            }
+            player.openGui(Szeibernaeticks.instance, this.guiId, world, pos.getX(), pos.getY(), pos.getZ());
+        }
+        return true;
+    }
 }

@@ -8,17 +8,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class BlockTileEntityBase extends BlockBase implements ITileEntityProvider {
-  public BlockTileEntityBase(String name, Material material) {
-    super(name, material);
-    this.isBlockContainer = true;
-  }
-
-  @Override
-  public abstract TileEntity createNewTileEntity(World world, int meta);
-
-  @Override
-  public void breakBlock(World world, BlockPos pos, IBlockState state) {
-    super.breakBlock(world, pos, state);
-    world.removeTileEntity(pos);
-  }
+    
+    public BlockTileEntityBase(String name, Material material) {
+        super(name, material);
+        this.isBlockContainer = true;
+    }
+    
+    @Override
+    public abstract TileEntity createNewTileEntity(World world, int meta);
+    
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        super.breakBlock(world, pos, state);
+        world.removeTileEntity(pos);
+    }
 }

@@ -12,34 +12,35 @@ import net.minecraft.inventory.IInventory;
  *
  */
 public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase {
-  public TileEntityGuiContainerBase(String tileEntityName) {
-    super(tileEntityName);
-  }
-
-  /**
-   * Get a new instance of the corresponding container.
-   * 
-   * @param playerInventory
-   * @return {@link GuiContainerBase}
-   */
-  public abstract GuiContainerBase getContainer(IInventory playerInventory);
-
-  /**
-   * Get a new instance of the corresponding (client-side) container GUI.
-   * 
-   * @param playerInventory
-   * @return {@link GuiContainerRenderer}
-   */
-  public GuiContainerRenderer getGuiContainerRenderer(IInventory playerInventory) {
-    return new GuiContainerRenderer(this.getContainer(playerInventory));
-  }
-
-  /**
-   * Only lets the player open the inventory if they're in range.
-   * 
-   * @return {@link Boolean}
-   */
-  public boolean canInteractWith(EntityPlayer player) {
-    return !this.isInvalid() && player.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
-  }
+    
+    public TileEntityGuiContainerBase(String tileEntityName) {
+        super(tileEntityName);
+    }
+    
+    /**
+     * Get a new instance of the corresponding container.
+     * 
+     * @param playerInventory
+     * @return {@link GuiContainerBase}
+     */
+    public abstract GuiContainerBase getContainer(IInventory playerInventory);
+    
+    /**
+     * Get a new instance of the corresponding (client-side) container GUI.
+     * 
+     * @param playerInventory
+     * @return {@link GuiContainerRenderer}
+     */
+    public GuiContainerRenderer getGuiContainerRenderer(IInventory playerInventory) {
+        return new GuiContainerRenderer(this.getContainer(playerInventory));
+    }
+    
+    /**
+     * Only lets the player open the inventory if they're in range.
+     * 
+     * @return {@link Boolean}
+     */
+    public boolean canInteractWith(EntityPlayer player) {
+        return !this.isInvalid() && player.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
+    }
 }

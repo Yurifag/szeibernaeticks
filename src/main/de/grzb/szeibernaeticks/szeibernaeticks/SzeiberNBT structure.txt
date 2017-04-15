@@ -25,4 +25,4 @@ When passing this between Methods/Objects, the "Szeibernaeticks" Compound Tag is
 
 Naming Convention:
 Compound Tags are written in PascalCase : "Properties", "ThisIsAdvancedStuff"
-Primitive Tags are written in CamelCase : "damage", "advancedValue"
+Primitive Tags are written in camelCase : "damage", "advancedValue"

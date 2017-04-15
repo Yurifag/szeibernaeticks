@@ -1,7 +1,5 @@
 package main.de.grzb.szeibernaeticks.tileentity;
 
-import java.util.stream.IntStream;
-
 import main.de.grzb.szeibernaeticks.client.gui.GuiId;
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
@@ -27,10 +25,9 @@ public class TileEntityGuiContainerAssembler extends TileEntityGuiContainerBase 
     @Override
     public GuiContainerBase getContainer(IInventory playerInventory) {
         SlotDefinition[] slotDefinitions = new SlotDefinition[6];
-        IntStream.range(0, 6).forEachOrdered(n -> {
+        for(int n = 0; n < slotDefinitions.length; n++) {
             slotDefinitions[n] = new SlotDefinition(0, n * GuiLayoutDefinition.ITEM_SLOT_SIZE);
-        });
-
+        }
         return new GuiContainerBase(this,
                 new GuiLayoutDefinition(this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null),
                         slotDefinitions, playerInventory),

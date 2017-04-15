@@ -11,11 +11,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @author yuri
  */
 public final class ModTileEntities {
-
-    public static TileEntity test;
+    public static TileEntity assembler;
 
     public static void init() {
-        test = register(new TileEntityGuiContainerTest());
+        assembler = register(new TileEntityGuiContainerAssembler());
     }
 
     private static <T extends TileEntityBase> T register(T tileEntity) {

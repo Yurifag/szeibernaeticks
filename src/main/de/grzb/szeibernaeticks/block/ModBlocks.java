@@ -16,11 +16,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public final class ModBlocks {
 
     public static BlockBase ore_copper;
-    public static BlockBase test;
 
     public static void init() {
         ore_copper = register(new BlockOreCopper());
-        test = register(new BlockTileEntityGuiContainerTest());
     }
 
     /**

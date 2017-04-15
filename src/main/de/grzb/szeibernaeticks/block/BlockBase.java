@@ -13,17 +13,17 @@ import net.minecraft.item.ItemBlock;
  *
  */
 public abstract class BlockBase extends Block {
-    
+
     protected String name;
-    
+
     public BlockBase(String name, Material material) {
         super(material);
-        
+
         this.name = name;
         this.setUnlocalizedName(name);
         this.setRegistryName(Szeibernaeticks.RESOURCE_PREFIX + name);
     }
-    
+
     /**
      * Loads the resources for this block's item on the client-side.
      * 
@@ -32,7 +32,7 @@ public abstract class BlockBase extends Block {
     public void registerItemModel(ItemBlock itemBlock) {
         Szeibernaeticks.proxy.registerItemRenderer(itemBlock, 0, name);
     }
-    
+
     @Override
     public BlockBase setCreativeTab(CreativeTabs tab) {
         super.setCreativeTab(tab);

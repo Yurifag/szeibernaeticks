@@ -13,30 +13,30 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  *
  */
 public class SzeibernaetickArmouryProvider implements ICapabilitySerializable<NBTBase> {
-    
+
     @CapabilityInject(ISzeibernaetickArmouryCapability.class)
-    public static final Capability<ISzeibernaetickArmouryCapability> SZEIBER_CAP = null;
-    
-    private ISzeibernaetickArmouryCapability instance = SZEIBER_CAP.getDefaultInstance();
-    
+    public static final Capability<ISzeibernaetickArmouryCapability> ARMOURY_CAP = null;
+
+    private ISzeibernaetickArmouryCapability instance = ARMOURY_CAP.getDefaultInstance();
+
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == SZEIBER_CAP;
+        return capability == ARMOURY_CAP;
     }
-    
+
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == SZEIBER_CAP ? SZEIBER_CAP.<T>cast(this.instance) : null;
+        return capability == ARMOURY_CAP ? ARMOURY_CAP.<T>cast(this.instance) : null;
     }
-    
+
     @Override
     public NBTBase serializeNBT() {
-        return SZEIBER_CAP.getStorage().writeNBT(SZEIBER_CAP, instance, null);
+        return ARMOURY_CAP.getStorage().writeNBT(ARMOURY_CAP, instance, null);
     }
-    
+
     @Override
     public void deserializeNBT(NBTBase nbt) {
-        SZEIBER_CAP.getStorage().readNBT(SZEIBER_CAP, instance, null, nbt);
+        ARMOURY_CAP.getStorage().readNBT(ARMOURY_CAP, instance, null, nbt);
     }
-    
+
 }

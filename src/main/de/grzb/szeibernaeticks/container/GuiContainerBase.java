@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
  * @author yuri
  */
 public abstract class GuiContainerBase extends ContainerBase {
-    
+
     public static final int CONTAINER_BORDER_TOP = 17;
     public static final int CONTAINER_BORDER_WIDTH = 7;
     public static final int ITEM_SLOT_BORDER_WIDTH = 1;
@@ -27,14 +27,14 @@ public abstract class GuiContainerBase extends ContainerBase {
     public static final int HOTBAR_MARGIN_TOP = 4;
     public static final int PLAYER_INVENTORY_HEIGHT = PLAYER_MAIN_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP + ITEM_SLOT_SIZE;
     public static final int PLAYER_HOTBAR_SLOTS = 9;
-    
+
     protected int innerGuiHeight;
-    
+
     private int guiWidth = 176;
     private int guiHeight;
     private ResourceLocation background = new ResourceLocation(
             Szeibernaeticks.RESOURCE_PREFIX + "textures/gui/container/" + this.tileEntityContainer.getName() + ".png");
-    
+
     /**
      * Sets up a basic GUI layout. Take care for the player's own inventory and
      * border spacing.
@@ -49,13 +49,13 @@ public abstract class GuiContainerBase extends ContainerBase {
         super(tileEntityGuiContainer);
         this.setInnerGuiHeight(innerGuiHeight);
         this.guiHeight = CONTAINER_BORDER_TOP + this.innerGuiHeight + PLAYER_INVENTORY_HEIGHT + CONTAINER_BORDER_WIDTH;
-        
+
         this.addGuiLayout();
         this.addPlayerSlotLayout(playerInventory);
     }
-    
+
     protected abstract void addGuiLayout();
-    
+
     /**
      * Adds the player's inventory and hotbar to the container.
      * 
@@ -65,23 +65,23 @@ public abstract class GuiContainerBase extends ContainerBase {
         int x;
         int y;
         int slotId;
-        
+
         /**
          * Main inventory slots
          */
-        for (int row = 0; row < 3; ++row) {
-            for (int column = 0; column < 9; ++column) {
+        for(int row = 0; row < 3; ++row) {
+            for(int column = 0; column < 9; ++column) {
                 x = CONTAINER_BORDER_WIDTH + ITEM_SLOT_BORDER_WIDTH + column * ITEM_SLOT_SIZE;
                 y = CONTAINER_BORDER_TOP + this.innerGuiHeight + ITEM_SLOT_BORDER_WIDTH + row * ITEM_SLOT_SIZE;
                 slotId = column + row * 9 + PLAYER_HOTBAR_SLOTS;
                 this.addSlotToContainer(new Slot(playerInventory, slotId, x, y));
             }
         }
-        
+
         /**
          * Hotbar slots
          */
-        for (int row = 0; row < PLAYER_HOTBAR_SLOTS; ++row) {
+        for(int row = 0; row < PLAYER_HOTBAR_SLOTS; ++row) {
             x = CONTAINER_BORDER_WIDTH + ITEM_SLOT_BORDER_WIDTH + row * ITEM_SLOT_SIZE;
             y = CONTAINER_BORDER_TOP + this.innerGuiHeight + PLAYER_MAIN_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP
                     + ITEM_SLOT_BORDER_WIDTH;
@@ -89,56 +89,58 @@ public abstract class GuiContainerBase extends ContainerBase {
             this.addSlotToContainer(new Slot(playerInventory, slotId, x, y));
         }
     }
-    
+
     @Nullable
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
-        
-        if (slot != null && slot.getHasStack()) {
+
+        if(slot != null && slot.getHasStack()) {
             ItemStack slotItemStack = slot.getStack();
             itemstack = slotItemStack.copy();
-            
-            if (index < this.tileEntityContainer.getContainerSize()) {
-                if (!this.mergeItemStack(slotItemStack, this.tileEntityContainer.getContainerSize(),
+
+            if(index < this.tileEntityContainer.getContainerSize()) {
+                if(!this.mergeItemStack(slotItemStack, this.tileEntityContainer.getContainerSize(),
                         this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(slotItemStack, 0, this.tileEntityContainer.getContainerSize(), false)) {
+            }
+            else if(!this.mergeItemStack(slotItemStack, 0, this.tileEntityContainer.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
-            
-            if (slotItemStack.isEmpty()) {
+
+            if(slotItemStack.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.onSlotChanged();
             }
         }
-        
+
         return itemstack;
     }
-    
+
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         return ((TileEntityGuiContainerBase) this.tileEntityContainer).canInteractWith(player);
     }
-    
+
     private void setInnerGuiHeight(int height) {
-        if (height > 156) {
+        if(height > 156) {
             throw new IllegalArgumentException("innerGuiHeight can not be greater than 156 pixels.");
         }
         this.innerGuiHeight = height;
     }
-    
+
     public int getGuiWidth() {
         return this.guiWidth;
     }
-    
+
     public int getGuiHeight() {
         return this.guiHeight;
     }
-    
+
     public ResourceLocation getGuiBackground() {
         return this.background;
     }

@@ -12,13 +12,13 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class ModWorldGenerator implements IWorldGenerator {
-    
+
     private WorldGenerator generateOreCopper;
-    
+
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
             IChunkProvider chunkProvider) {
-        switch (world.provider.getDimension()) {
+        switch(world.provider.getDimension()) {
             case -1:
                 break;
             case 0:
@@ -29,15 +29,15 @@ public class ModWorldGenerator implements IWorldGenerator {
                 break;
         }
     }
-    
+
     private void runGenerator(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ,
             int chancesToSpawn, int minHeight, int maxHeight) {
-        if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight) {
+        if(minHeight < 0 || maxHeight > 256 || minHeight > maxHeight) {
             throw new IllegalArgumentException("Illegal height arguments for WorldGenerator.");
         }
-        
+
         int heightDiff = maxHeight - minHeight + 1;
-        for (int i = 0; i < chancesToSpawn; i++) {
+        for(int i = 0; i < chancesToSpawn; i++) {
             int x = chunkX * 16 + random.nextInt(16);
             int y = minHeight + random.nextInt(heightDiff);
             int z = chunkZ * 16 + random.nextInt(16);

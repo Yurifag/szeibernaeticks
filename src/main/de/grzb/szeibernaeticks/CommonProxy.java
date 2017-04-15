@@ -3,6 +3,8 @@ package main.de.grzb.szeibernaeticks;
 import main.de.grzb.szeibernaeticks.block.ModBlocks;
 import main.de.grzb.szeibernaeticks.crafting.ModRecipes;
 import main.de.grzb.szeibernaeticks.item.ModItems;
+import main.de.grzb.szeibernaeticks.networking.SzeiberCapMessage;
+import main.de.grzb.szeibernaeticks.networking.SzeibernaeticksNetworkWrapper;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickCapabilityAttacher;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickCapabilityStorage;
@@ -21,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Executes code on both, server and client.
@@ -29,34 +32,37 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @author yuri
  */
 public class CommonProxy {
-    
+
     public void preInit(FMLPreInitializationEvent e) {
         Szeibernaeticks.setLogger(e.getModLog());
         Szeibernaeticks.getLogger().debug("CommonProxy, preInit.");
         ModItems.init();
         ModBlocks.init();
         ModTileEntities.init();
+
+        SzeibernaeticksNetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class,
+                SzeiberCapMessage.class, SzeibernaeticksNetworkWrapper.getId(), Side.CLIENT);
     }
-    
+
     public void init(FMLInitializationEvent e) {
         ModRecipes.init();
         GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(Szeibernaeticks.instance, new GuiProxy());
-        
+
         CapabilityManager.INSTANCE.register(ISzeibernaetickArmouryCapability.class,
                 new SzeibernaetickArmouryCapabilityStorage(), SzeibernaetickArmoury.class);
         CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new SzeibernaetickCapabilityStorage(),
                 SzeibernaetickMetalBonesCapability.class);
-        
+
         MinecraftForge.EVENT_BUS.register(
                 new SzeibernaetickMetalBonesHandler(ModItems.metal_bones.getCapabilityInstance().getIdentifier()));
         MinecraftForge.EVENT_BUS.register(new SzeibernaetickCapabilityAttacher());
     }
-    
+
     public void postInit(FMLPostInitializationEvent e) {
-        
+
     }
-    
+
     public void registerItemRenderer(Item item, int meta, String id) {
         // method stub, client-only method
     }

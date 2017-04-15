@@ -9,7 +9,7 @@ package main.de.grzb.szeibernaeticks.block;
  *
  */
 public class BlockOreCopper extends BlockOre {
-    
+
     public BlockOreCopper() {
         super("ore_copper", 3.0F, 5.0F);
     }

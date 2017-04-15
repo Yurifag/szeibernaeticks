@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockOre extends BlockBase {
-    
+
     public BlockOre(String name, float hardness, float resistance) {
         super(name, Material.ROCK);
         this.setHardness(hardness);

@@ -13,11 +13,11 @@ import net.minecraftforge.oredict.OreDictionary;
  * @author yuri
  */
 public class ModRecipes {
-    
+
     public static void init() {
         OreDictionary.registerOre("oreCopper", ModBlocks.ore_copper);
         OreDictionary.registerOre("ingotCopper", ModItems.ingot_copper);
-        
+
         GameRegistry.addSmelting(ModBlocks.ore_copper, new ItemStack(ModItems.ingot_copper), 0.7F);
     }
 }

@@ -1,13 +1,15 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability;
 
 import main.de.grzb.szeibernaeticks.Szeibernaeticks;
-import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
+import main.de.grzb.szeibernaeticks.networking.SzeiberCapMessage;
+import main.de.grzb.szeibernaeticks.networking.SzeibernaeticksNetworkWrapper;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmouryProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -18,7 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  */
 public class SzeibernaetickCapabilityAttacher {
-    
+
     /**
      * Attaches ISzeibernaetickSotrage to entities.
      *
@@ -27,27 +29,21 @@ public class SzeibernaetickCapabilityAttacher {
      */
     @SubscribeEvent
     public void attachToLiving(AttachCapabilitiesEvent<Entity> event) {
-        Szeibernaeticks.getLogger().info("Attaching Capability to Entity!");
-        
-        if (event.getObject() instanceof EntityLivingBase) {
+
+        if(event.getObject() instanceof EntityLivingBase) {
             event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID), new SzeibernaetickArmouryProvider());
         }
     }
-    
-    /**
-     * Attaches ISzeibernaetickCapabilities to items whose Item is an
-     * ISzeibernaetick via Event Subscribtion.
-     *
-     * @param event
-     *            The event prompting to attach the Capability.
-     */
+
     @SubscribeEvent
-    public void attachToItem(AttachCapabilitiesEvent<Item> event) {
-        Item item = event.getObject();
-        if (item instanceof SzeibernaetickBase) {
-            SzeibernaetickBase szeiber = (SzeibernaetickBase) item;
-            SzeibernaetickCapabilityProvider provider = new SzeibernaetickCapabilityProvider(szeiber);
-            event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID + provider.getIdentifier()), provider);
+    public void attachToJoining(EntityJoinWorldEvent event) {
+        Entity entity = event.getEntity();
+        if(entity instanceof EntityPlayerMP && entity.hasCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null)) {
+            for(ISzeibernaetickCapability szeiber : entity
+                    .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null).getSzeibernaeticks()) {
+                SzeibernaeticksNetworkWrapper.INSTANCE.sendToAll(new SzeiberCapMessage(
+                        szeiber)/* , (EntityPlayerMP) entity */);
+            }
         }
     }
 }

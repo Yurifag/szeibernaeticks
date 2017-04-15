@@ -6,19 +6,29 @@ import io.netty.util.internal.ConcurrentSet;
 
 public final class BodyPart {
 
-    public static final BodyPart bones = createBodyPart("bones", new Vector2d(0, 0));
-    public static final BodyPart stomach = createBodyPart("stomach", new Vector2d());
-    public static final BodyPart eyes = createBodyPart("eyes", new Vector2d());
-    public static final BodyPart joints = createBodyPart("joints", new Vector2d());
-    private static ConcurrentSet<BodyPart> bodySet = new ConcurrentSet<BodyPart>();
-    
+    private static ConcurrentSet<BodyPart> bodySet;
+    public static final BodyPart BONES;
+    public static final BodyPart STOMACH;
+    public static final BodyPart EYES;
+    public static final BodyPart JOINTS;
+    public static final BodyPart VEINS;
+
     private String name;
     private Vector2d location;
 
     private BodyPart() {
-        
+
     }
-    
+
+    static {
+        bodySet = new ConcurrentSet<BodyPart>();
+        BONES = createBodyPart("bones", new Vector2d(0, 0));
+        STOMACH = createBodyPart("stomach", new Vector2d());
+        EYES = createBodyPart("eyes", new Vector2d());
+        JOINTS = createBodyPart("joints", new Vector2d());
+        VEINS = createBodyPart("veins", new Vector2d());
+    }
+
     /**
      * Creates and returns a BodyPart with the given name and location, if no
      * BodyPart with such a name exists. <br>
@@ -33,8 +43,8 @@ public final class BodyPart {
      */
     private static BodyPart createBodyPart(String name, Vector2d location) {
         // Check whether a BodyPart with the given name exists
-        for (BodyPart b : bodySet) {
-            if (b.name == name) {
+        for(BodyPart b : bodySet) {
+            if(b.name == name) {
                 return b;
             }
         }
@@ -46,18 +56,18 @@ public final class BodyPart {
         bodySet.add(part);
         return part;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Vector2d getLocation() {
         return location;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BodyPart) {
+        if(o instanceof BodyPart) {
             BodyPart part = (BodyPart) o;
             return part.name == name;
         }

@@ -12,11 +12,11 @@ import net.minecraft.inventory.IInventory;
  *
  */
 public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase {
-    
+
     public TileEntityGuiContainerBase(String tileEntityName) {
         super(tileEntityName);
     }
-    
+
     /**
      * Get a new instance of the corresponding container.
      * 
@@ -24,7 +24,7 @@ public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase
      * @return {@link GuiContainerBase}
      */
     public abstract GuiContainerBase getContainer(IInventory playerInventory);
-    
+
     /**
      * Get a new instance of the corresponding (client-side) container GUI.
      * 
@@ -34,7 +34,7 @@ public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase
     public GuiContainerRenderer getGuiContainerRenderer(IInventory playerInventory) {
         return new GuiContainerRenderer(this.getContainer(playerInventory));
     }
-    
+
     /**
      * Only lets the player open the inventory if they're in range.
      * 

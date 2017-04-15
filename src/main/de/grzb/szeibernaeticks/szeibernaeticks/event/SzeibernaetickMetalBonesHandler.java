@@ -16,9 +16,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  */
 public class SzeibernaetickMetalBonesHandler implements ISzeibernaetickEventHandler {
-    
+
     private Class<? extends ISzeibernaetickCapability> szeiberClass = SzeibernaetickMetalBonesCapability.class;
-    
+
     /**
      * Constructs this EventHandler with the String identifying this Handlers
      * ISzeibernaetickCapability.
@@ -29,16 +29,16 @@ public class SzeibernaetickMetalBonesHandler implements ISzeibernaetickEventHand
      */
     public SzeibernaetickMetalBonesHandler(String szeibernaetickIdentifier) {
     }
-    
+
     @SubscribeEvent
     public void onEntityHurt(LivingHurtEvent e) {
         Szeibernaeticks.getLogger().info("Entity hurt! Checking for Storage!");
-        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.SZEIBER_CAP,
+        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP,
                 null);
         Szeibernaeticks.getLogger().info("Found: " + c.toString());
         Szeibernaeticks.getLogger().info("Getting szeibernaetick: " + c.getSzeibernaetick(szeiberClass));
-        
-        if (c.getSzeibernaetick(szeiberClass) != null) {
+
+        if(c.getSzeibernaetick(szeiberClass) != null) {
             Szeibernaeticks.getLogger().info("Negating damage!");
             e.setAmount(e.getAmount() / 2);
         }

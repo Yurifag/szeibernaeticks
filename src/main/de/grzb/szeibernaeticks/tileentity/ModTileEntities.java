@@ -11,17 +11,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @author yuri
  */
 public final class ModTileEntities {
-    
+
     public static TileEntity test;
-    
+
     public static void init() {
         test = register(new TileEntityGuiContainerTest());
     }
-    
+
     private static <T extends TileEntityBase> T register(T tileEntity) {
         GameRegistry.registerTileEntity(tileEntity.getClass(), Szeibernaeticks.RESOURCE_PREFIX + tileEntity.getName());
-        
+
         return tileEntity;
     }
-    
+
 }

@@ -11,32 +11,32 @@ import net.minecraft.nbt.NBTTagCompound;
  *
  */
 public class SzeibernaetickMetalBonesCapability implements ISzeibernaetickCapability {
-    
+
     private int damage;
-    
+
     @Override
     public String getIdentifier() {
         return "MetalBonesCapability";
     }
-    
+
     public SzeibernaetickMetalBonesCapability() {
         damage = 0;
     }
-    
+
     @Override
     public NBTTagCompound toNBT() {
         NBTTagCompound base = new NBTTagCompound();
         base.setInteger("damage", damage);
         return base;
     }
-    
+
     @Override
     public void fromNBT(NBTTagCompound nbt) {
         damage = nbt.getInteger("damage");
     }
-    
+
     @Override
     public BodyPart getBodyPart() {
-        return BodyPart.bones;
+        return BodyPart.BONES;
     }
 }

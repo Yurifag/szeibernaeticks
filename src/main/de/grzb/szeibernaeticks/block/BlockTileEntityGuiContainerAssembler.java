@@ -19,11 +19,6 @@ public class BlockTileEntityGuiContainerAssembler extends BlockTileEntityGuiCont
     }
 
     @Override
-    public void onEntityWalk(World world, BlockPos pos, Entity entity) {
-        world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
-    }
-
-    @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityGuiContainerAssembler(this);
     }

@@ -11,14 +11,14 @@ public final class BodyPart {
     public static final BodyPart eyes = createBodyPart("eyes", new Vector2d());
     public static final BodyPart joints = createBodyPart("joints", new Vector2d());
     private static ConcurrentSet<BodyPart> bodySet = new ConcurrentSet<BodyPart>();
-    
+
     private String name;
     private Vector2d location;
 
     private BodyPart() {
-        
+
     }
-    
+
     /**
      * Creates and returns a BodyPart with the given name and location, if no
      * BodyPart with such a name exists. <br>
@@ -33,8 +33,8 @@ public final class BodyPart {
      */
     private static BodyPart createBodyPart(String name, Vector2d location) {
         // Check whether a BodyPart with the given name exists
-        for (BodyPart b : bodySet) {
-            if (b.name == name) {
+        for(BodyPart b : bodySet) {
+            if(b.name == name) {
                 return b;
             }
         }
@@ -46,18 +46,18 @@ public final class BodyPart {
         bodySet.add(part);
         return part;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Vector2d getLocation() {
         return location;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BodyPart) {
+        if(o instanceof BodyPart) {
             BodyPart part = (BodyPart) o;
             return part.name == name;
         }

@@ -14,17 +14,17 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCa
  *
  */
 public class SzeibernaetickMapper {
-    
+
     public static final SzeibernaetickMapper instance = new SzeibernaetickMapper();
-    
+
     private ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, SzeibernaetickBase> itemMap;
     private ConcurrentHashMap<String, Class<? extends ISzeibernaetickCapability>> idMap;
-    
+
     private SzeibernaetickMapper() {
         itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, SzeibernaetickBase>();
         idMap = new ConcurrentHashMap<String, Class<? extends ISzeibernaetickCapability>>();
     }
-    
+
     /**
      * Registers the given Class as corresponding to the given Item. This also
      * adds the mapping from identifier to Class.
@@ -33,29 +33,31 @@ public class SzeibernaetickMapper {
      * @param item
      */
     public void register(Class<? extends ISzeibernaetickCapability> cap, SzeibernaetickBase item) {
-        if (itemMap.put(cap, item) != null) {
+        if(itemMap.put(cap, item) != null) {
             Szeibernaeticks.getLogger().error(
                     "Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?");
         }
-        
+
         try {
-            if (idMap.put(cap.newInstance().getIdentifier(), cap) != null) {
+            if(idMap.put(cap.newInstance().getIdentifier(), cap) != null) {
                 Szeibernaeticks.getLogger().error(
                         "Overrode Szeibernaetick Capability Mapping! This should not happen. Did you register 2 Capabilities with identical Identifiers?");
             }
-        } catch (InstantiationException e) {
+        }
+        catch(InstantiationException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        }
+        catch(IllegalAccessException e) {
             e.printStackTrace();
         }
     }
-    
+
     public SzeibernaetickBase getItemFromIdentifier(String identifier) {
         return itemMap.get(identifier);
     }
-    
+
     public Class<? extends ISzeibernaetickCapability> getCapabilityFromIdentifier(String identifier) {
         return idMap.get(identifier);
     }
-    
+
 }

@@ -19,7 +19,7 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
  *
  */
 public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeibernaetickArmouryCapability> {
-    
+
     @Override
     public void readNBT(Capability<ISzeibernaetickArmouryCapability> capability,
             ISzeibernaetickArmouryCapability instance, EnumFacing side, NBTBase nbt) {
@@ -28,19 +28,20 @@ public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeiber
         NBTTagCompound tag;
         try {
             tag = (NBTTagCompound) nbt;
-        } catch (ClassCastException e) {
+        }
+        catch(ClassCastException e) {
             Szeibernaeticks.getLogger()
                     .error("Failed loading of ISzeibernaetickCapability. NBT is not a NBTTagCompound.");
             return;
         }
-        
+
         // All Tags should be compound tags, as the ItemStacks should have been
         // serialized into those. So we can simply generate the ItemStacks from
         // the NBTTags
         Set<String> keys = tag.getKeySet();
-        for (String s : keys) {
+        for(String s : keys) {
             NBTTagCompound compound = tag.getCompoundTag(s);
-            if (compound != null) {
+            if(compound != null) {
                 ISzeibernaetickCapability cap;
                 Class<? extends ISzeibernaetickCapability> capClass = SzeibernaetickMapper.instance
                         .getCapabilityFromIdentifier(s);
@@ -48,11 +49,13 @@ public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeiber
                     cap = capClass.newInstance();
                     cap.fromNBT(compound);
                     instance.addSzeibernaetick(cap);
-                } catch (InstantiationException e) {
+                }
+                catch(InstantiationException e) {
                     Szeibernaeticks.getLogger()
                             .error("Could not instantiate ISzeibernaetickCapability of class: " + capClass.toString());
                     e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                }
+                catch(IllegalAccessException e) {
                     Szeibernaeticks.getLogger()
                             .error("Could not access the constructor of the class " + capClass.toString());
                     e.printStackTrace();
@@ -60,18 +63,18 @@ public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeiber
             }
         }
     }
-    
+
     @Override
     public NBTBase writeNBT(Capability<ISzeibernaetickArmouryCapability> capability,
             ISzeibernaetickArmouryCapability instance, EnumFacing side) {
         // ItemStacks have NBT-representations, so we simply get those and write
         // them to the NBT.
         NBTTagCompound tag = new NBTTagCompound();
-        for (ISzeibernaetickCapability szeiber : instance.getSzeibernaeticks()) {
+        for(ISzeibernaetickCapability szeiber : instance.getSzeibernaeticks()) {
             tag.setTag(szeiber.getIdentifier(), szeiber.toNBT());
         }
-        
+
         return tag;
     }
-    
+
 }

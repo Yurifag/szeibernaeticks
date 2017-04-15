@@ -20,16 +20,16 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
  *
  */
 public abstract class SzeibernaetickBase extends ItemBase {
-    
+
     @CapabilityInject(ISzeibernaetickCapability.class)
     public static final Capability<ISzeibernaetickCapability> capability = null;
-    
+
     public SzeibernaetickBase(String name) {
         super(name);
     }
-    
+
     protected BodyPart bodyPart;
-    
+
     /**
      * Returns what kind of {@code BodyPart} this {@code ISzeibernaetick} is.
      *
@@ -38,7 +38,7 @@ public abstract class SzeibernaetickBase extends ItemBase {
     public BodyPart getBodyPart() {
         return bodyPart;
     }
-    
+
     /**
      * Returns a new instance of the ISzeibernaetickCapability corresponding to
      * this ISzeibernaetick.
@@ -46,7 +46,7 @@ public abstract class SzeibernaetickBase extends ItemBase {
      * @return A new instance of the correct ISzeibernaetickCapability.
      */
     public abstract ISzeibernaetickCapability getCapabilityInstance();
-    
+
     /**
      * Returns the Capability of ISzeibernaetickCapabilites.
      *

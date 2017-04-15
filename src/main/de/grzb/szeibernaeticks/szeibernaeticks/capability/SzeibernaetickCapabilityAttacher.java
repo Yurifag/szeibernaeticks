@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  */
 public class SzeibernaetickCapabilityAttacher {
-    
+
     /**
      * Attaches ISzeibernaetickSotrage to entities.
      *
@@ -28,12 +28,12 @@ public class SzeibernaetickCapabilityAttacher {
     @SubscribeEvent
     public void attachToLiving(AttachCapabilitiesEvent<Entity> event) {
         Szeibernaeticks.getLogger().info("Attaching Capability to Entity!");
-        
-        if (event.getObject() instanceof EntityLivingBase) {
+
+        if(event.getObject() instanceof EntityLivingBase) {
             event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID), new SzeibernaetickArmouryProvider());
         }
     }
-    
+
     /**
      * Attaches ISzeibernaetickCapabilities to items whose Item is an
      * ISzeibernaetick via Event Subscribtion.
@@ -44,7 +44,7 @@ public class SzeibernaetickCapabilityAttacher {
     @SubscribeEvent
     public void attachToItem(AttachCapabilitiesEvent<Item> event) {
         Item item = event.getObject();
-        if (item instanceof SzeibernaetickBase) {
+        if(item instanceof SzeibernaetickBase) {
             SzeibernaetickBase szeiber = (SzeibernaetickBase) item;
             SzeibernaetickCapabilityProvider provider = new SzeibernaetickCapabilityProvider(szeiber);
             event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID + provider.getIdentifier()), provider);

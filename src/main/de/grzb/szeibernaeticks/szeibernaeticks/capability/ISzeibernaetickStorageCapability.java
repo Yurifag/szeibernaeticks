@@ -1,8 +1,9 @@
-package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
+package main.de.grzb.szeibernaeticks.szeibernaeticks.capability;
 
 import java.util.Collection;
 
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.ISzeibernaetick;
+import net.minecraft.item.ItemStack;
 
 /**
  * Stores {@code ISzeibernaeticks}.<br>
@@ -13,33 +14,33 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCa
  * @author DemRat
  *
  */
-public interface ISzeibernaetickArmouryCapability {
+public interface ISzeibernaetickStorageCapability {
 
     /**
-     * Adds the given ISzeibernaetick to storage.
+     * Adds a copy of the given {@code ItemStack} to the Capability.
      *
      * @param szeiber
      *            The {@code ItemStack} to add to this Storage.
      * @return True if successfull
      */
-    public boolean addSzeibernaetick(ISzeibernaetickCapability szeibernaetick);
+    public boolean addSzeibernaetick(ItemStack stack);
 
     /**
-     * Returns the {@code ISzeibernaetickCapability} of the given
-     * {@code ISzeibernaetick}, or null if it is not installed.
+     * Returns the {@code ItemStack} of the given {@code ISzeibernaetick}, or
+     * null if it is not installed.
      *
      * @param item
      *            The {@code ISzeibernaetick} to look up.
      * @return The {@code ItemStack} of the {@code ISzeibernaetick}, or null
      */
-    public ISzeibernaetickCapability getSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeiberClass);
+    public ItemStack getSzeibernaetick(ISzeibernaetick item);
 
     /**
      * Returns an Array containing all installed {@code ISzeibernaeticks}.
      *
      * @return An Array with all installed {@code ISzeibernaeticks}.
      */
-    public Collection<ISzeibernaetickCapability> getSzeibernaeticks();
+    public Collection<ItemStack> getSzeibernaeticks();
 
     /**
      * Removes the given {@code ISzeibernaetick}, if it is installed, and
@@ -50,6 +51,6 @@ public interface ISzeibernaetickArmouryCapability {
      * @return A copy of the ItemStack of the removed ISzeibernaetick, or null
      *         if it wasn't installed.
      */
-    public ISzeibernaetickCapability removeSzeibernaetick(String identifier);
+    public ItemStack removeSzeibernaetick(ISzeibernaetick szeiber);
 
 }

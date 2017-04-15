@@ -1,4 +1,4 @@
-package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
+package main.de.grzb.szeibernaeticks.szeibernaeticks.capability;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
@@ -8,16 +8,16 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 /**
  * Does Stuff related to Capabilities. TODO: What exactly, again?
- *
+ * 
  * @author DemRat
  *
  */
-public class SzeibernaetickArmouryProvider implements ICapabilitySerializable<NBTBase> {
+public class SzeibernaetickStorageProvider implements ICapabilitySerializable<NBTBase> {
 
-    @CapabilityInject(ISzeibernaetickArmouryCapability.class)
-    public static final Capability<ISzeibernaetickArmouryCapability> SZEIBER_CAP = null;
+    @CapabilityInject(ISzeibernaetickStorageCapability.class)
+    public static final Capability<ISzeibernaetickStorageCapability> SZEIBER_CAP = null;
 
-    private ISzeibernaetickArmouryCapability instance = SZEIBER_CAP.getDefaultInstance();
+    private ISzeibernaetickStorageCapability instance = SZEIBER_CAP.getDefaultInstance();
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -37,6 +37,7 @@ public class SzeibernaetickArmouryProvider implements ICapabilitySerializable<NB
     @Override
     public void deserializeNBT(NBTBase nbt) {
         SZEIBER_CAP.getStorage().readNBT(SZEIBER_CAP, instance, null, nbt);
+
     }
 
 }

@@ -161,25 +161,25 @@ def create_gui_textures(guis):
         "hotbar":            gimp.Layer(image, "hotbar",            GUI_WIDTH - 2 * GUI_BORDER_SIZE, HOTBAR_HEIGHT,                    RGB_IMAGE, 100, NORMAL_MODE)
       }
       for layer in layers.itervalues():
-        gimp.pdb["gimp-layer-add-alpha"](layer)
+        gimp.pdb["gimp-layer-add-alpha"   ](layer)
         gimp.pdb["gimp-image-insert-layer"](image, layer, None, 0)
         drawable = gimp.pdb["gimp-image-active-drawable"](image)
-        gimp.pdb["gimp-selection-all"](image)
-        gimp.pdb["gimp-edit-cut"](drawable)
-        gimp.pdb["gimp-selection-none"](image)
+        gimp.pdb["gimp-selection-all"     ](image)
+        gimp.pdb["gimp-edit-cut"          ](drawable)
+        gimp.pdb["gimp-selection-none"    ](image)
 
-      gimp.pdb["gimp-layer-set-offsets"](layers["edge-top-right"],    GUI_WIDTH - GUI_BORDER_SIZE, 0)
-      gimp.pdb["gimp-layer-set-offsets"](layers["edge-bottom-left"],  0,                           GUI_HEIGHT - GUI_BORDER_SIZE)
+      gimp.pdb["gimp-layer-set-offsets"](layers["edge-top-right"   ], GUI_WIDTH - GUI_BORDER_SIZE, 0)
+      gimp.pdb["gimp-layer-set-offsets"](layers["edge-bottom-left" ], 0,                           GUI_HEIGHT - GUI_BORDER_SIZE)
       gimp.pdb["gimp-layer-set-offsets"](layers["edge-bottom-right"], GUI_WIDTH - GUI_BORDER_SIZE, GUI_HEIGHT - GUI_BORDER_SIZE)
       gimp.pdb["gimp-layer-set-offsets"](layers["margin-border-top"], GUI_BORDER_SIZE,             GUI_BORDER_SIZE)
-      gimp.pdb["gimp-layer-set-offsets"](layers["border-top"],        GUI_BORDER_SIZE,             0)
-      gimp.pdb["gimp-layer-set-offsets"](layers["border-bottom"],     GUI_BORDER_SIZE,             GUI_HEIGHT - GUI_BORDER_SIZE)
-      gimp.pdb["gimp-layer-set-offsets"](layers["border-left"],       0,                           GUI_BORDER_SIZE)
-      gimp.pdb["gimp-layer-set-offsets"](layers["border-right"],      GUI_WIDTH - GUI_BORDER_SIZE, GUI_BORDER_SIZE)
-      gimp.pdb["gimp-layer-set-offsets"](layers["inner-gui"],         GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP)
-      gimp.pdb["gimp-layer-set-offsets"](layers["inventory"],         GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT)
+      gimp.pdb["gimp-layer-set-offsets"](layers["border-top"       ], GUI_BORDER_SIZE,             0)
+      gimp.pdb["gimp-layer-set-offsets"](layers["border-bottom"    ], GUI_BORDER_SIZE,             GUI_HEIGHT - GUI_BORDER_SIZE)
+      gimp.pdb["gimp-layer-set-offsets"](layers["border-left"      ], 0,                           GUI_BORDER_SIZE)
+      gimp.pdb["gimp-layer-set-offsets"](layers["border-right"     ], GUI_WIDTH - GUI_BORDER_SIZE, GUI_BORDER_SIZE)
+      gimp.pdb["gimp-layer-set-offsets"](layers["inner-gui"        ], GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP)
+      gimp.pdb["gimp-layer-set-offsets"](layers["inventory"        ], GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT)
       gimp.pdb["gimp-layer-set-offsets"](layers["margin-hotbar-top"], GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT + MAIN_INVENTORY_HEIGHT)
-      gimp.pdb["gimp-layer-set-offsets"](layers["hotbar"],            GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT + MAIN_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP)
+      gimp.pdb["gimp-layer-set-offsets"](layers["hotbar"           ], GUI_BORDER_SIZE,             GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT + MAIN_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP)
       
       gimp.set_foreground(tuple(COLORS[4]))
       gimp.pdb["gimp-edit-fill"](layers["margin-border-top"], FOREGROUND_FILL)
@@ -213,7 +213,7 @@ def create_gui_textures(guis):
       gimp.pdb["gimp-edit-copy"             ](layers["hotbar"])
       for i in xrange(1, 9):
         gimp.pdb["gimp-image-select-rectangle"](image, CHANNEL_OP_REPLACE, x + i * ITEM_SLOT_SIZE, y, ITEM_SLOT_SIZE, ITEM_SLOT_SIZE)
-        gimp.pdb["gimp-floating-sel-anchor"](gimp.pdb["gimp-edit-paste"](layers["hotbar"], True))
+        gimp.pdb["gimp-floating-sel-anchor"   ](gimp.pdb["gimp-edit-paste"](layers["hotbar"], True))
 
       gimp.pdb["gimp-image-select-rectangle"](image, CHANNEL_OP_REPLACE, x, y, ITEM_SLOT_SIZE * 9, ITEM_SLOT_SIZE)
       gimp.pdb["gimp-edit-copy"             ](layers["hotbar"])
@@ -221,26 +221,26 @@ def create_gui_textures(guis):
       y = GUI_BORDER_SIZE + MARGIN_BORDER_TOP + GUI_CUSTOM_SECTION_HEIGHT
       for i in xrange(0, 3):
         gimp.pdb["gimp-image-select-rectangle"](image, CHANNEL_OP_REPLACE, x, y + i * ITEM_SLOT_SIZE, GUI_WIDTH - 2 * GUI_BORDER_SIZE, ITEM_SLOT_SIZE)
-        gimp.pdb["gimp-floating-sel-anchor"](gimp.pdb["gimp-edit-paste"](layers["inventory"], True))
+        gimp.pdb["gimp-floating-sel-anchor"   ](gimp.pdb["gimp-edit-paste"](layers["inventory"], True))
 
       for x in xrange(0, GUI_WIDTH - 2 * GUI_BORDER_SIZE):
-        gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"],    x, 0,                   4, COLORS[0])
+        gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"   ], x, 0,                   4, COLORS[0])
         gimp.pdb["gimp-drawable-set-pixel"](layers["border-bottom"], x, GUI_BORDER_SIZE - 1, 4, COLORS[0])
         for y in xrange(1, 3):
-          gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"],    x, y,                       4, COLORS[5])
+          gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"   ], x, y,                       4, COLORS[5])
           gimp.pdb["gimp-drawable-set-pixel"](layers["border-bottom"], x, GUI_BORDER_SIZE - 1 - y, 4, COLORS[2])
         for y in xrange(3, 7):
-          gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"],    x, y,                       4, COLORS[4])
+          gimp.pdb["gimp-drawable-set-pixel"](layers["border-top"   ], x, y,                       4, COLORS[4])
           gimp.pdb["gimp-drawable-set-pixel"](layers["border-bottom"], x, GUI_BORDER_SIZE - 1 - y, 4, COLORS[4])
       
       for y in xrange(0, GUI_HEIGHT - 2 * GUI_BORDER_SIZE):
-        gimp.pdb["gimp-drawable-set-pixel"](layers["border-left"],  0,                   y, 4, COLORS[0])
+        gimp.pdb["gimp-drawable-set-pixel"](layers["border-left" ], 0,                   y, 4, COLORS[0])
         gimp.pdb["gimp-drawable-set-pixel"](layers["border-right"], GUI_BORDER_SIZE - 1, y, 4, COLORS[0])
         for x in xrange(1, 3):
-          gimp.pdb["gimp-drawable-set-pixel"](layers["border-left"],  x,                       y, 4, COLORS[5])
+          gimp.pdb["gimp-drawable-set-pixel"](layers["border-left" ], x,                       y, 4, COLORS[5])
           gimp.pdb["gimp-drawable-set-pixel"](layers["border-right"], GUI_BORDER_SIZE - 1 - x, y, 4, COLORS[2])
         for x in xrange(3, 7):
-          gimp.pdb["gimp-drawable-set-pixel"](layers["border-left"],  x,                       y, 4, COLORS[4])
+          gimp.pdb["gimp-drawable-set-pixel"](layers["border-left" ], x,                       y, 4, COLORS[4])
           gimp.pdb["gimp-drawable-set-pixel"](layers["border-right"], GUI_BORDER_SIZE - 1 - x, y, 4, COLORS[4])
 
       for x in xrange(0, 4):
@@ -308,17 +308,17 @@ def main():
   if not os.path.exists(assets_path + "lang/en_US.lang"):
     write_file(assets_path + "lang/en_US.lang", "")
 
-  regex = re.compile("public final class .* {\n[\s\S]*?\n{2}")
+  regex     = re.compile("public final class .* {\n[\s\S]*?\n{2}")
+  regex_gui = re.compile("(GuiContainer[A-Z][a-z]*)\([\s\S]*super\(.*?(\d+)")
 
   # get block and item names from the class files (yes, I hate myself for this as much as you do)
-  items = re.findall("public static Item.* (.*);", regex.search(read_file(src_path + "item/ModItems.java")).group(0))
+  items  = re.findall("public static Item.* (.*);",  regex.search(read_file(src_path + "item/ModItems.java"  )).group(0))
   blocks = re.findall("public static Block.* (.*);", regex.search(read_file(src_path + "block/ModBlocks.java")).group(0))
 
   guis = {}
-  regex = re.compile("(GuiContainer[A-Z][a-z]*)\([\s\S]*super\(.*?(\d+)")
   for filename in os.listdir(src_path + "container"):
     if filename.startswith("GuiContainer") and not filename.endswith("Base.java"):
-      match = re.findall(regex, read_file(src_path + "container/" + filename))[0]
+      match = re.findall(regex_gui, read_file(src_path + "container/" + filename))[0]
       gui_name = match[0].replace("GuiContainer", "")
       gui_name = gui_name[0].lower() + gui_name[1:]
       guis[gui_name] = int(match[1])

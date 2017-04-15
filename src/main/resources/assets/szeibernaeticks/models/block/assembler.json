@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all", 
   "textures": {
-    "all": "szeibernaeticks:blocks/test"
+    "all": "szeibernaeticks:blocks/assembler"
   }
 }

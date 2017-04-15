@@ -1,5 +1,8 @@
 package main.de.grzb.szeibernaeticks.tileentity;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -11,15 +14,25 @@ import net.minecraft.tileentity.TileEntity;
  *
  */
 public abstract class TileEntityBase extends TileEntity {
-    
     private String tileEntityName;
-    
-    public TileEntityBase(String tileEntityName) {
+    private Block block;
+
+    protected TileEntityBase(String tileEntityName) {
+        this(tileEntityName, null);
+    }
+
+    protected TileEntityBase(String tileEntityName, Block block) {
         super();
         this.tileEntityName = tileEntityName;
+        this.block = block;
     }
-    
+
     public String getName() {
         return this.tileEntityName;
+    }
+
+    @Nullable
+    public Block getBlock() {
+        return this.block;
     }
 }

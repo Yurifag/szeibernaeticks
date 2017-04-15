@@ -14,15 +14,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  *
  */
 public final class ModBlocks {
-    
     public static BlockBase ore_copper;
-    public static BlockBase test;
-    
+    public static BlockBase assembler;
+
     public static void init() {
         ore_copper = register(new BlockOreCopper());
-        test = register(new BlockTileEntityGuiContainerTest());
+        assembler = register(new BlockTileEntityGuiContainerAssembler());
     }
-    
+
     /**
      * Registers a block and it's corresponding item and item model.
      * 
@@ -33,14 +32,14 @@ public final class ModBlocks {
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
         GameRegistry.register(block);
         GameRegistry.register(itemBlock);
-        
-        if (block instanceof BlockBase) {
+
+        if(block instanceof BlockBase) {
             ((BlockBase) block).registerItemModel(itemBlock);
         }
-        
+
         return block;
     }
-    
+
     /**
      * Creates the corresponding item to a given block and registers both.
      * 

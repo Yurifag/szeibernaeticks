@@ -1,5 +1,7 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.event;
 
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickConductiveVeinsCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
@@ -12,6 +14,8 @@ public class SzeibernaetickConductiveVeinsHandler implements ISzeibernaetickEven
 
     @SubscribeEvent
     public void onSzeibernaetickInstalled(SzeibernaetickInstalledEvent e) {
+        Log.log("SzeiberVeins checking Installation!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_HANDLER);
+
         // If these veins were just installed
         if(e.installedSzeibernaetick instanceof SzeibernaetickConductiveVeinsCapability) {
             SzeibernaetickConductiveVeinsCapability veins = (SzeibernaetickConductiveVeinsCapability) e.installedSzeibernaetick;
@@ -44,6 +48,13 @@ public class SzeibernaetickConductiveVeinsHandler implements ISzeibernaetickEven
 
     @SubscribeEvent
     public void onEnergyProductionEvent(EnergyProductionEvent e) {
+        ISzeibernaetickArmouryCapability armoury = e.getEntity()
+                .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
+        SzeibernaetickConductiveVeinsCapability veins = (SzeibernaetickConductiveVeinsCapability) armoury
+                .getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class);
+        if(veins != null) {
+            veins.handleProductionEvent(e);
+        }
 
     }
 }

@@ -1,12 +1,15 @@
 package main.de.grzb.szeibernaeticks.item.szeibernaetick;
 
-import javax.annotation.Nullable;
-
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.item.ItemBase;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.SzeibernaetickMapper;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickCapabilityProvider;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmouryProvider;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.ISzeibernaetickEventHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,8 +17,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 /**
@@ -31,43 +33,51 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
  * @author DemRat
  *
  */
-public abstract class SzeibernaetickBase extends ItemBase {
+public class SzeibernaetickBase extends ItemBase {
 
-    @CapabilityInject(ISzeibernaetickCapability.class)
-    public static final Capability<ISzeibernaetickCapability> capability = null;
+    private Class<? extends ISzeibernaetickCapability> capabilityClass;
 
-    public SzeibernaetickBase(String name) {
+    public SzeibernaetickBase(String name, Class<? extends ISzeibernaetickCapability> capability,
+            Class<? extends ISzeibernaetickEventHandler> handler) {
         super(name);
+        Log.log("Creating Item of type: " + this.getClass(), LogType.DEBUG, LogType.INSTANTIATION, LogType.ITEM);
+
+        capabilityClass = capability;
+        SzeibernaetickMapper.instance.register(capabilityClass, this);
+        try {
+            MinecraftForge.EVENT_BUS.register(handler.newInstance());
+        }
+        catch(InstantiationException e) {
+            Log.log("Could not instantiate the Handler for this Szeibernaetick.", LogType.EXCEPTION);
+            Log.logThrowable(e);
+        }
+        catch(IllegalAccessException e) {
+            Log.log("Could not access the Handler for this Szeibernaetick.", LogType.EXCEPTION);
+            Log.logThrowable(e);
+        }
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        Log.log(this.getClass() + " right clicked!", LogType.ITEM, LogType.DEBUG);
         // Get the Stack currently right-clicked
         ItemStack thisStack = playerIn.getHeldItem(handIn);
         // Make sure that the itemStack actually is of this Item.
         if(thisStack.getItem() == this) {
+            Log.log("Correct Item!", LogType.ITEM, LogType.DEBUG, LogType.SPECIFIC);
 
-            ISzeibernaetickArmouryCapability szeiberStore = playerIn
+            ISzeibernaetickArmouryCapability szeiberArm = playerIn
                     .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
+            Log.log("Armoury is: " + szeiberArm, LogType.ITEM, LogType.SZEIBER_ARM, LogType.DEBUG, LogType.SPECIFIC);
             // Add the ItemStack to it.
-            if(szeiberStore != null && szeiberStore.getSzeibernaetick(getCapabilityInstance().getClass()) == null) {
-                szeiberStore.addSzeibernaetick(getCapabilityInstance());
+            if(szeiberArm != null && szeiberArm.addSzeibernaetick(getCapabilityInstance())) {
+                Log.log("Successfully added Capability! Shrinking stack now.", LogType.ITEM, LogType.DEBUG,
+                        LogType.SPECIFIC);
                 thisStack.shrink(1);
             }
         }
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, thisStack);
-    }
-
-    protected BodyPart bodyPart;
-
-    /**
-     * Returns what kind of {@code BodyPart} this {@code ISzeibernaetick} is.
-     *
-     * @return What kind of {@code BodyPart} this {@code ISzeibernaetick} is.
-     */
-    public BodyPart getBodyPart() {
-        return bodyPart;
     }
 
     /**
@@ -76,17 +86,36 @@ public abstract class SzeibernaetickBase extends ItemBase {
      *
      * @return A new instance of the correct ISzeibernaetickCapability.
      */
-    public abstract ISzeibernaetickCapability getCapabilityInstance();
+    public ISzeibernaetickCapability getCapabilityInstance() {
+        Log.log("Attempting to instantiate " + this.getClass() + "'s Capability.", LogType.ITEM, LogType.SZEIBER_CAP,
+                LogType.DEBUG);
+        try {
+            ISzeibernaetickCapability capability = capabilityClass.newInstance();
+            Log.log("Successfully instantiated capability: " + capability, LogType.ITEM, LogType.SZEIBER_CAP,
+                    LogType.DEBUG);
+            return capability;
+        }
+        catch(InstantiationException e) {
+            Log.log("Cannot instantiate SzeiberCapability from Class Object!", LogType.ERROR);
+            Log.logThrowable(e);
+            e.printStackTrace();
+        }
+        catch(IllegalAccessException e) {
+            Log.log("Cannot access the default constructor of SzeiberCapability!", LogType.ERROR);
+            Log.logThrowable(e);
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    /**
-     * Returns the Capability of ISzeibernaetickCapabilites.
-     *
-     * @return
-     */
-    public Capability<ISzeibernaetickCapability> getCapability() {
-        return capability;
+    public BodyPart getBodyPart() {
+        Log.log("Getting BodyPart.", LogType.ITEM, LogType.SPECIFIC, LogType.DEBUG);
+        return getCapabilityInstance().getBodyPart();
     }
 
     @Override
-    public abstract ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt);
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        Log.log("Adding Capability to this item.", LogType.ITEM, LogType.SZEIBER_CAP, LogType.DEBUG);
+        return new SzeibernaetickCapabilityProvider(getCapabilityInstance());
+    }
 }

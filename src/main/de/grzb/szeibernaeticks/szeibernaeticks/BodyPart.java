@@ -7,6 +7,7 @@ import io.netty.util.internal.ConcurrentSet;
 public final class BodyPart {
 
     private static ConcurrentSet<BodyPart> bodySet;
+
     public static final BodyPart BONES;
     public static final BodyPart STOMACH;
     public static final BodyPart EYES;
@@ -55,6 +56,10 @@ public final class BodyPart {
         part.location = location;
         bodySet.add(part);
         return part;
+    }
+
+    public static ConcurrentSet<BodyPart> getBodySet() {
+        return bodySet;
     }
 
     public String getName() {

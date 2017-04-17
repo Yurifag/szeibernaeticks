@@ -32,7 +32,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta,
-                new ModelResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + id, "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + id, "inventory"));
     }
 }

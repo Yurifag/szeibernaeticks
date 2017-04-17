@@ -1,9 +1,9 @@
 package main.de.grzb.szeibernaeticks.container.layout;
 
+import main.de.grzb.szeibernaeticks.container.slot.SlotFactory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class GuiLayoutDefinition {
     public static final int BORDER_SIZE = 7;
@@ -26,10 +26,23 @@ public class GuiLayoutDefinition {
     private int innerSectionWidth;
     private int containerSize;
 
-    public GuiLayoutDefinition(IItemHandler itemHandler, SlotDefinition[] slotDefinitions, IInventory playerInventory) {
-        this.containerSize = slotDefinitions.length;
-        this.slotDefinitions = slotDefinitions;
+    public GuiLayoutDefinition(IItemHandler itemHandler, SlotDefinition[] slotDefinitions, IInventory playerInventory, int innerWidth, int innerHeight) {
         this.itemHandler = itemHandler;
+        this.slotDefinitions = slotDefinitions;
+        this.containerSize = slotDefinitions.length;
+        this.playerInventory = playerInventory;
+
+        this.innerSectionWidth = innerWidth;
+        this.innerSectionHeight = innerHeight;
+
+        this.width = BORDER_SIZE + ((this.innerSectionWidth > PLAYER_INVENTORY_WIDTH) ? this.innerSectionWidth : PLAYER_INVENTORY_WIDTH) + BORDER_SIZE;
+        this.height = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight + PLAYER_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP + HOTBAR_HEIGHT + BORDER_SIZE;
+    }
+
+    public GuiLayoutDefinition(IItemHandler itemHandler, SlotDefinition[] slotDefinitions, IInventory playerInventory) {
+        this.itemHandler = itemHandler;
+        this.slotDefinitions = slotDefinitions;
+        this.containerSize = slotDefinitions.length;
         this.playerInventory = playerInventory;
 
         int y;
@@ -45,20 +58,17 @@ public class GuiLayoutDefinition {
         }
         this.innerSectionWidth = xMax + ITEM_SLOT_SIZE;
         this.innerSectionHeight = yMax + ITEM_SLOT_SIZE;
-        this.width = BORDER_SIZE
-                + ((this.innerSectionWidth > PLAYER_INVENTORY_WIDTH) ? this.innerSectionWidth : PLAYER_INVENTORY_WIDTH)
-                + BORDER_SIZE;
-        this.height = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight + PLAYER_INVENTORY_HEIGHT
-                + HOTBAR_MARGIN_TOP + HOTBAR_HEIGHT + BORDER_SIZE;
+
+        this.width = BORDER_SIZE + ((this.innerSectionWidth > PLAYER_INVENTORY_WIDTH) ? this.innerSectionWidth : PLAYER_INVENTORY_WIDTH) + BORDER_SIZE;
+        this.height = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight + PLAYER_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP + HOTBAR_HEIGHT + BORDER_SIZE;
     }
 
     public Slot[] getLayout() {
-        int key = 0;
+        int j = 0;
         int x;
         int y;
 
-        Slot[] slots = new Slot[this.slotDefinitions.length + PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS
-                + PLAYER_HOTBAR_SLOTS];
+        Slot[] slots = new Slot[this.slotDefinitions.length + PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS + PLAYER_HOTBAR_SLOTS];
 
         /**
          * Hotbar slots
@@ -66,8 +76,8 @@ public class GuiLayoutDefinition {
         y = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight + PLAYER_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP + 1;
         for(int row = 0; row < PLAYER_HOTBAR_SLOTS; ++row) {
             x = BORDER_SIZE + row * ITEM_SLOT_SIZE + 1;
-            slots[key] = new Slot(this.playerInventory, key, x, y);
-            key++;
+            slots[j] = new Slot(this.playerInventory, j, x, y);
+            j++;
         }
 
         int yOffset = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight;
@@ -78,17 +88,17 @@ public class GuiLayoutDefinition {
             for(int column = 0; column < PLAYER_INVENTORY_COLUMNS; ++column) {
                 x = BORDER_SIZE + column * ITEM_SLOT_SIZE + 1;
                 y = yOffset + row * ITEM_SLOT_SIZE + 1;
-                slots[key] = new Slot(this.playerInventory, key, x, y);
-                key++;
+                slots[j] = new Slot(this.playerInventory, j, x, y);
+                j++;
             }
         }
 
         yOffset = BORDER_SIZE + NAME_FIELD_HEIGHT;
-        for(int i = 0; i < slotDefinitions.length; i++) {
-            x = BORDER_SIZE + this.slotDefinitions[i].x;
-            y = yOffset + this.slotDefinitions[i].y;
-            slots[key] = new SlotItemHandler(this.itemHandler, slotDefinitions.length - 1 - i, x, y);
-            key++;
+        for(int i = 0; i < this.slotDefinitions.length; i++) {
+            x = BORDER_SIZE + this.slotDefinitions[i].x + 1;
+            y = yOffset + this.slotDefinitions[i].y + 1;
+            slots[j] = SlotFactory.getNewSlotItemHandler(slotDefinitions[i], this.itemHandler, i, x, y);
+            j++;
         }
 
         return slots;

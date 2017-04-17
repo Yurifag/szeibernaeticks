@@ -40,16 +40,14 @@ public class SzeibernaetickMapper {
         // TODO: Remove Logging
         logger.info("Registering Capability!");
         if(itemMap.put(cap, item) != null) {
-            Szeibernaeticks.getLogger().error(
-                    "Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?");
+            Szeibernaeticks.getLogger().error("Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?");
         }
 
         try {
             String identifier = cap.newInstance().getIdentifier();
             logger.info("Mapping " + cap.toString() + " to " + identifier);
             if(idMap.put(identifier, cap) != null) {
-                Szeibernaeticks.getLogger().error(
-                        "Overrode Szeibernaetick Capability Mapping! This should not happen. Did you register 2 Capabilities with identical Identifiers?");
+                Szeibernaeticks.getLogger().error("Overrode Szeibernaetick Capability Mapping! This should not happen. Did you register 2 Capabilities with identical Identifiers?");
             }
         }
         catch(InstantiationException e) {
@@ -66,8 +64,7 @@ public class SzeibernaetickMapper {
 
     public Class<? extends ISzeibernaetickCapability> getCapabilityFromIdentifier(String identifier) {
         // TODO: Remove Logging
-        logger.info("Capability class was requested. Do I have it? Its name is " + identifier + " :"
-                + (idMap.get(identifier) != null));
+        logger.info("Capability class was requested. Do I have it? Its name is " + identifier + " :" + (idMap.get(identifier) != null));
         return idMap.get(identifier);
     }
 

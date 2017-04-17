@@ -74,20 +74,17 @@ public class SzeiberCapMessage extends NBTMessage {
                         cap = SzeibernaetickMapper.instance.getCapabilityFromIdentifier(identifier).newInstance();
                     }
                     catch(InstantiationException e) {
-                        Szeibernaeticks.getLogger()
-                                .error("Error on instantiating Capability while sending it via SzeiberCapMessage!");
+                        Szeibernaeticks.getLogger().error("Error on instantiating Capability while sending it via SzeiberCapMessage!");
                         e.printStackTrace();
                         return;
                     }
                     catch(IllegalAccessException e) {
-                        Szeibernaeticks.getLogger()
-                                .error("Error on accessing Capability class while sending it via SzeiberCapMessage!");
+                        Szeibernaeticks.getLogger().error("Error on accessing Capability class while sending it via SzeiberCapMessage!");
                         e.printStackTrace();
                         return;
                     }
                     catch(NullPointerException e) {
-                        Szeibernaeticks.getLogger()
-                                .error("Error on getting Capability class from identifier, probably!");
+                        Szeibernaeticks.getLogger().error("Error on getting Capability class from identifier, probably!");
                         e.printStackTrace();
                         return;
                     }
@@ -96,8 +93,7 @@ public class SzeiberCapMessage extends NBTMessage {
 
                     Capability<ISzeibernaetickArmouryCapability> prov = SzeibernaetickArmouryProvider.ARMOURY_CAP;
 
-                    ISzeibernaetickArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov,
-                            null);
+                    ISzeibernaetickArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov, null);
                     armoury.addSzeibernaetick(cap);
                 }
             });

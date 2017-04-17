@@ -24,19 +24,15 @@ public class SzeibernaetickConductiveVeinsHandler implements ISzeibernaetickEven
             // Otherwise, check if these veins are installed right now.
             if(e.szeiberArmoury.getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class) != null) {
                 // If they are, register the newly installed Szeibernaetick.
-                ((SzeibernaetickConductiveVeinsCapability) e.szeiberArmoury
-                        .getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class))
-                                .register(e.installedSzeibernaetick);
+                ((SzeibernaetickConductiveVeinsCapability) e.szeiberArmoury.getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class)).register(e.installedSzeibernaetick);
             }
         }
     }
 
     @SubscribeEvent
     public void onEnergyConsumptionEvent(EnergyConsumptionEvent e) {
-        ISzeibernaetickArmouryCapability armoury = e.getEntity()
-                .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
-        SzeibernaetickConductiveVeinsCapability veins = (SzeibernaetickConductiveVeinsCapability) armoury
-                .getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class);
+        ISzeibernaetickArmouryCapability armoury = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
+        SzeibernaetickConductiveVeinsCapability veins = (SzeibernaetickConductiveVeinsCapability) armoury.getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class);
         if(veins != null) {
             veins.handleConsumptionEvent(e);
         }

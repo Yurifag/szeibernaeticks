@@ -9,8 +9,7 @@ public class SzeibernaetickInstalledEvent extends Event {
     public final ISzeibernaetickArmouryCapability szeiberArmoury;
     public final ISzeibernaetickCapability installedSzeibernaetick;
 
-    public SzeibernaetickInstalledEvent(ISzeibernaetickArmouryCapability armoury,
-            ISzeibernaetickCapability installedSzeiber) {
+    public SzeibernaetickInstalledEvent(ISzeibernaetickArmouryCapability armoury, ISzeibernaetickCapability installedSzeiber) {
         szeiberArmoury = armoury;
         installedSzeibernaetick = installedSzeiber;
     }

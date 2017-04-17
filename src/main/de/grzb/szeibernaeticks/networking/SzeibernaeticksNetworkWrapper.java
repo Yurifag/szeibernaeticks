@@ -6,8 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class SzeibernaeticksNetworkWrapper {
 
-    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE
-            .newSimpleChannel(Szeibernaeticks.MOD_ID);
+    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Szeibernaeticks.MOD_ID);
 
     private static int id = 0;
 

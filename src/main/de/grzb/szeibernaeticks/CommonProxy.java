@@ -40,8 +40,7 @@ public class CommonProxy {
         ModBlocks.init();
         ModTileEntities.init();
 
-        SzeibernaeticksNetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class,
-                SzeiberCapMessage.class, SzeibernaeticksNetworkWrapper.getId(), Side.CLIENT);
+        SzeibernaeticksNetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class, SzeiberCapMessage.class, SzeibernaeticksNetworkWrapper.getId(), Side.CLIENT);
     }
 
     public void init(FMLInitializationEvent e) {
@@ -49,13 +48,10 @@ public class CommonProxy {
         GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(Szeibernaeticks.instance, new GuiProxy());
 
-        CapabilityManager.INSTANCE.register(ISzeibernaetickArmouryCapability.class,
-                new SzeibernaetickArmouryCapabilityStorage(), SzeibernaetickArmoury.class);
-        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new SzeibernaetickCapabilityStorage(),
-                SzeibernaetickMetalBonesCapability.class);
+        CapabilityManager.INSTANCE.register(ISzeibernaetickArmouryCapability.class, new SzeibernaetickArmouryCapabilityStorage(), SzeibernaetickArmoury.class);
+        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new SzeibernaetickCapabilityStorage(), SzeibernaetickMetalBonesCapability.class);
 
-        MinecraftForge.EVENT_BUS.register(
-                new SzeibernaetickMetalBonesHandler(ModItems.metal_bones.getCapabilityInstance().getIdentifier()));
+        MinecraftForge.EVENT_BUS.register(new SzeibernaetickMetalBonesHandler(ModItems.metal_bones.getCapabilityInstance().getIdentifier()));
         MinecraftForge.EVENT_BUS.register(new SzeibernaetickCapabilityAttacher());
     }
 

@@ -33,8 +33,7 @@ public class SzeibernaetickMetalBonesHandler implements ISzeibernaetickEventHand
     @SubscribeEvent
     public void onEntityHurt(LivingHurtEvent e) {
         Szeibernaeticks.getLogger().info("Entity hurt! Checking for Storage!");
-        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP,
-                null);
+        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
         Szeibernaeticks.getLogger().info("Found: " + c.toString());
         Szeibernaeticks.getLogger().info("Getting szeibernaetick: " + c.getSzeibernaetick(szeiberClass));
 

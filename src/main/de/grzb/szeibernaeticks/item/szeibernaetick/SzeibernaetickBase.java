@@ -47,8 +47,7 @@ public abstract class SzeibernaetickBase extends ItemBase {
         // Make sure that the itemStack actually is of this Item.
         if(thisStack.getItem() == this) {
 
-            ISzeibernaetickArmouryCapability szeiberStore = playerIn
-                    .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
+            ISzeibernaetickArmouryCapability szeiberStore = playerIn.getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
             // Add the ItemStack to it.
             if(szeiberStore != null && szeiberStore.getSzeibernaetick(getCapabilityInstance().getClass()) == null) {
                 szeiberStore.addSzeibernaetick(getCapabilityInstance());

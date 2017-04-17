@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import io.netty.util.internal.ConcurrentSet;
 import main.de.grzb.szeibernaeticks.client.gui.GuiId;
+import main.de.grzb.szeibernaeticks.container.GuiContainerAssembler;
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
 import main.de.grzb.szeibernaeticks.container.layout.SlotBodyPartDefinition;
@@ -67,7 +68,7 @@ public class TileEntityGuiContainerAssembler extends TileEntityGuiContainerBase 
         }
 
         GuiLayoutDefinition layout = new GuiLayoutDefinition(this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), slotBodyPartDefinitions, player.inventory, width, height);
-        return new GuiContainerBase(this, layout, this.guiId);
+        return new GuiContainerAssembler(this, layout, this.guiId);
     }
 
 }

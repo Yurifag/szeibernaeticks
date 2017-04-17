@@ -19,7 +19,6 @@ public class SlotBodyPart extends SlotItemHandler {
 
     @Override
     public boolean isItemValid(@Nonnull ItemStack stack) {
-
         ISzeibernaetickCapability capability = stack.getCapability(SzeibernaetickCapabilityProvider.SZEIBER_CAP, null);
 
         if(super.isItemValid(stack) && capability != null) {
@@ -29,6 +28,16 @@ public class SlotBodyPart extends SlotItemHandler {
         }
 
         return false;
+    }
+    
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
+    
+    @Override
+    public int getItemStackLimit(@Nonnull ItemStack stack) {
+        return 1;
     }
 
 }

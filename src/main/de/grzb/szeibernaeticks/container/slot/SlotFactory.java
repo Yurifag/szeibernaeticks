@@ -15,12 +15,11 @@ public class SlotFactory {
                 slot = new SlotBodyPart(itemHandler, index, x, y, slotBodyPartDefinition.bodyPart);
                 slot.putStack(slotBodyPartDefinition.installedSzeibernaetick);
                 break;
-            case VANILLA:
             default:
                 slot = new SlotItemHandler(itemHandler, index, x, y);
                 break;
         }
-
+        
         return slot;
     }
 

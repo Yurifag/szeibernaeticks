@@ -35,9 +35,10 @@ public class GuiContainerBase extends ContainerBase {
     }
 
     protected void addGuiLayout() {
-        for(Slot slot : this.layout.getLayout())
+        for(Slot slot : this.layout.getLayout()) {
             this.addSlotToContainer(slot);
-    };
+        }
+    }
 
     @Nullable
     @Override

@@ -56,8 +56,12 @@ public class SzeibernaetickMapper {
         }
     }
 
+    public SzeibernaetickBase getItemFromCapability(Class<? extends ISzeibernaetickCapability> capability) {
+        return itemMap.get(capability);
+    }
+    
     public SzeibernaetickBase getItemFromIdentifier(String identifier) {
-        return itemMap.get(identifier);
+        return this.getItemFromCapability(idMap.get(identifier));
     }
 
     public Class<? extends ISzeibernaetickCapability> getCapabilityFromIdentifier(String identifier) {

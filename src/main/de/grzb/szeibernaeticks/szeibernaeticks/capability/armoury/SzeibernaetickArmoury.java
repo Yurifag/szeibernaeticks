@@ -49,9 +49,12 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
     }
 
     @Override
-    public ISzeibernaetickCapability removeSzeibernaetick(String identifier) {
-        ISzeibernaetickCapability szeiber = itemMap.get(identifier);
-        itemMap.remove(identifier);
+    public ISzeibernaetickCapability removeSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeibernatick) {
+        ISzeibernaetickCapability szeiber = itemMap.get(szeibernatick);
+        if(szeiber == null) {
+            return null;
+        }
+        itemMap.remove(szeibernatick);
         bodyMap.remove(szeiber.getBodyPart());
         return szeiber;
     }

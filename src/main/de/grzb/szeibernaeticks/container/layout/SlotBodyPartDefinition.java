@@ -8,10 +8,10 @@ public class SlotBodyPartDefinition extends SlotDefinition {
     public BodyPart bodyPart;
     public ItemStack installedSzeibernaetick;
 
-    public SlotBodyPartDefinition(SlotType slotType, int x, int y, BodyPart bodyPart, ItemStack installedSzeibernatick) {
+    public SlotBodyPartDefinition(SlotType slotType, int x, int y, BodyPart bodyPart, ItemStack installedSzeibernaetick) {
         super(slotType, x, y);
         this.bodyPart = bodyPart;
-        this.installedSzeibernaetick = installedSzeibernatick;
+        this.installedSzeibernaetick = installedSzeibernaetick;
     }
 
     public SlotBodyPartDefinition(SlotType slotType, int x, int y, BodyPart bodyPart) {

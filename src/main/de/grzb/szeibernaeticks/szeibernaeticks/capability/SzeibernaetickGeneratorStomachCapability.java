@@ -12,50 +12,38 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
-public class SzeibernaetickDynamoJointsCapability
-        implements ISzeibernaetickCapability, IEnergyConsumer, IEnergyProducer {
+public class SzeibernaetickGeneratorStomachCapability
+        implements ISzeibernaetickCapability, IEnergyProducer, IEnergyConsumer {
 
-    private int maxStorage;
     private int storage;
-    private float fractionalStorage;
+    private int maxStorage;
 
     @Override
     public String getIdentifier() {
-        return "dynamoJoints";
+        return "GeneratorStomachCapability";
     }
 
     @Override
     public NBTTagCompound toNBT() {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setInteger("maxStorage", maxStorage);
-        tag.setInteger("storage", storage);
-        tag.setFloat("fractionalStorage", fractionalStorage);
-        return tag;
+        NBTTagCompound compound = new NBTTagCompound();
+        return compound;
     }
 
     @Override
     public void fromNBT(NBTTagCompound nbt) {
-        maxStorage = nbt.getInteger("maxStorage");
-        storage = nbt.getInteger("storage");
-        fractionalStorage = nbt.getFloat("fractionalStorage");
-
-        if(maxStorage == 0) {
-            maxStorage = 100;
-        }
-
         return;
     }
 
     @Override
     public BodyPart getBodyPart() {
-        return BodyPart.JOINTS;
+        return BodyPart.STOMACH;
     }
 
     // IEnergyConsumer Implementation
 
     @Override
     public EnergyPriority currentConsumptionPrio() {
-        return EnergyPriority.EMPTY_FAST;
+        return EnergyPriority.EMPTY_ASAP;
     }
 
     @Override
@@ -65,11 +53,11 @@ public class SzeibernaetickDynamoJointsCapability
 
     @Override
     public int consume() {
-        Log.log("[DynJointsCap] DynJoints attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+        Log.log("[GenStomach] GenStomach attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
                 LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(canStillConsume()) {
             storage++;
-            Log.log("[DynJointsCap] DynJoints consuming energy! Now storing: " + storage, LogType.DEBUG,
+            Log.log("[GenStomach] GenStomach consuming energy! Now storing: " + storage, LogType.DEBUG,
                     LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
@@ -80,7 +68,7 @@ public class SzeibernaetickDynamoJointsCapability
 
     @Override
     public EnergyPriority currentProductionPrio() {
-        return EnergyPriority.EMPTY_FAST;
+        return EnergyPriority.EMPTY_ASAP;
     }
 
     @Override
@@ -90,34 +78,19 @@ public class SzeibernaetickDynamoJointsCapability
 
     @Override
     public int produceAdHoc() {
-        Log.log("[DynJointsCap] DynJoints attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+        Log.log("[GenStomach] GenStomach attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
                 LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(canStillProduce()) {
             storage--;
-            Log.log("[DynJointsCap] DynJoints produced energy! Remaining storage: " + storage, LogType.DEBUG,
+            Log.log("[GenStomach] GenStomach produced energy! Remaining storage: " + storage, LogType.DEBUG,
                     LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;
     }
 
-    /**
-     * Produces energy based on the given fall height.
-     *
-     * @param height
-     *            How far this fell.
-     * @param entity
-     *            The entity this happend on
-     * @return The amount of energy produced.
-     */
-    public int produce(float height, Entity entity) {
-        fractionalStorage += height / 4;
-        int energyProduced = 0;
-        if(fractionalStorage > 0) {
-            energyProduced = (int) fractionalStorage;
-            fractionalStorage = fractionalStorage - energyProduced;
-        }
-        Log.log("[DynJointsCap] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY,
+    public int produce(int energyProduced, Entity entity) {
+        Log.log("[GenStomach] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY,
                 LogType.SZEIBER_CAP);
         EnergyProductionEvent production = new EnergyProductionEvent(entity, energyProduced);
         MinecraftForge.EVENT_BUS.post(production);

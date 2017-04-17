@@ -10,7 +10,7 @@ public class Log {
 
     /**
      * Logs the given message if all given types are activated.
-     * 
+     *
      * @param message
      * @param types
      */
@@ -97,6 +97,16 @@ public class Log {
      */
     public static void logThrowable(Throwable t) {
         logger.forgeLogger.catching(t);
+    }
+
+    /**
+     * Returns whether the given LogType is currently enabled to be logged.
+     * 
+     * @param type
+     * @return
+     */
+    public boolean isEnabled(LogType type) {
+        return typeMap.get(type).booleanValue();
     }
 
 }

@@ -23,7 +23,7 @@ public class CommandDebug implements ICommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "debug <true/false> <DebugTypes...>";
+        return "debug <enable/disable/toggle> <DebugTypes...>";
     }
 
     @Override
@@ -37,7 +37,8 @@ public class CommandDebug implements ICommand {
             return;
         }
 
-        boolean value = (args[0].toUpperCase().charAt(0) == 'T');
+        boolean value = (args[0].toUpperCase().charAt(0) == 'E');
+        boolean toggle = (args[0].toUpperCase().charAt(0) == 'T');
 
         for(String s : args) {
             String actual = s.toUpperCase();
@@ -50,7 +51,7 @@ public class CommandDebug implements ICommand {
             }
 
             if(type != null) {
-                if(value) {
+                if(value || (toggle && !Log.getLogger().isEnabled(type))) {
                     Log.getLogger().enable(type);
                 }
                 else {
@@ -62,7 +63,7 @@ public class CommandDebug implements ICommand {
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return true;
+        return sender.canUseCommand(2, "");
     }
 
     @Override
@@ -77,8 +78,9 @@ public class CommandDebug implements ICommand {
         ArrayList<String> completions = new ArrayList<String>();
 
         if(args.length == 1) {
-            completions.add("true");
-            completions.add("false");
+            completions.add("enable");
+            completions.add("disable");
+            completions.add("toggle");
         }
 
         if(args.length > 1) {

@@ -63,8 +63,15 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
      */
     public void handleConsumptionEvent(EnergyConsumptionEvent e) {
         Log.log("Consuming Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
-                LogType.SPAMMY);
+                LogType.SZEIBER_ENERGY, LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
+        EnergyPriority[] prioArray = EnergyPriority.values();
+        int length = prioArray.length;
+        for(int i = 0; i < length / 2; i++) {
+            EnergyPriority temp = prioArray[i];
+            prioArray[i] = prioArray[length - i];
+            prioArray[length - i] = temp;
+        }
         outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;
             // As long as at least one producer of the current prio can still
@@ -96,7 +103,7 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
      */
     public void handleProductionEvent(EnergyProductionEvent e) {
         Log.log("Producing Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
-                LogType.SPAMMY);
+                LogType.SZEIBER_ENERGY, LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
         outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;

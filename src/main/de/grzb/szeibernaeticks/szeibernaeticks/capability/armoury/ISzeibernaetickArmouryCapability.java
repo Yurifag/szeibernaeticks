@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
+import net.minecraft.entity.Entity;
 
 /**
  * Stores {@code ISzeibernaeticksCapabilities}.<br>
@@ -15,6 +16,13 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCa
  *
  */
 public interface ISzeibernaetickArmouryCapability {
+
+    /**
+     * Returns the Entity the armoury is attached to.
+     *
+     * @return Duh.
+     */
+    public Entity getEntity();
 
     /**
      * Adds the given ISzeibernaetickCapability to storage.

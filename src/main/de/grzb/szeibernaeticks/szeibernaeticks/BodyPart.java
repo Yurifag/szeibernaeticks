@@ -42,7 +42,7 @@ public final class BodyPart {
      *            The Vector describing its location on a image of a Entity.
      * @return A BodyPart with the specified name.
      */
-    private static BodyPart createBodyPart(String name, Vector2d location) {
+    public static BodyPart createBodyPart(String name, Vector2d location) {
         // Check whether a BodyPart with the given name exists
         for(BodyPart b : bodySet) {
             if(b.name == name) {
@@ -82,6 +82,11 @@ public final class BodyPart {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
 }

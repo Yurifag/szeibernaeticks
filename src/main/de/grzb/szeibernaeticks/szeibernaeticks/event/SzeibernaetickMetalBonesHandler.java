@@ -1,6 +1,7 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.event;
 
-import main.de.grzb.szeibernaeticks.Szeibernaeticks;
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickMetalBonesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
@@ -19,27 +20,19 @@ public class SzeibernaetickMetalBonesHandler implements ISzeibernaetickEventHand
 
     private Class<? extends ISzeibernaetickCapability> szeiberClass = SzeibernaetickMetalBonesCapability.class;
 
-    /**
-     * Constructs this EventHandler with the String identifying this Handlers
-     * ISzeibernaetickCapability.
-     *
-     * @param szeibernaetickIdentifier
-     *            The String that identifies the corresponding
-     *            ISzeibernaetickCapability
-     */
-    public SzeibernaetickMetalBonesHandler(String szeibernaetickIdentifier) {
-    }
-
     @SubscribeEvent
     public void onEntityHurt(LivingHurtEvent e) {
-        Szeibernaeticks.getLogger().info("Entity hurt! Checking for Storage!");
-        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null);
-        Szeibernaeticks.getLogger().info("Found: " + c.toString());
-        Szeibernaeticks.getLogger().info("Getting szeibernaetick: " + c.getSzeibernaetick(szeiberClass));
+        ISzeibernaetickArmouryCapability c = e.getEntity().getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP,
+                null);
 
         if(c.getSzeibernaetick(szeiberClass) != null) {
-            Szeibernaeticks.getLogger().info("Negating damage!");
-            e.setAmount(e.getAmount() / 2);
+            Log.log("Bones attempting to negate Damage!", LogType.DEBUG, LogType.SZEIBER_HANDLER);
+            Log.log("Amount: " + e.getAmount(), LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SPECIFIC);
+            Log.log("Also, source: " + e.getSource().damageType, LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                    LogType.SPECIFIC);
+            if(!e.getSource().isUnblockable()) {
+                e.setAmount(e.getAmount() / 2);
+            }
         }
     }
 }

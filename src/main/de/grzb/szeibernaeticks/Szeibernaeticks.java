@@ -2,6 +2,7 @@ package main.de.grzb.szeibernaeticks;
 
 import org.apache.logging.log4j.Logger;
 
+import main.de.grzb.szeibernaeticks.control.CommandDebug;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Szeibernaeticks.MOD_ID, version = Szeibernaeticks.VERSION)
 @Mod.EventBusSubscriber
@@ -49,5 +51,10 @@ public class Szeibernaeticks {
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         proxy.postInit(e);
+    }
+
+    @EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandDebug());
     }
 }

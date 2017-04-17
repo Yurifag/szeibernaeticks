@@ -1,7 +1,8 @@
 package main.de.grzb.szeibernaeticks.networking;
 
 import io.netty.buffer.ByteBuf;
-import main.de.grzb.szeibernaeticks.Szeibernaeticks;
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.SzeibernaetickMapper;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
@@ -74,17 +75,22 @@ public class SzeiberCapMessage extends NBTMessage {
                         cap = SzeibernaetickMapper.instance.getCapabilityFromIdentifier(identifier).newInstance();
                     }
                     catch(InstantiationException e) {
-                        Szeibernaeticks.getLogger().error("Error on instantiating Capability while sending it via SzeiberCapMessage!");
+                        Log.log("Error on instantiating Capability while sending it via SzeiberCapMessage!",
+                                LogType.ERROR);
+                        Log.logThrowable(e);
                         e.printStackTrace();
                         return;
                     }
                     catch(IllegalAccessException e) {
-                        Szeibernaeticks.getLogger().error("Error on accessing Capability class while sending it via SzeiberCapMessage!");
+                        Log.log("Error on accessing Capability class while sending it via SzeiberCapMessage!",
+                                LogType.ERROR);
+                        Log.logThrowable(e);
                         e.printStackTrace();
                         return;
                     }
                     catch(NullPointerException e) {
-                        Szeibernaeticks.getLogger().error("Error on getting Capability class from identifier, probably!");
+                        Log.log("Error on getting Capability class from identifier, probably!", LogType.ERROR);
+                        Log.logThrowable(e);
                         e.printStackTrace();
                         return;
                     }
@@ -93,7 +99,8 @@ public class SzeiberCapMessage extends NBTMessage {
 
                     Capability<ISzeibernaetickArmouryCapability> prov = SzeibernaetickArmouryProvider.ARMOURY_CAP;
 
-                    ISzeibernaetickArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov, null);
+                    ISzeibernaetickArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov,
+                            null);
                     armoury.addSzeibernaetick(cap);
                 }
             });

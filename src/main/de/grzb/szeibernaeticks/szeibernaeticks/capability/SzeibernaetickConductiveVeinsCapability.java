@@ -1,6 +1,8 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability;
 
 import io.netty.util.internal.ConcurrentSet;
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.EnergyConsumptionEvent;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.EnergyPriority;
@@ -18,11 +20,17 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
     }
 
     public void register(ISzeibernaetickCapability szeiber) {
+        Log.log("Adding " + szeiber.getIdentifier() + " to the Energy Network.", LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SZEIBER_ENERGY);
         if(szeiber instanceof IEnergyProducer) {
+            Log.log("It's a Producer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
             producers.add((IEnergyProducer) szeiber);
         }
 
         if(szeiber instanceof IEnergyConsumer) {
+            Log.log("It's a Consumer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
             consumers.add((IEnergyConsumer) szeiber);
         }
     }
@@ -54,6 +62,8 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
      *            The given Event.
      */
     public void handleConsumptionEvent(EnergyConsumptionEvent e) {
+        Log.log("Consuming Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
         outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;
@@ -64,7 +74,7 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
                 // Ask each Producer to produce
                 for(IEnergyProducer producer : producers) {
                     // But only if they belong to the current Priority
-                    if(producer.currentPrio() == prio) {
+                    if(producer.currentProductionPrio() == prio) {
                         e.cover(producer.produceAdHoc());
                         if(e.getRemainingAmount() == 0) {
                             break outestLoop;
@@ -85,6 +95,8 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
      *            The given Event.
      */
     public void handleProductionEvent(EnergyProductionEvent e) {
+        Log.log("Producing Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
         outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;
@@ -95,14 +107,14 @@ public class SzeibernaetickConductiveVeinsCapability implements ISzeibernaetickC
                 // Ask each Producer to produce
                 for(IEnergyConsumer consumer : consumers) {
                     // But only if they belong to the current Priority
-                    if(consumer.currentPrio() == prio) {
+                    if(consumer.currentConsumptionPrio() == prio) {
                         e.consume(consumer.consume());
                         if(e.getRemainingAmount() == 0) {
                             break outestLoop;
                         }
                         // Remember whether there are still Producers able to
                         // produce
-                        canStillProduce = canStillProduce || consumer.canStillProduce();
+                        canStillProduce = canStillProduce || consumer.canStillConsume();
                     }
                 }
             }

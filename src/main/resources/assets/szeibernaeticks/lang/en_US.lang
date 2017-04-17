@@ -2,3 +2,5 @@ item.ingot_copper.name=Copper Ingot
 item.metal_bones.name=Metal Bones
 tile.assembler.name=Assembler
 tile.ore_copper.name=Copper Ore
+
+death.attack.energyFeedback=%1$s was electrocuted by their own %2$s. Shocking.

@@ -1,4 +1,4 @@
-package main.de.grzb.szeibernaeticks;
+package main.de.grzb.szeibernaeticks.item.itemstack;
 
 import main.de.grzb.szeibernaeticks.tileentity.TileEntityContainerBase;
 import net.minecraftforge.items.ItemStackHandler;

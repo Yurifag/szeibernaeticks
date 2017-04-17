@@ -24,8 +24,7 @@ public abstract class BlockTileEntityContainerBase extends BlockTileEntityBase {
      */
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
-        IItemHandler inventory = world.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-                null);
+        IItemHandler inventory = world.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         for(int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack itemStack = inventory.getStackInSlot(slot);
             InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);

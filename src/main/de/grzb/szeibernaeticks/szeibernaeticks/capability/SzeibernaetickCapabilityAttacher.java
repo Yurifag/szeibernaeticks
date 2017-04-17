@@ -41,10 +41,12 @@ public class SzeibernaetickCapabilityAttacher {
     public void attachToJoining(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();
         if(entity instanceof EntityPlayerMP && entity.hasCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null)) {
-            for(ISzeibernaetickCapability szeiber : entity
-                    .getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null).getSzeibernaeticks()) {
-                SzeibernaeticksNetworkWrapper.INSTANCE.sendToAll(new SzeiberCapMessage(
-                        szeiber)/* , (EntityPlayerMP) entity */);
+            for(ISzeibernaetickCapability szeiber : entity.getCapability(SzeibernaetickArmouryProvider.ARMOURY_CAP, null).getSzeibernaeticks()) {
+                SzeibernaeticksNetworkWrapper.INSTANCE.sendToAll(new SzeiberCapMessage(szeiber)/*
+                                                                                                * ,
+                                                                                                * (EntityPlayerMP)
+                                                                                                * entity
+                                                                                                */);
             }
         }
     }

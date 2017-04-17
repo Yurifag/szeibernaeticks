@@ -16,14 +16,12 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 public class SzeibernaetickCapabilityStorage implements IStorage<ISzeibernaetickCapability> {
 
     @Override
-    public NBTBase writeNBT(Capability<ISzeibernaetickCapability> capability, ISzeibernaetickCapability instance,
-            EnumFacing side) {
+    public NBTBase writeNBT(Capability<ISzeibernaetickCapability> capability, ISzeibernaetickCapability instance, EnumFacing side) {
         return instance.toNBT();
     }
 
     @Override
-    public void readNBT(Capability<ISzeibernaetickCapability> capability, ISzeibernaetickCapability instance,
-            EnumFacing side, NBTBase nbt) {
+    public void readNBT(Capability<ISzeibernaetickCapability> capability, ISzeibernaetickCapability instance, EnumFacing side, NBTBase nbt) {
         try {
             instance.fromNBT((NBTTagCompound) nbt);
         }

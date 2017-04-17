@@ -4,7 +4,6 @@ import main.de.grzb.szeibernaeticks.client.gui.GuiId;
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 
 /**
  * Base class for a tile entity handling an inventory with GUI.
@@ -30,7 +29,7 @@ public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase
      * @param playerInventory
      * @return {@link GuiContainerBase}
      */
-    public abstract GuiContainerBase getContainer(IInventory playerInventory);
+    public abstract GuiContainerBase getContainer(EntityPlayer player);
 
     /**
      * Only lets the player open the inventory if they're in range.

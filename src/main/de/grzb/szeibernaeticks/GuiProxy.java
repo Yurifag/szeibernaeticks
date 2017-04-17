@@ -14,22 +14,21 @@ public class GuiProxy implements IGuiHandler {
     private static final GuiId[] GUI_IDS = GuiId.values();
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity tileEntity = world.getTileEntity(pos);
+
         if(tileEntity instanceof TileEntityGuiContainerBase) {
-            return ((TileEntityGuiContainerBase) tileEntity).getContainer(player.inventory);
+            return ((TileEntityGuiContainerBase) tileEntity).getContainer(player);
         }
         return null;
     }
 
     @Override
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-        BlockPos pos = new BlockPos(x, y, z);
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if(tileEntity instanceof TileEntityGuiContainerBase) {
-            GuiContainerBase container = ((TileEntityGuiContainerBase) tileEntity).getContainer(player.inventory);
-            return new GuiFactory(container).getGui(GUI_IDS[id]);
+        Object container = this.getServerGuiElement(id, player, world, x, y, z);
+        if(container != null) {
+            return new GuiFactory((GuiContainerBase) container).getGui(GUI_IDS[id]);
         }
         return null;
     }

@@ -1,6 +1,6 @@
 package main.de.grzb.szeibernaeticks.tileentity;
 
-import main.de.grzb.szeibernaeticks.ItemStackTileEntityHandler;
+import main.de.grzb.szeibernaeticks.item.itemstack.ItemStackTileEntityHandler;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

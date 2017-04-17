@@ -20,8 +20,7 @@ public class GuiContainerBase extends ContainerBase {
     protected GuiId guiId;
     protected GuiLayoutDefinition layout;
 
-    private ResourceLocation background = new ResourceLocation(
-            Szeibernaeticks.RESOURCE_PREFIX + "textures/gui/container/" + this.tileEntityContainer.getName() + ".png");
+    private ResourceLocation background = new ResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + "textures/gui/container/" + this.tileEntityContainer.getName() + ".png");
 
     /**
      * Sets up a basic GUI layout. Take care for the player's own inventory and
@@ -51,8 +50,7 @@ public class GuiContainerBase extends ContainerBase {
             itemstack = slotItemStack.copy();
 
             if(index < this.tileEntityContainer.getContainerSize()) {
-                if(!this.mergeItemStack(slotItemStack, this.layout.getContainerSize(), this.inventorySlots.size(),
-                        true)) {
+                if(!this.mergeItemStack(slotItemStack, this.layout.getContainerSize(), this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }

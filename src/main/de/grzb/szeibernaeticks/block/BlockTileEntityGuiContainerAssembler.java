@@ -2,9 +2,8 @@ package main.de.grzb.szeibernaeticks.block;
 
 import main.de.grzb.szeibernaeticks.tileentity.TileEntityGuiContainerAssembler;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -21,6 +20,11 @@ public class BlockTileEntityGuiContainerAssembler extends BlockTileEntityGuiCont
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityGuiContainerAssembler(this);
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        world.removeTileEntity(pos);
     }
 
 }

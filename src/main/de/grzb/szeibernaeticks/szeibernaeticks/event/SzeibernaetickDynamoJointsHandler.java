@@ -5,9 +5,6 @@ import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickDynamoJointsCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmouryProvider;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.EnergyProductionEvent;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.feedback.EnergyFeedbackDamage;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -25,17 +22,8 @@ public class SzeibernaetickDynamoJointsHandler implements ISzeibernaetickEventHa
                         LogType.SPAMMY);
 
                 float height = e.getDistance();
-                int energyProduced = dynamo.produce(height);
-                Log.log("Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SPAMMY);
+                dynamo.produce(height, e.getEntity());
                 e.setDistance(height / 2);
-
-                EnergyProductionEvent production = new EnergyProductionEvent(e.getEntity(), energyProduced);
-                MinecraftForge.EVENT_BUS.post(production);
-
-                if(production.getRemainingAmount() > 0) {
-                    e.getEntityLiving().attackEntityFrom(new EnergyFeedbackDamage(dynamo),
-                            production.getRemainingAmount());
-                }
             }
         }
     }

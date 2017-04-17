@@ -8,16 +8,19 @@ import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickInstalledEvent;
+import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
 
 public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
 
+    private Entity entityAttachedTo;
     ConcurrentHashMap<BodyPart, ISzeibernaetickCapability> bodyMap;
     ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, ISzeibernaetickCapability> itemMap;
 
-    public SzeibernaetickArmoury() {
+    public SzeibernaetickArmoury(Entity entity) {
         bodyMap = new ConcurrentHashMap<BodyPart, ISzeibernaetickCapability>();
         itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, ISzeibernaetickCapability>();
+        entityAttachedTo = entity;
     }
 
     @Override
@@ -59,6 +62,11 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
     @Override
     public ISzeibernaetickCapability getBodyPart(BodyPart b) {
         return bodyMap.get(b);
+    }
+
+    @Override
+    public Entity getEntity() {
+        return entityAttachedTo;
     }
 
 }

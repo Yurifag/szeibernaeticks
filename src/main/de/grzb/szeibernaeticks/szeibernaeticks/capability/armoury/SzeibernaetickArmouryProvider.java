@@ -1,5 +1,6 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -17,7 +18,13 @@ public class SzeibernaetickArmouryProvider implements ICapabilitySerializable<NB
     @CapabilityInject(ISzeibernaetickArmouryCapability.class)
     public static final Capability<ISzeibernaetickArmouryCapability> ARMOURY_CAP = null;
 
-    private ISzeibernaetickArmouryCapability instance = ARMOURY_CAP.getDefaultInstance();
+    private ISzeibernaetickArmouryCapability instance;
+    private Entity attachedTo;
+
+    public SzeibernaetickArmouryProvider(Entity attachedTo) {
+        this.attachedTo = attachedTo;
+        instance = new SzeibernaetickArmoury(attachedTo);
+    }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

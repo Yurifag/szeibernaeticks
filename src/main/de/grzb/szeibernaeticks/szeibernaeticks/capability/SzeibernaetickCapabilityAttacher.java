@@ -31,10 +31,12 @@ public class SzeibernaetickCapabilityAttacher {
     public void attachToLiving(AttachCapabilitiesEvent<Entity> event) {
 
         if(event.getObject() instanceof EntityLivingBase) {
-            event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID), new SzeibernaetickArmouryProvider());
+            event.addCapability(new ResourceLocation(Szeibernaeticks.MOD_ID),
+                    new SzeibernaetickArmouryProvider(event.getObject()));
         }
     }
 
+    // TODO: Test for multiplayer
     @SubscribeEvent
     public void attachToJoining(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();

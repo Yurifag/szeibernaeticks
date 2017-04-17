@@ -6,8 +6,10 @@ import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemConductiveVeins;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemDynamoJoints;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemMetalBones;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickGeneratorStomachCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickSyntheticEyesCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickSynteticEyesHandler;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickGeneratorStomachHandler;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickSyntheticEyesHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -26,6 +28,7 @@ public final class ModItems {
     public static SzeibernaetickBase conductive_veins;
     public static SzeibernaetickBase dynamo_joints;
     public static SzeibernaetickBase synthetic_eyes;
+    public static SzeibernaetickBase generator_stomach;
 
     /**
      * Initializes the mod items. Configure src/main/resources as source folder
@@ -40,7 +43,9 @@ public final class ModItems {
         conductive_veins = register(new ItemConductiveVeins("conductive_veins"));
         dynamo_joints = register(new ItemDynamoJoints("dynamo_joints"));
         synthetic_eyes = register(new SzeibernaetickBase("synthetic_eyes", SzeibernaetickSyntheticEyesCapability.class,
-                SzeibernaetickSynteticEyesHandler.class));
+                SzeibernaetickSyntheticEyesHandler.class));
+        generator_stomach = register(new SzeibernaetickBase("generator_stomach",
+                SzeibernaetickGeneratorStomachCapability.class, SzeibernaetickGeneratorStomachHandler.class));
     }
 
     private static <T extends Item> T register(T item) {

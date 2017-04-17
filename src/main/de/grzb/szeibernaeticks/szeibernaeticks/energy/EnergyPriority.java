@@ -1,7 +1,26 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.energy;
 
 public enum EnergyPriority {
-    DESTRUCTION(2), SIDE_EFFECTS(1), NOTHING(0), NEEDED_SPACE(-1), REQUIRED_SPACE(-2);
+    /**
+     *
+     */
+    FILL_ASAP(2),
+    /**
+     *
+     */
+    FILL_FAST(1),
+    /**
+     *
+     */
+    DONT_CARE(0),
+    /**
+     *
+     */
+    EMPTY_FAST(-1),
+    /**
+     *
+     */
+    EMPTY_ASAP(-2);
 
     private int prio;
 

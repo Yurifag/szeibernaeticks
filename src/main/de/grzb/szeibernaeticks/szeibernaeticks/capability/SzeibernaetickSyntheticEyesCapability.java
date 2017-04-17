@@ -5,16 +5,16 @@ import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.EnergyConsumptionEvent;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.EnergyPriority;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.IEnergyProducer;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.energy.IEnergyConsumer;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
-public class SzeibernaetickSyntheticEyesCapability implements ISzeibernaetickCapability, IEnergyProducer {
+public class SzeibernaetickSyntheticEyesCapability implements ISzeibernaetickCapability, IEnergyConsumer {
 
-    private int maxStorage;
+    private int maxStorage = 20;
     private int storage = 0;
-    private int cost = 5;
+    private int consumption = 5;
 
     {
         Log.log("Creating instance of " + this.getClass(), LogType.SZEIBER_CAP, LogType.DEBUG, LogType.INSTANTIATION);
@@ -36,7 +36,9 @@ public class SzeibernaetickSyntheticEyesCapability implements ISzeibernaetickCap
     @Override
     public void fromNBT(NBTTagCompound nbt) {
         storage = nbt.getInteger("storage");
-        maxStorage = nbt.getInteger("maxStorage");
+        if(nbt.getInteger("maxStorage") > 0) {
+            maxStorage = nbt.getInteger("maxStorage");
+        }
     }
 
     @Override
@@ -45,28 +47,48 @@ public class SzeibernaetickSyntheticEyesCapability implements ISzeibernaetickCap
     }
 
     public boolean grantVision(Entity target) {
-        EnergyConsumptionEvent event = new EnergyConsumptionEvent(target, cost);
-        MinecraftForge.EVENT_BUS.post(event);
-        if(event.getRemainingAmount() > 0) {
-            return false;
+        Log.log("[SynthEyesCap] SynthEyes attempting to grant vision!", LogType.DEBUG, LogType.SZEIBER_CAP,
+                LogType.SPAMMY);
+        boolean granted = false;
+
+        if(storage >= consumption) {
+            Log.log("[SynthEyesCap] SynthEyes granting Vision!", LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            storage -= consumption;
+            granted = true;
         }
-        return true;
+
+        if(storage < consumption) {
+            Log.log("[SynthEyesCap] SynthEyes missing Energy, posting Event.", LogType.DEBUG, LogType.SZEIBER_CAP,
+                    LogType.SPAMMY);
+            int missingEnergy = maxStorage - storage;
+            EnergyConsumptionEvent event = new EnergyConsumptionEvent(target, missingEnergy);
+            MinecraftForge.EVENT_BUS.post(event);
+            Log.log("[SynthEyesCap] Event granted " + (missingEnergy - event.getRemainingAmount()) + " Energy.",
+                    LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            storage += (missingEnergy - event.getRemainingAmount());
+        }
+
+        return granted;
     }
 
     @Override
-    public EnergyPriority currentProductionPrio() {
-        return EnergyPriority.DESTRUCTION;
+    public EnergyPriority currentConsumptionPrio() {
+        return EnergyPriority.FILL_ASAP;
     }
 
     @Override
-    public boolean canStillProduce() {
-        return storage > 0;
+    public boolean canStillConsume() {
+        return storage < maxStorage;
     }
 
     @Override
-    public int produceAdHoc() {
-        if(canStillProduce()) {
-            storage--;
+    public int consume() {
+        Log.log("[SynthEyesCap] SynthEyes attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
+        if(canStillConsume()) {
+            storage++;
+            Log.log("[SynthEyesCap] SynthEyes consuming energy! Now storing: " + storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;

@@ -53,8 +53,9 @@ public enum LogType {
      */
     COMMAND(false),
     /**
-     * Logs that produce a <i>lot</i> of output. Think rendering, livingEvents
-     * or simply stuff that happens a lot like falling.
+     * Logs that produce output that cannot be prevented by the player, i.e. all
+     * logs that produce output indefinitely in a newly generated world without
+     * mobs or anything else.
      */
     SPAMMY(false),
     /**

@@ -34,7 +34,7 @@ public class SzeibernaetickMapper {
      * @param item
      */
     public void register(Class<? extends ISzeibernaetickCapability> cap, SzeibernaetickBase item) {
-        Log.log("Registering Capability!", LogType.INFO, LogType.SETUP);
+        Log.log("Trying to register Capability!", LogType.DEBUG, LogType.SETUP);
         if(itemMap.put(cap, item) != null) {
             Log.log("Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?",
                     LogType.SETUP, LogType.ERROR);

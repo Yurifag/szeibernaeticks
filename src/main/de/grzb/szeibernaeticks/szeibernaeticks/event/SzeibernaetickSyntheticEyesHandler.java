@@ -10,7 +10,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class SzeibernaetickSynteticEyesHandler implements ISzeibernaetickEventHandler {
+public class SzeibernaetickSyntheticEyesHandler implements ISzeibernaetickEventHandler {
 
     {
         Log.log("Creating instance of " + this.getClass(), LogType.DEBUG, LogType.INSTANTIATION,
@@ -27,10 +27,27 @@ public class SzeibernaetickSynteticEyesHandler implements ISzeibernaetickEventHa
                     .getSzeibernaetick(SzeibernaetickSyntheticEyesCapability.class);
 
             if(eyes != null) {
-                if(!e.getEntityLiving().isPotionActive(MobEffects.NIGHT_VISION)) {
+                Log.log("[SynthEyesHandler] Eyes installed.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SPAMMY);
+                PotionEffect effect = e.getEntityLiving().getActivePotionEffect(MobEffects.NIGHT_VISION);
+                if(effect == null) {
+                    Log.log("[SynthEyesHandler] Effect does not exist.", LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                            LogType.SPAMMY);
                     if(eyes.grantVision(e.getEntity())) {
+                        Log.log("[SynthEyesHandler] Eyes granted vision.", LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                                LogType.SPAMMY);
                         e.getEntityLiving()
-                                .addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 30, 1, false, false));
+                                .addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 60000, 0, false, false));
+                    }
+                }
+                else if(effect.getDuration() <= 59800) {
+                    Log.log("[SynthEyesHandler] Effect exists and has less duration.", LogType.DEBUG,
+                            LogType.SZEIBER_HANDLER);
+                    if(eyes.grantVision(e.getEntity())) {
+                        Log.log("[SynthEyesHandler] Eyes granted vision.", LogType.DEBUG, LogType.SZEIBER_HANDLER);
+                        effect.combine(new PotionEffect(MobEffects.NIGHT_VISION, 60000, 0, false, false));
+                    }
+                    else {
+                        e.getEntityLiving().removeActivePotionEffect(MobEffects.NIGHT_VISION);
                     }
                 }
             }

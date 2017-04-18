@@ -17,6 +17,10 @@ public class Log {
     public static void log(String message, LogType... types) {
         logger.doLog(message, types);
     }
+    
+    public static void log(int message, LogType... types) {
+      log(Integer.toString(message), types);
+    }
 
     public static Log getLogger() {
         return logger;

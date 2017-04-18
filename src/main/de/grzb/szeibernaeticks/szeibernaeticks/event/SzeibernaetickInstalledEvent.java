@@ -8,14 +8,14 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class SzeibernaetickInstalledEvent extends Event {
 
-    public final ISzeibernaetickArmouryCapability szeiberArmoury;
+    public final ISzeibernaetickArmouryCapability armoury;
     public final ISzeibernaetickCapability installedSzeibernaetick;
 
-    public SzeibernaetickInstalledEvent(ISzeibernaetickArmouryCapability armoury, ISzeibernaetickCapability installedSzeiber) {
-        szeiberArmoury = armoury;
-        installedSzeibernaetick = installedSzeiber;
+    public SzeibernaetickInstalledEvent(ISzeibernaetickArmouryCapability armoury, ISzeibernaetickCapability installedSzeibernaetick) {
+        this.armoury = armoury;
+        this.installedSzeibernaetick = installedSzeibernaetick;
 
-        Log.log("Installed Szeibernaetick: " + installedSzeiber.getIdentifier(), LogType.INFO);
+        Log.log("Installed Szeibernaetick: " + installedSzeibernaetick.getIdentifier(), LogType.INFO);
     }
 
 }

@@ -23,17 +23,17 @@ public class SzeibernaetickConductiveVeinsHandler implements ISzeibernaetickEven
                     LogType.SZEIBER_HANDLER);
             SzeibernaetickConductiveVeinsCapability veins = (SzeibernaetickConductiveVeinsCapability) e.installedSzeibernaetick;
             // Register all other Szeibernaeticks to these veins.
-            for(ISzeibernaetickCapability szeiber : e.szeiberArmoury.getSzeibernaeticks()) {
+            for(ISzeibernaetickCapability szeiber : e.armoury.getSzeibernaeticks()) {
                 veins.register(szeiber);
             }
         }
         else {
             // Otherwise, check if these veins are installed right now.
-            if(e.szeiberArmoury.getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class) != null) {
+            if(e.armoury.getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class) != null) {
                 Log.log("[ConVeinsHandler] Something else was installed and SzeiberVeins exist.", LogType.DEBUG,
                         LogType.SZEIBER_ENERGY, LogType.SZEIBER_HANDLER);
                 // If they are, register the newly installed Szeibernaetick.
-                ((SzeibernaetickConductiveVeinsCapability) e.szeiberArmoury
+                ((SzeibernaetickConductiveVeinsCapability) e.armoury
                         .getSzeibernaetick(SzeibernaetickConductiveVeinsCapability.class))
                                 .register(e.installedSzeibernaetick);
             }

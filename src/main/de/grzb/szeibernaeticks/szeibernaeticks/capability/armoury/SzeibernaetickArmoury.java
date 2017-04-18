@@ -26,10 +26,9 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
     @Override
     public boolean addSzeibernaetick(ISzeibernaetickCapability szeiber) {
         Log.log("Attempting to add " + szeiber.getIdentifier(), LogType.DEBUG, LogType.SZEIBER_ARM);
-        Log.log("BodyPart is: " + szeiber.getBodyPart().toString(), LogType.DEBUG, LogType.SZEIBER_ARM,
-                LogType.SPECIFIC);
-        Log.log("Szeiber in that Slot is: " + bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG, LogType.SZEIBER_ARM,
-                LogType.SPECIFIC);
+        Log.log("BodyPart is: " + szeiber.getBodyPart().toString(), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
+        Log.log("Szeiber in that Slot is: " + bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
+        
         if(bodyMap.get(szeiber.getBodyPart()) == null) {
             Log.log("Body Part is not used.", LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
             // Tell anyone interested that you are installing a Szeibernaetick
@@ -52,14 +51,14 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
     }
 
     @Override
-    public ISzeibernaetickCapability removeSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeibernatick) {
-        ISzeibernaetickCapability szeiber = itemMap.get(szeibernatick);
-        if(szeiber == null) {
-            return null;
+    public ISzeibernaetickCapability removeSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeibernaetickClass) {
+        ISzeibernaetickCapability szeibernaetick = itemMap.get(szeibernaetickClass);
+        if(szeibernaetick != null) {
+          itemMap.remove(szeibernaetick);
+          bodyMap.remove(szeibernaetick.getBodyPart());
+          return szeibernaetick;
         }
-        itemMap.remove(szeibernatick);
-        bodyMap.remove(szeiber.getBodyPart());
-        return szeiber;
+        return null;
     }
 
     @Override

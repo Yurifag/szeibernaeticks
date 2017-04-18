@@ -28,7 +28,7 @@ public class GuiContainerAssembler extends GuiContainerBase {
 
         for(Iterator<ISzeibernaetickCapability> i = playerSzeibernaeticks.iterator(); i.hasNext();) {
             ISzeibernaetickCapability szeibernaetick = (ISzeibernaetickCapability) i.next();
-            playerCapability.removeSzeibernaetick(szeibernaetick.getClass());
+            playerCapability.removeSzeibernaetick(szeibernaetick);
         }
         
         for(Iterator<Slot> i = this.inventorySlots.iterator(); i.hasNext();) { 

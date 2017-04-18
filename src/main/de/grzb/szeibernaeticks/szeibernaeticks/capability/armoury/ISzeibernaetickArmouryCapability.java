@@ -61,7 +61,7 @@ public interface ISzeibernaetickArmouryCapability {
      * @return A copy of the {@code ItemStack} of the removed
      *         {@code ISzeibernaetick}, or null if it wasn't installed.
      */
-    public ISzeibernaetickCapability removeSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeibernatick);
+    public ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeibernatick);
 
     /**
      * Returns the {@code ISzeibernaetickCapability} associated with this

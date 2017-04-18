@@ -51,10 +51,10 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
     }
 
     @Override
-    public ISzeibernaetickCapability removeSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeibernaetickClass) {
-        ISzeibernaetickCapability szeibernaetick = itemMap.get(szeibernaetickClass);
-        if(szeibernaetick != null) {
-          itemMap.remove(szeibernaetick);
+    public ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeibernaetick) {
+        Class<? extends ISzeibernaetickCapability> szeibernaetickClass = szeibernaetick.getClass();
+        if(itemMap.get(szeibernaetickClass) != null) {
+          itemMap.remove(szeibernaetickClass);
           bodyMap.remove(szeibernaetick.getBodyPart());
           return szeibernaetick;
         }

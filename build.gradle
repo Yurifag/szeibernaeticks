@@ -17,7 +17,7 @@ group = "de.grzb.szeibernaeticks"
 archivesBaseName = "szeibernaeticks"
 
 task preBuild(type: Exec) {
-  commandLine "gimp", "--as-new", "--no-data", "--no-fonts", "--no-interface", "--batch-interpreter=python-fu-eval", "--batch=import sys; sys.argv = [\"$project.projectDir\", \"$project.archivesBaseName\", \"$project.group\"]; execfile(\"$project.projectDir/util/generate_resources.py\")", "--batch=pdb.gimp_quit(1)"
+  //commandLine "gimp", "--as-new", "--no-data", "--no-fonts", "--no-interface", "--batch-interpreter=python-fu-eval", "--batch=import sys; sys.argv = [\"$project.projectDir\", \"$project.archivesBaseName\", \"$project.group\"]; execfile(\"$project.projectDir/util/generate_resources.py\")", "--batch=pdb.gimp_quit(1)"
   //errorOutput = new ByteArrayOutputStream()
 }
 

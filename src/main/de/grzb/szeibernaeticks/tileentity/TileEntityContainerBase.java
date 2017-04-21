@@ -9,9 +9,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 /**
  * Base class for a tile entity handling an inventory.
- * 
- * @author yuri
  *
+ * @author yuri
  */
 public abstract class TileEntityContainerBase extends TileEntityBase {
     protected final int containerSize;
@@ -50,15 +49,12 @@ public abstract class TileEntityContainerBase extends TileEntityBase {
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+        return capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) || super.hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if(capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.itemStackHandler);
         }
         return super.getCapability(capability, facing);

@@ -10,16 +10,16 @@ public class WrongSzeibernaetickException extends RuntimeException {
     private static final long serialVersionUID = 8878601731410938459L;
 
     private final Item expected;
-    private final Item recieved;
+    private final Item received;
 
     public WrongSzeibernaetickException(Item expectedItem, Item recievedItem) {
         this.expected = expectedItem;
-        this.recieved = recievedItem;
+        this.received = recievedItem;
     }
 
     @Override
     public String getMessage() {
-        return "Expected: " + expected.getUnlocalizedName() + ", but got: " + recieved.getUnlocalizedName();
+        return "Expected: " + this.expected.getUnlocalizedName() + ", but got: " + this.received.getUnlocalizedName();
     }
 
 }

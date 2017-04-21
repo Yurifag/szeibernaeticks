@@ -19,7 +19,7 @@ public class SlotFactory {
                 slot = new SlotItemHandler(itemHandler, index, x, y);
                 break;
         }
-        
+
         return slot;
     }
 

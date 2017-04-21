@@ -1,8 +1,8 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks;
 
-import javax.vecmath.Vector2d;
-
 import io.netty.util.internal.ConcurrentSet;
+
+import javax.vecmath.Vector2d;
 
 public final class BodyPart {
 
@@ -36,16 +36,14 @@ public final class BodyPart {
      * <br>
      * If such a BodyPart does exists, this return that one instead.
      *
-     * @param name
-     *            The name of the BodyPart.
-     * @param location
-     *            The Vector describing its location on a image of a Entity.
+     * @param name     The name of the BodyPart.
+     * @param location The Vector describing its location on a image of a Entity.
      * @return A BodyPart with the specified name.
      */
     public static BodyPart createBodyPart(String name, Vector2d location) {
         // Check whether a BodyPart with the given name exists
         for(BodyPart b : bodySet) {
-            if(b.name == name) {
+            if(b.name.equals(name)) {
                 return b;
             }
         }
@@ -63,30 +61,30 @@ public final class BodyPart {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Vector2d getLocation() {
-        return location;
+        return this.location;
     }
 
     @Override
     public boolean equals(Object o) {
         if(o instanceof BodyPart) {
             BodyPart part = (BodyPart) o;
-            return part.name == name;
+            return part.name.equals(this.name);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return this.name.hashCode();
     }
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
 }

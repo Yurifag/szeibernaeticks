@@ -1,13 +1,13 @@
 package main.de.grzb.szeibernaeticks.control;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandDebug implements ICommand {
 
@@ -47,7 +47,6 @@ public class CommandDebug implements ICommand {
                 type = LogType.valueOf(actual);
             }
             catch(IllegalArgumentException e) {
-                ;
             }
 
             if(type != null) {
@@ -67,8 +66,7 @@ public class CommandDebug implements ICommand {
     }
 
     @Override
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
-            BlockPos targetPos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
         Log.log("Getting Tab Completions", LogType.DEBUG, LogType.COMMAND);
         Log.log("Currently " + args.length + " args!", LogType.DEBUG, LogType.COMMAND);
         Log.log("They are:", LogType.DEBUG, LogType.COMMAND);
@@ -87,7 +85,8 @@ public class CommandDebug implements ICommand {
             String started = args[args.length - 1].toUpperCase();
             for(LogType logType : LogType.values()) {
                 String type = logType.toString().toUpperCase();
-                exit: if(started.length() < type.length()) {
+                exit:
+                if(started.length() < type.length()) {
                     for(int i = 0; i < started.length(); i++) {
                         if(type.charAt(i) != started.charAt(i)) {
                             break exit;

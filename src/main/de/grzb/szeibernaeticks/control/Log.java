@@ -1,8 +1,8 @@
 package main.de.grzb.szeibernaeticks.control;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.logging.log4j.Logger;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Log {
 
@@ -17,9 +17,9 @@ public class Log {
     public static void log(String message, LogType... types) {
         logger.doLog(message, types);
     }
-    
+
     public static void log(int message, LogType... types) {
-      log(Integer.toString(message), types);
+        log(Integer.toString(message), types);
     }
 
     public static Log getLogger() {
@@ -32,7 +32,7 @@ public class Log {
 
     {
         for(LogType t : LogType.values()) {
-            typeMap.put(t, t.defaultEnabled());
+            this.typeMap.put(t, t.defaultEnabled());
         }
     }
 
@@ -47,7 +47,7 @@ public class Log {
         boolean isError = false;
 
         for(LogType t : types) {
-            log = log && typeMap.get(t);
+            log = log && this.typeMap.get(t);
             if(t == LogType.ERROR) {
                 isError = true;
             }
@@ -55,10 +55,10 @@ public class Log {
 
         if(log) {
             if(!isError) {
-                forgeLogger.info(message);
+                this.forgeLogger.info(message);
             }
             else {
-                forgeLogger.error(message);
+                this.forgeLogger.error(message);
             }
         }
     }
@@ -70,7 +70,7 @@ public class Log {
      */
     public void enable(LogType... types) {
         for(LogType t : types) {
-            typeMap.put(t, new Boolean(true));
+            this.typeMap.put(t, Boolean.TRUE);
         }
     }
 
@@ -81,7 +81,7 @@ public class Log {
      */
     public void disable(LogType... types) {
         for(LogType t : types) {
-            typeMap.put(t, new Boolean(false));
+            this.typeMap.put(t, Boolean.FALSE);
         }
     }
 
@@ -91,7 +91,7 @@ public class Log {
      * @param logger
      */
     public void setForgeLogger(Logger logger) {
-        forgeLogger = logger;
+        this.forgeLogger = logger;
     }
 
     /**
@@ -105,12 +105,11 @@ public class Log {
 
     /**
      * Returns whether the given LogType is currently enabled to be logged.
-     * 
+     *
      * @param type
      * @return
      */
     public boolean isEnabled(LogType type) {
-        return typeMap.get(type).booleanValue();
+        return this.typeMap.get(type);
     }
-
 }

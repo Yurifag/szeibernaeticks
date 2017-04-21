@@ -5,8 +5,8 @@ import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.SzeibernaetickMapper;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmouryProvider;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ArmouryProvider;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.IArmouryCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IThreadListener;
@@ -20,36 +20,33 @@ public class SzeiberCapMessage extends NBTMessage {
     private NBTTagCompound capTag;
     private String identifier;
 
-    public SzeiberCapMessage() {
-    }
+    public SzeiberCapMessage() {}
 
-    public SzeiberCapMessage(ISzeibernaetickCapability cap) {
-        capTag = cap.toNBT();
-        identifier = cap.getIdentifier();
+    public SzeiberCapMessage(ISzeibernaetickCapability capability) {
+        this.capTag = capability.toNBT();
+        this.identifier = capability.getIdentifier();
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         // entityId = buf.readInt();
 
-        identifier = readString(buf);
-
-        capTag = readCompoundTag(buf);
+        this.identifier = this.readString(buf);
+        this.capTag = this.readCompoundTag(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         // buf.writeInt(entityId);
 
-        writeString(buf, identifier);
-
-        writeCompoundTag(buf, capTag);
+        this.writeString(buf, this.identifier);
+        this.writeCompoundTag(buf, this.capTag);
     }
 
     public static class SzeiberCapMessageHandler implements IMessageHandler<SzeiberCapMessage, IMessage> {
 
         @Override
-        public IMessage onMessage(SzeiberCapMessage message, MessageContext ctx) {
+        public IMessage onMessage(SzeiberCapMessage message, MessageContext context) {
             // Retrieve data from the message
             final String identifier = message.identifier;
             final NBTTagCompound comp = message.capTag;
@@ -57,7 +54,7 @@ public class SzeiberCapMessage extends NBTMessage {
             // Find out which side this is on and set the listener to schedule
             // the task on accordingly.
             IThreadListener listener;
-            if(ctx.side.isClient()) {
+            if(context.side.isClient()) {
                 listener = Minecraft.getMinecraft();
             }
             else {
@@ -75,15 +72,13 @@ public class SzeiberCapMessage extends NBTMessage {
                         cap = SzeibernaetickMapper.instance.getCapabilityFromIdentifier(identifier).newInstance();
                     }
                     catch(InstantiationException e) {
-                        Log.log("Error on instantiating Capability while sending it via SzeiberCapMessage!",
-                                LogType.ERROR);
+                        Log.log("Error on instantiating Capability while sending it via SzeiberCapMessage!", LogType.ERROR);
                         Log.logThrowable(e);
                         e.printStackTrace();
                         return;
                     }
                     catch(IllegalAccessException e) {
-                        Log.log("Error on accessing Capability class while sending it via SzeiberCapMessage!",
-                                LogType.ERROR);
+                        Log.log("Error on accessing Capability class while sending it via SzeiberCapMessage!", LogType.ERROR);
                         Log.logThrowable(e);
                         e.printStackTrace();
                         return;
@@ -97,10 +92,9 @@ public class SzeiberCapMessage extends NBTMessage {
 
                     cap.fromNBT(comp);
 
-                    Capability<ISzeibernaetickArmouryCapability> prov = SzeibernaetickArmouryProvider.ARMOURY_CAP;
+                    Capability<IArmouryCapability> prov = ArmouryProvider.ARMOURY_CAP;
 
-                    ISzeibernaetickArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov,
-                            null);
+                    IArmouryCapability armoury = Minecraft.getMinecraft().player.getCapability(prov, null);
                     armoury.addSzeibernaetick(cap);
                 }
             });

@@ -7,13 +7,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 /**
- * Class for storing SzeibernaetickCapabilities as NBT's and restoring them
+ * Class for storing SzeibernaetickCapabilities as NBTs and restoring them
  * again.
  *
  * @author DemRat
- *
  */
-public class SzeibernaetickCapabilityStorage implements IStorage<ISzeibernaetickCapability> {
+public class CapabilityStorage implements IStorage<ISzeibernaetickCapability> {
 
     @Override
     public NBTBase writeNBT(Capability<ISzeibernaetickCapability> capability, ISzeibernaetickCapability instance, EnumFacing side) {

@@ -4,28 +4,24 @@ public enum EnergyPriority {
     /**
      *
      */
-    FILL_ASAP(2),
-    /**
+    FILL_ASAP(2), /**
      *
      */
-    FILL_FAST(1),
-    /**
+    FILL_FAST(1), /**
      *
      */
-    DONT_CARE(0),
-    /**
+    DONT_CARE(0), /**
      *
      */
-    EMPTY_FAST(-1),
-    /**
+    EMPTY_FAST(-1), /**
      *
      */
     EMPTY_ASAP(-2);
 
-    private int prio;
+    private int priority;
 
-    private EnergyPriority(int prio) {
-        this.prio = prio;
+    EnergyPriority(int priority) {
+        this.priority = priority;
     }
 
     /**
@@ -33,7 +29,7 @@ public enum EnergyPriority {
      *
      * @return Duh.
      */
-    public boolean largerThan(EnergyPriority ePrio) {
-        return prio > ePrio.prio;
+    public boolean largerThan(EnergyPriority energyPriority) {
+        return this.priority > energyPriority.priority;
     }
 }

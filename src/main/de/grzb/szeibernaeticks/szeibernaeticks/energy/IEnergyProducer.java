@@ -8,7 +8,6 @@ package main.de.grzb.szeibernaeticks.szeibernaeticks.energy;
  * asked to produce when an EnergyConsumptionEvent is fired.
  *
  * @author DemRat
- *
  */
 public interface IEnergyProducer {
     /**
@@ -17,7 +16,7 @@ public interface IEnergyProducer {
      *
      * @return
      */
-    public EnergyPriority currentProductionPrio();
+    EnergyPriority currentProductionPriority();
 
     /**
      * Returns whether this Producer can still generate Energy this tick.<br>
@@ -26,7 +25,7 @@ public interface IEnergyProducer {
      *
      * @return
      */
-    public boolean canStillProduce();
+    boolean canStillProduce();
 
     /**
      * Produces one unit of energy.<br>
@@ -34,7 +33,7 @@ public interface IEnergyProducer {
      * This produces a single unit of energy, if possible. If for whatever
      * reason this can not produce, this returns 0.
      *
-     * @return 1 if production was successfull, 0 otherwise.
+     * @return 1 if production was successful, 0 otherwise.
      */
-    public int produceAdHoc();
+    int produceAdHoc();
 }

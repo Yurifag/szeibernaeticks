@@ -54,7 +54,6 @@ public class GuiLayoutDefinition {
             y = slotDefinitions[i].y;
             if(x > xMax) xMax = x;
             if(y > yMax) yMax = y;
-
         }
         this.innerSectionWidth = xMax + ITEM_SLOT_SIZE;
         this.innerSectionHeight = yMax + ITEM_SLOT_SIZE;
@@ -97,7 +96,7 @@ public class GuiLayoutDefinition {
         for(int i = 0; i < this.slotDefinitions.length; i++) {
             x = BORDER_SIZE + this.slotDefinitions[i].x + 1;
             y = yOffset + this.slotDefinitions[i].y + 1;
-            slots[j] = SlotFactory.getNewSlotItemHandler(slotDefinitions[i], this.itemHandler, i, x, y);
+            slots[j] = SlotFactory.getNewSlotItemHandler(this.slotDefinitions[i], this.itemHandler, i, x, y);
             j++;
         }
 

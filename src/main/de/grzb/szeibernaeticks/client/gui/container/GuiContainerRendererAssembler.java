@@ -2,6 +2,7 @@ package main.de.grzb.szeibernaeticks.client.gui.container;
 
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiInventory;
 
 public class GuiContainerRendererAssembler extends GuiContainerRendererBase {
@@ -11,9 +12,18 @@ public class GuiContainerRendererAssembler extends GuiContainerRendererBase {
     }
 
     @Override
+    public void initGui() {
+        super.initGui();
+        int width = 100;
+        int height = 20;
+        int x = this.guiLeft + (this.xSize - width) / 2;
+        int y = this.guiTop + GuiLayoutDefinition.BORDER_SIZE + GuiLayoutDefinition.NAME_FIELD_HEIGHT + 108 - height;
+        this.buttonList.add(new GuiButton(0, x, y, width, height, "INSTALL"));
+    }
+
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        this.mc.getTextureManager().bindTexture(this.background);
-        this.drawTexturedModalRect((this.width - this.xSize) / 2, (this.height - this.ySize) / 2, 0, 0, this.xSize, this.ySize);
+        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 
         int offsetRight = this.xSize / 2;
         int offsetTop = this.ySize / 2 - GuiLayoutDefinition.BORDER_SIZE;

@@ -12,14 +12,13 @@ public class EnergyFeedbackDamage extends DamageSource {
 
     public EnergyFeedbackDamage(ISzeibernaetickCapability szeiberCause) {
         super("energyFeedback");
-        setDamageBypassesArmor();
-        szeiber = szeiberCause;
+        this.setDamageBypassesArmor();
+        this.szeiber = szeiberCause;
     }
 
     @Override
     public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
         String s = "death.attack." + this.damageType;
-        return new TextComponentTranslation(s,
-                new Object[] { entityLivingBaseIn.getDisplayName(), szeiber.getIdentifier() });
+        return new TextComponentTranslation(s, entityLivingBaseIn.getDisplayName(), this.szeiber.getIdentifier());
     }
 }

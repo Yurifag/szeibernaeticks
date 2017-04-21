@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
  * Stores and retrieves the Data behind an Szeibernaetick.
  *
  * @author DemRat
- *
  */
 public interface ISzeibernaetickCapability {
 
@@ -18,26 +17,26 @@ public interface ISzeibernaetickCapability {
      *
      * @return An unique Identifier.
      */
-    public String getIdentifier();
+    String getIdentifier();
 
     /**
      * Stores this Capability as a NBTTagCompound.
      *
      * @return The NBT storing this capability.
      */
-    public NBTTagCompound toNBT();
+    NBTTagCompound toNBT();
 
     /**
      * Restores this capabilities values from an NBTTagCompound.
      *
      * @param nbt
      */
-    public void fromNBT(NBTTagCompound nbt);
+    void fromNBT(NBTTagCompound nbt);
 
     /**
      * The {@code BodyPart} this Capability inhabits when installed.
      *
      * @return
      */
-    public BodyPart getBodyPart();
+    BodyPart getBodyPart();
 }

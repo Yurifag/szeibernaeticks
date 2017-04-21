@@ -6,7 +6,5 @@ package main.de.grzb.szeibernaeticks.szeibernaeticks.event;
  * the future.
  *
  * @author DemRat
- *
  */
-public interface ISzeibernaetickEventHandler {
-}
+public interface ISzeibernaetickEventHandler {}

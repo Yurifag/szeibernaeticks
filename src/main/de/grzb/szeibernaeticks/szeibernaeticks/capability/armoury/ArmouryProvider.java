@@ -11,39 +11,38 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
  * Does Stuff related to Capabilities. TODO: What exactly, again?
  *
  * @author DemRat
- *
  */
-public class SzeibernaetickArmouryProvider implements ICapabilitySerializable<NBTBase> {
+public class ArmouryProvider implements ICapabilitySerializable<NBTBase> {
 
-    @CapabilityInject(ISzeibernaetickArmouryCapability.class)
-    public static final Capability<ISzeibernaetickArmouryCapability> ARMOURY_CAP = null;
+    @CapabilityInject(IArmouryCapability.class)
+    public static final Capability<IArmouryCapability> ARMOURY_CAP = null;
 
-    private ISzeibernaetickArmouryCapability instance;
+    private IArmouryCapability instance;
     private Entity attachedTo;
 
-    public SzeibernaetickArmouryProvider(Entity attachedTo) {
+    public ArmouryProvider(Entity attachedTo) {
         this.attachedTo = attachedTo;
-        instance = new SzeibernaetickArmoury(attachedTo);
+        this.instance = new Armoury(attachedTo);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == ARMOURY_CAP;
+        return capability.equals(ARMOURY_CAP);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == ARMOURY_CAP ? ARMOURY_CAP.<T>cast(this.instance) : null;
+        return capability.equals(ARMOURY_CAP) ? ARMOURY_CAP.cast(this.instance) : null;
     }
 
     @Override
     public NBTBase serializeNBT() {
-        return ARMOURY_CAP.getStorage().writeNBT(ARMOURY_CAP, instance, null);
+        return ARMOURY_CAP.getStorage().writeNBT(ARMOURY_CAP, this.instance, null);
     }
 
     @Override
     public void deserializeNBT(NBTBase nbt) {
-        ARMOURY_CAP.getStorage().readNBT(ARMOURY_CAP, instance, null, nbt);
+        ARMOURY_CAP.getStorage().readNBT(ARMOURY_CAP, this.instance, null, nbt);
     }
 
 }

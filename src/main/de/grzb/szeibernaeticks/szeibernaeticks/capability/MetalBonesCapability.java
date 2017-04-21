@@ -8,9 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
  * The Capability corresponding to {@link ItemMetalBones}.
  *
  * @author DemRat
- *
  */
-public class SzeibernaetickMetalBonesCapability implements ISzeibernaetickCapability {
+public class MetalBonesCapability implements ISzeibernaetickCapability {
 
     private int damage;
 
@@ -19,20 +18,20 @@ public class SzeibernaetickMetalBonesCapability implements ISzeibernaetickCapabi
         return "MetalBonesCapability";
     }
 
-    public SzeibernaetickMetalBonesCapability() {
-        damage = 0;
+    public MetalBonesCapability() {
+        this.damage = 0;
     }
 
     @Override
     public NBTTagCompound toNBT() {
         NBTTagCompound base = new NBTTagCompound();
-        base.setInteger("damage", damage);
+        base.setInteger("damage", this.damage);
         return base;
     }
 
     @Override
     public void fromNBT(NBTTagCompound nbt) {
-        damage = nbt.getInteger("damage");
+        this.damage = nbt.getInteger("damage");
     }
 
     @Override

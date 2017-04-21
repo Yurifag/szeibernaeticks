@@ -8,10 +8,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Initializes the mod blocks and creates corresponding ItemBlocks. Configure
  * src/main/resources as source folder in Eclipse to make resources work while
  * debugging.
- * 
- * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
- * @author yuri
  *
+ * @author yuri
+ * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
  */
 public final class ModBlocks {
     public static BlockBase ore_copper;
@@ -24,7 +23,7 @@ public final class ModBlocks {
 
     /**
      * Registers a block and it's corresponding item and item model.
-     * 
+     *
      * @param block
      * @param itemBlock
      * @return {@link BlockBase}
@@ -42,7 +41,7 @@ public final class ModBlocks {
 
     /**
      * Creates the corresponding item to a given block and registers both.
-     * 
+     *
      * @param block
      * @return {@link BlockBase}
      */

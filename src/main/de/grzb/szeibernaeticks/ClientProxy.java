@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Executes code only on the client side.
- * 
+ *
  * @author yuri
  */
 public class ClientProxy extends CommonProxy {

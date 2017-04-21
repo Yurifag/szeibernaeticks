@@ -6,9 +6,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Registers all tile entities during pre-init.
- * 
- * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
+ *
  * @author yuri
+ * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
  */
 public final class ModTileEntities {
     public static TileEntity assembler;

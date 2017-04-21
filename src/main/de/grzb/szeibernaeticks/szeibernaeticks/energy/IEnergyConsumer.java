@@ -7,7 +7,7 @@ public interface IEnergyConsumer {
      *
      * @return
      */
-    public EnergyPriority currentConsumptionPrio();
+    EnergyPriority currentConsumptionPrio();
 
     /**
      * Returns whether this Consumer can still consume energy this tick.<br>
@@ -16,7 +16,7 @@ public interface IEnergyConsumer {
      *
      * @return Duh
      */
-    public boolean canStillConsume();
+    boolean canStillConsume();
 
     /**
      * Consumes a single unit of energy and returns 1.<br>
@@ -24,8 +24,8 @@ public interface IEnergyConsumer {
      * This consumes a single unit of energy, if possible. If for whatever
      * reason this cannot consume, this returns 0.
      *
-     * @return 1 if consumption was successfull, 0 otherwise.
+     * @return 1 if consumption was successful, 0 otherwise.
      */
-    public int consume();
+    int consume();
 
 }

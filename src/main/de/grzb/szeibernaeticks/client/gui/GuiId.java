@@ -5,7 +5,7 @@ public enum GuiId {
 
     private final int id;
 
-    private GuiId(int id) {
+    GuiId(int id) {
         this.id = id;
     }
 

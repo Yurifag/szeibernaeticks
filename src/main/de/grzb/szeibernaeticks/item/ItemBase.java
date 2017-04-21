@@ -6,9 +6,8 @@ import net.minecraft.item.Item;
 
 /**
  * A simple base class for creating items.
- * 
- * @author yuri
  *
+ * @author yuri
  */
 public class ItemBase extends Item {
 
@@ -21,7 +20,7 @@ public class ItemBase extends Item {
     }
 
     public void registerItemModel() {
-        Szeibernaeticks.proxy.registerItemRenderer(this, 0, name);
+        Szeibernaeticks.proxy.registerItemRenderer(this, 0, this.name);
     }
 
     @Override

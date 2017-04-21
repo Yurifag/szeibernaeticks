@@ -7,77 +7,63 @@ package main.de.grzb.szeibernaeticks.control;
  * process.
  *
  * @author DemRat
- *
  */
 public enum LogType {
     /**
      * General Information about the loading and structure of the mod.
      */
-    INFO(true),
-    /**
+    INFO(true), /**
      * Errors during Mod execution.
      */
-    ERROR(true),
-    /**
+    ERROR(true), /**
      * Information concerning Exceptions. USE
      * {@code Szeibernaeticks.getLogger().exception()} INSTEAD UNLESS YOU HAVE A
      * GOOD REASON.
      */
-    EXCEPTION(true),
-    /**
+    EXCEPTION(true), /**
      * Information concerning the inital loading of the mod.
      */
-    SETUP(true),
-    /**
+    SETUP(true), /**
      * General Information about Items.
      */
-    ITEM(false),
-    /**
+    ITEM(false), /**
      * Information concerning Szeibernaetick Capabilities.
      */
-    SZEIBER_CAP(false),
-    /**
+    SZEIBER_CAP(false), /**
      * Information concerning Szeibernaetick Event Handlers.
      */
-    SZEIBER_HANDLER(false),
-    /**
+    SZEIBER_HANDLER(false), /**
      * Information concerning Szeiberneatick Armouries.
      */
-    SZEIBER_ARM(false),
-    /**
+    SZEIBER_ARM(false), /**
      * Information concerning Szeiberneatick Energy.
      */
-    SZEIBER_ENERGY(false),
-    /**
+    SZEIBER_ENERGY(false), /**
      * Information concerning Commands.
      */
-    COMMAND(false),
-    /**
+    COMMAND(false), /**
      * Logs that produce output that cannot be prevented by the player, i.e. all
      * logs that produce output indefinitely in a newly generated world without
      * mobs or anything else.
      */
-    SPAMMY(false),
-    /**
+    SPAMMY(false), /**
      * Information about the inner workings of the mod.
      */
-    DEBUG(false),
-    /**
+    DEBUG(false), /**
      * Information concerning the instantiation of classes.
      */
-    INSTANTIATION(false),
-    /**
+    INSTANTIATION(false), /**
      * Specific Information. For example, exact values used in a method.
      */
     SPECIFIC(false);
 
     private boolean isEnabledInDefault;
 
-    private LogType(boolean b) {
-        isEnabledInDefault = b;
+    LogType(boolean b) {
+        this.isEnabledInDefault = b;
     }
 
     public Boolean defaultEnabled() {
-        return isEnabledInDefault;
+        return this.isEnabledInDefault;
     }
 }

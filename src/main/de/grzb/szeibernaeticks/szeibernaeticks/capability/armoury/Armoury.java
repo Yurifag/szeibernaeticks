@@ -1,8 +1,5 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
 
-import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-
 import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
@@ -11,30 +8,33 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickInstalle
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
 
-public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class Armoury implements IArmouryCapability {
 
     private Entity entityAttachedTo;
     ConcurrentHashMap<BodyPart, ISzeibernaetickCapability> bodyMap;
     ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, ISzeibernaetickCapability> itemMap;
 
-    public SzeibernaetickArmoury(Entity entity) {
-        bodyMap = new ConcurrentHashMap<BodyPart, ISzeibernaetickCapability>();
-        itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, ISzeibernaetickCapability>();
-        entityAttachedTo = entity;
+    public Armoury(Entity entity) {
+        this.bodyMap = new ConcurrentHashMap<BodyPart, ISzeibernaetickCapability>();
+        this.itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, ISzeibernaetickCapability>();
+        this.entityAttachedTo = entity;
     }
 
     @Override
     public boolean addSzeibernaetick(ISzeibernaetickCapability szeiber) {
         Log.log("Attempting to add " + szeiber.getIdentifier(), LogType.DEBUG, LogType.SZEIBER_ARM);
         Log.log("BodyPart is: " + szeiber.getBodyPart().toString(), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
-        Log.log("Szeiber in that Slot is: " + bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
-        
-        if(bodyMap.get(szeiber.getBodyPart()) == null) {
+        Log.log("Szeiber in that Slot is: " + this.bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
+
+        if(this.bodyMap.get(szeiber.getBodyPart()) == null) {
             Log.log("Body Part is not used.", LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
             // Tell anyone interested that you are installing a Szeibernaetick
             MinecraftForge.EVENT_BUS.post(new SzeibernaetickInstalledEvent(this, szeiber));
-            bodyMap.put(szeiber.getBodyPart(), szeiber);
-            itemMap.put(szeiber.getClass(), szeiber);
+            this.bodyMap.put(szeiber.getBodyPart(), szeiber);
+            this.itemMap.put(szeiber.getClass(), szeiber);
             return true;
         }
         return false;
@@ -42,33 +42,33 @@ public class SzeibernaetickArmoury implements ISzeibernaetickArmouryCapability {
 
     @Override
     public ISzeibernaetickCapability getSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeiberClass) {
-        return itemMap.get(szeiberClass);
+        return this.itemMap.get(szeiberClass);
     }
 
     @Override
     public Collection<ISzeibernaetickCapability> getSzeibernaeticks() {
-        return bodyMap.values();
+        return this.bodyMap.values();
     }
 
     @Override
     public ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeibernaetick) {
         Class<? extends ISzeibernaetickCapability> szeibernaetickClass = szeibernaetick.getClass();
-        if(itemMap.get(szeibernaetickClass) != null) {
-          itemMap.remove(szeibernaetickClass);
-          bodyMap.remove(szeibernaetick.getBodyPart());
-          return szeibernaetick;
+        if(this.itemMap.get(szeibernaetickClass) != null) {
+            this.itemMap.remove(szeibernaetickClass);
+            this.bodyMap.remove(szeibernaetick.getBodyPart());
+            return szeibernaetick;
         }
         return null;
     }
 
     @Override
     public ISzeibernaetickCapability getBodyPart(BodyPart b) {
-        return bodyMap.get(b);
+        return this.bodyMap.get(b);
     }
 
     @Override
     public Entity getEntity() {
-        return entityAttachedTo;
+        return this.entityAttachedTo;
     }
 
 }

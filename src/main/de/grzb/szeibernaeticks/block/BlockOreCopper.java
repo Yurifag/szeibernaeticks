@@ -2,11 +2,10 @@ package main.de.grzb.szeibernaeticks.block;
 
 /**
  * Copper ore. Used as basis for almost all Items and Blocks.
- * 
+ * <p>
  * TODO: EVERYTHING about Copper ore
- * 
- * @author yuri
  *
+ * @author yuri
  */
 public class BlockOreCopper extends BlockOre {
 

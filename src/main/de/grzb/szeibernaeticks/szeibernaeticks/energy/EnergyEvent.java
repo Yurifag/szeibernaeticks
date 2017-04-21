@@ -9,8 +9,8 @@ public abstract class EnergyEvent extends Event {
     protected int remainingAmount;
 
     public EnergyEvent(Entity entity, int amount) {
-        eventEntity = entity;
-        remainingAmount = amount;
+        this.eventEntity = entity;
+        this.remainingAmount = amount;
     }
 
     /**
@@ -19,7 +19,7 @@ public abstract class EnergyEvent extends Event {
      * @return
      */
     public int getRemainingAmount() {
-        return remainingAmount;
+        return this.remainingAmount;
     }
 
     /**
@@ -28,6 +28,6 @@ public abstract class EnergyEvent extends Event {
      * @return This events entity
      */
     public Entity getEntity() {
-        return eventEntity;
+        return this.eventEntity;
     }
 }

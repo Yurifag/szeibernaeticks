@@ -8,9 +8,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Registers all recipes during init.
- * 
- * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
+ *
  * @author yuri
+ * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
  */
 public class ModRecipes {
 

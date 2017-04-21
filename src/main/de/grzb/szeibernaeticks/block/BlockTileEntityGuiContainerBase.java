@@ -16,10 +16,9 @@ import net.minecraft.world.World;
  * chests/containers, machines etc.).<br>
  * Note that the GUI_ID is currently unused, but I decided to automatically
  * assign each GUI an ID anyway.
- * 
- * @see TileEntityGuiContainerBase
- * @author yuri
  *
+ * @author yuri
+ * @see TileEntityGuiContainerBase
  */
 public abstract class BlockTileEntityGuiContainerBase extends BlockTileEntityContainerBase {
 

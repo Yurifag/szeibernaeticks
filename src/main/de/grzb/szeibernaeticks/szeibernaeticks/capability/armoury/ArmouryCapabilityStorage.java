@@ -1,7 +1,5 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
 
-import java.util.Set;
-
 import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.SzeibernaetickMapper;
@@ -12,18 +10,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
+import java.util.Set;
+
 /**
  * Responsible for converting ISzeibernaetickStorageCapabilities to NBT and
  * back, for saving and loading.
  *
  * @author DemRat
- *
  */
-public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeibernaetickArmouryCapability> {
+public class ArmouryCapabilityStorage implements IStorage<IArmouryCapability> {
 
     @Override
-    public void readNBT(Capability<ISzeibernaetickArmouryCapability> capability,
-            ISzeibernaetickArmouryCapability instance, EnumFacing side, NBTBase nbt) {
+    public void readNBT(Capability<IArmouryCapability> capability, IArmouryCapability instance, EnumFacing side, NBTBase nbt) {
         // Attempt to read the NBT as an Compound. If this fails, the Capability
         // wasn't saved correctly.
         NBTTagCompound tag;
@@ -44,16 +42,14 @@ public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeiber
             NBTTagCompound compound = tag.getCompoundTag(s);
             if(compound != null) {
                 ISzeibernaetickCapability cap;
-                Class<? extends ISzeibernaetickCapability> capClass = SzeibernaetickMapper.instance
-                        .getCapabilityFromIdentifier(s);
+                Class<? extends ISzeibernaetickCapability> capClass = SzeibernaetickMapper.instance.getCapabilityFromIdentifier(s);
                 try {
                     cap = capClass.newInstance();
                     cap.fromNBT(compound);
                     instance.addSzeibernaetick(cap);
                 }
                 catch(InstantiationException e) {
-                    Log.log("Could not instantiate ISzeibernaetickCapability of class: " + capClass.toString(),
-                            LogType.ERROR);
+                    Log.log("Could not instantiate ISzeibernaetickCapability of class: " + capClass.toString(), LogType.ERROR);
                     Log.logThrowable(e);
                     e.printStackTrace();
                 }
@@ -67,8 +63,7 @@ public class SzeibernaetickArmouryCapabilityStorage implements IStorage<ISzeiber
     }
 
     @Override
-    public NBTBase writeNBT(Capability<ISzeibernaetickArmouryCapability> capability,
-            ISzeibernaetickArmouryCapability instance, EnumFacing side) {
+    public NBTBase writeNBT(Capability<IArmouryCapability> capability, IArmouryCapability instance, EnumFacing side) {
         // ItemStacks have NBT-representations, so we simply get those and write
         // them to the NBT.
         NBTTagCompound tag = new NBTTagCompound();

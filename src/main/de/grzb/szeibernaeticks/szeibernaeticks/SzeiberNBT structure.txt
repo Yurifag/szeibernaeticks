@@ -1,26 +1,26 @@
 This is the structure of an NBTTag containing a Szeibernaeticks Tag.
 
 {
-	OtherTag : Value,
-	"Szeibernaeticks" : {
-		Unlocalized Name : {
-			"Properties" : {
-				"damage" : The damage value
-				Item Specific Properties : Their value
-			}
-		}
-	},
-	AnotherTag : Value
+    OtherTag : Value,
+    "Szeibernaeticks" : {
+        Unlocalized Name : {
+            "Properties" : {
+                "damage" : The damage value
+                Item Specific Properties : Their value
+            }
+        }
+    },
+    AnotherTag : Value
 }
 
 When passing this between Methods/Objects, the "Szeibernaeticks" Compound Tag is the base Tag:
 {
-	Unlocalized Name : {
-		"Properties" : {
-			"damage" : The damage value
-			Item Specific Properties : Their value
-		}
-	}
+    Unlocalized Name : {
+        "Properties" : {
+            "damage" : The damage value
+            Item Specific Properties : Their value
+        }
+    }
 }
 
 Naming Convention:

@@ -13,18 +13,17 @@ public class EnergyConsumptionEvent extends EnergyEvent {
      * <br>
      * This can only reduce the remaining demand to 0.
      *
-     * @param amount
-     *            The amount attempted to cover.
+     * @param amount The amount attempted to cover.
      * @return How much energy could not be consumed.
      */
     public int cover(int amount) {
-        remainingAmount = remainingAmount - amount;
+        this.remainingAmount = this.remainingAmount - amount;
         amount = 0;
 
         // You cannot consume more than is produced!
-        if(remainingAmount < 0) {
-            amount = -remainingAmount;
-            remainingAmount = 0;
+        if(this.remainingAmount < 0) {
+            amount = -this.remainingAmount;
+            this.remainingAmount = 0;
         }
         return amount;
     }

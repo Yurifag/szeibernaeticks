@@ -5,15 +5,16 @@ import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.crafting.ModRecipes;
 import main.de.grzb.szeibernaeticks.item.ModItems;
+import main.de.grzb.szeibernaeticks.networking.GuiMessage;
+import main.de.grzb.szeibernaeticks.networking.NetworkWrapper;
 import main.de.grzb.szeibernaeticks.networking.SzeiberCapMessage;
-import main.de.grzb.szeibernaeticks.networking.SzeibernaeticksNetworkWrapper;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.CapabilityAttacher;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.CapabilityStorage;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickCapabilityAttacher;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickCapabilityStorage;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickMetalBonesCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ISzeibernaetickArmouryCapability;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmoury;
-import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.SzeibernaetickArmouryCapabilityStorage;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.MetalBonesCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.Armoury;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ArmouryCapabilityStorage;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.IArmouryCapability;
 import main.de.grzb.szeibernaeticks.tileentity.ModTileEntities;
 import main.de.grzb.szeibernaeticks.world.ModWorldGenerator;
 import net.minecraft.item.Item;
@@ -29,8 +30,8 @@ import net.minecraftforge.fml.relauncher.Side;
 /**
  * Executes code on both, server and client.
  *
- * @see ClientProxy
  * @author yuri
+ * @see ClientProxy
  */
 public class CommonProxy {
 
@@ -43,10 +44,10 @@ public class CommonProxy {
         ModBlocks.init();
         ModTileEntities.init();
 
-        SzeibernaeticksNetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class,
-                SzeiberCapMessage.class, SzeibernaeticksNetworkWrapper.getId(), Side.CLIENT);
+        NetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class, SzeiberCapMessage.class, NetworkWrapper.getId(), Side.CLIENT);
+        NetworkWrapper.INSTANCE.registerMessage(GuiMessage.GuiMessageHandler.class, GuiMessage.class, NetworkWrapper.getId(), Side.SERVER);
 
-        MinecraftForge.EVENT_BUS.register(new SzeibernaetickCapabilityAttacher());
+        MinecraftForge.EVENT_BUS.register(new CapabilityAttacher());
     }
 
     public void init(FMLInitializationEvent e) {
@@ -54,10 +55,8 @@ public class CommonProxy {
         GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(Szeibernaeticks.instance, new GuiProxy());
 
-        CapabilityManager.INSTANCE.register(ISzeibernaetickArmouryCapability.class,
-                new SzeibernaetickArmouryCapabilityStorage(), SzeibernaetickArmoury.class);
-        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new SzeibernaetickCapabilityStorage(),
-                SzeibernaetickMetalBonesCapability.class);
+        CapabilityManager.INSTANCE.register(IArmouryCapability.class, new ArmouryCapabilityStorage(), Armoury.class);
+        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new CapabilityStorage(), MetalBonesCapability.class);
     }
 
     public void postInit(FMLPostInitializationEvent e) {

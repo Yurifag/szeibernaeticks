@@ -1,7 +1,5 @@
 package main.de.grzb.szeibernaeticks.container;
 
-import javax.annotation.Nullable;
-
 import main.de.grzb.szeibernaeticks.Szeibernaeticks;
 import main.de.grzb.szeibernaeticks.client.gui.GuiId;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
@@ -11,12 +9,14 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nullable;
+
 /**
  * Base class to create container GUIs.
- * 
+ *
  * @author yuri
  */
-public class GuiContainerBase extends ContainerBase {
+public abstract class GuiContainerBase extends ContainerBase {
     protected GuiId guiId;
     protected GuiLayoutDefinition layout;
 
@@ -25,7 +25,6 @@ public class GuiContainerBase extends ContainerBase {
     /**
      * Sets up a basic GUI layout. Take care for the player's own inventory and
      * border spacing.
-     * 
      */
     public GuiContainerBase(TileEntityGuiContainerBase tileEntity, GuiLayoutDefinition layout, GuiId guiId) {
         super(tileEntity);

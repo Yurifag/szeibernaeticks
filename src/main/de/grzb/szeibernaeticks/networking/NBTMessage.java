@@ -19,18 +19,18 @@ public abstract class NBTMessage implements IMessage {
 
     protected String readString(ByteBuf buf) {
         int idLength = buf.readInt();
-        String id = new String();
+        StringBuilder id = new StringBuilder();
         for(int i = 0; i < idLength; i++) {
             char c = buf.readChar();
-            id = id + c;
+            id.append(c);
         }
-        return id;
+        return id.toString();
     }
 
     protected void writeString(ByteBuf buf, String s) {
-        int l = s.length();
-        buf.writeInt(l);
-        for(int i = 0; i < l; i++) {
+        int k = s.length();
+        buf.writeInt(k);
+        for(int i = 0; i < k; i++) {
             buf.writeChar(s.charAt(i));
         }
     }
@@ -40,17 +40,17 @@ public abstract class NBTMessage implements IMessage {
         NBTTagCompound tag = new NBTTagCompound();
 
         while(buf.isReadable()) {
-            nextKey = readString(buf);
-            tag.setTag(nextKey, readTag(buf));
+            nextKey = this.readString(buf);
+            tag.setTag(nextKey, this.readTag(buf));
         }
         return tag;
     }
 
     protected void writeCompoundTag(ByteBuf buf, NBTTagCompound comp) {
         for(String s : comp.getKeySet()) {
-            writeString(buf, s);
+            this.writeString(buf, s);
             NBTBase tag = comp.getTag(s);
-            writeTag(buf, tag);
+            this.writeTag(buf, tag);
         }
     }
 
@@ -92,18 +92,18 @@ public abstract class NBTMessage implements IMessage {
                 break;
             case 8:
                 NBTTagString strin = (NBTTagString) tag;
-                writeString(buf, strin.getString());
+                this.writeString(buf, strin.getString());
                 break;
             case 9:
                 NBTTagList lis = (NBTTagList) tag;
                 int max = lis.tagCount();
                 for(int i = 0; i < max; i++) {
-                    writeTag(buf, lis.get(i));
+                    this.writeTag(buf, lis.get(i));
                 }
                 break;
             case 10:
                 NBTTagCompound compound = (NBTTagCompound) tag;
-                writeCompoundTag(buf, compound);
+                this.writeCompoundTag(buf, compound);
                 break;
             case 11:
                 NBTTagIntArray intArra = (NBTTagIntArray) tag;
@@ -146,17 +146,17 @@ public abstract class NBTMessage implements IMessage {
                 tag = new NBTTagByteArray(buf.readBytes(length).array());
                 break;
             case 8:
-                tag = new NBTTagString(readString(buf));
+                tag = new NBTTagString(this.readString(buf));
                 break;
             case 9:
                 int max = buf.readInt();
                 tag = new NBTTagList();
                 for(int i = 0; i < max; i++) {
-                    ((NBTTagList) tag).appendTag(readTag(buf));
+                    ((NBTTagList) tag).appendTag(this.readTag(buf));
                 }
                 break;
             case 10:
-                tag = readCompoundTag(buf);
+                tag = this.readCompoundTag(buf);
                 break;
             case 11:
                 int total = buf.readInt();

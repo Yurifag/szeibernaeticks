@@ -1,18 +1,17 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Maps the identifiers of Capabilities to the Capability classes as well as
  * those Classes to Items.
  *
  * @author DemRat
- *
  */
 public class SzeibernaetickMapper {
 
@@ -22,8 +21,8 @@ public class SzeibernaetickMapper {
     private ConcurrentHashMap<String, Class<? extends ISzeibernaetickCapability>> idMap;
 
     private SzeibernaetickMapper() {
-        itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, SzeibernaetickBase>();
-        idMap = new ConcurrentHashMap<String, Class<? extends ISzeibernaetickCapability>>();
+        this.itemMap = new ConcurrentHashMap<Class<? extends ISzeibernaetickCapability>, SzeibernaetickBase>();
+        this.idMap = new ConcurrentHashMap<String, Class<? extends ISzeibernaetickCapability>>();
     }
 
     /**
@@ -35,17 +34,15 @@ public class SzeibernaetickMapper {
      */
     public void register(Class<? extends ISzeibernaetickCapability> cap, SzeibernaetickBase item) {
         Log.log("Trying to register Capability!", LogType.DEBUG, LogType.SETUP);
-        if(itemMap.put(cap, item) != null) {
-            Log.log("Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?",
-                    LogType.SETUP, LogType.ERROR);
+        if(this.itemMap.put(cap, item) != null) {
+            Log.log("Overrode Szeibernaetick Item Mapping! This should not happen. Did you try to register different items for the same Capability?", LogType.SETUP, LogType.ERROR);
         }
 
         try {
             String identifier = cap.newInstance().getIdentifier();
             Log.log("Registering Capability!", LogType.INFO, LogType.SETUP);
-            if(idMap.put(identifier, cap) != null) {
-                Log.log("Overrode Szeibernaetick Capability Mapping! This should not happen. Did you register 2 Capabilities with identical Identifiers?",
-                        LogType.SETUP, LogType.ERROR);
+            if(this.idMap.put(identifier, cap) != null) {
+                Log.log("Overrode Szeibernaetick Capability Mapping! This should not happen. Did you register 2 Capabilities with identical Identifiers?", LogType.SETUP, LogType.ERROR);
             }
         }
         catch(InstantiationException e) {
@@ -57,17 +54,16 @@ public class SzeibernaetickMapper {
     }
 
     public SzeibernaetickBase getItemFromCapability(Class<? extends ISzeibernaetickCapability> capability) {
-        return itemMap.get(capability);
+        return this.itemMap.get(capability);
     }
-    
+
     public SzeibernaetickBase getItemFromIdentifier(String identifier) {
-        return this.getItemFromCapability(idMap.get(identifier));
+        return this.getItemFromCapability(this.idMap.get(identifier));
     }
 
     public Class<? extends ISzeibernaetickCapability> getCapabilityFromIdentifier(String identifier) {
-        Log.log("Capability class was requested. Do I have it? Its name is " + identifier + " :"
-                + (idMap.get(identifier) != null), LogType.SPECIFIC, LogType.DEBUG);
-        return idMap.get(identifier);
+        Log.log("Capability class was requested. Do I have it? Its name is " + identifier + " :" + (this.idMap.get(identifier) != null), LogType.SPECIFIC, LogType.DEBUG);
+        return this.idMap.get(identifier);
     }
 
 }

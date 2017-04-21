@@ -7,9 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Base class for a tile entity handling an inventory with GUI.
- * 
- * @author yuri
  *
+ * @author yuri
  */
 public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase {
     protected final GuiId guiId;
@@ -25,19 +24,19 @@ public abstract class TileEntityGuiContainerBase extends TileEntityContainerBase
 
     /**
      * Get a new instance of the corresponding container.
-     * 
-     * @param playerInventory
+     *
+     * @param player
      * @return {@link GuiContainerBase}
      */
     public abstract GuiContainerBase getContainer(EntityPlayer player);
 
     /**
      * Only lets the player open the inventory if they're in range.
-     * 
+     *
      * @return {@link Boolean}
      */
     public boolean canInteractWith(EntityPlayer player) {
-        return !this.isInvalid() && player.getDistanceSq(this.pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
+        return !this.isInvalid() && player.getDistanceSq(this.pos.add(0.5D, 0.5D, 0.5D)) <= 64.0D;
     }
 
     public GuiId getGuiId() {

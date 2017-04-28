@@ -47,7 +47,8 @@ public class SyntheticEyesCapability implements ISzeibernaetickCapability, IEner
     }
 
     public boolean grantVision(Entity target) {
-        Log.log("[SynthEyesCap] SynthEyes attempting to grant vision!", LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[SynthEyesCap] SynthEyes attempting to grant vision!", LogType.DEBUG, LogType.SZEIBER_CAP,
+                LogType.SPAMMY);
         boolean granted = false;
 
         if(this.storage >= this.consumption) {
@@ -57,11 +58,13 @@ public class SyntheticEyesCapability implements ISzeibernaetickCapability, IEner
         }
 
         if(this.storage < this.consumption) {
-            Log.log("[SynthEyesCap] SynthEyes missing Energy, posting Event.", LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[SynthEyesCap] SynthEyes missing Energy, posting Event.", LogType.DEBUG, LogType.SZEIBER_CAP,
+                    LogType.SPAMMY);
             int missingEnergy = this.maxStorage - this.storage;
             EnergyConsumptionEvent event = new EnergyConsumptionEvent(target, missingEnergy);
             MinecraftForge.EVENT_BUS.post(event);
-            Log.log("[SynthEyesCap] Event granted " + (missingEnergy - event.getRemainingAmount()) + " Energy.", LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[SynthEyesCap] Event granted " + (missingEnergy - event.getRemainingAmount()) + " Energy.",
+                    LogType.DEBUG, LogType.SZEIBER_CAP, LogType.SPAMMY);
             this.storage += (missingEnergy - event.getRemainingAmount());
         }
 
@@ -80,10 +83,12 @@ public class SyntheticEyesCapability implements ISzeibernaetickCapability, IEner
 
     @Override
     public int consume() {
-        Log.log("[SynthEyesCap] SynthEyes attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[SynthEyesCap] SynthEyes attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(this.canStillConsume()) {
             this.storage++;
-            Log.log("[SynthEyesCap] SynthEyes consuming energy! Now storing: " + this.storage, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[SynthEyesCap] SynthEyes consuming energy! Now storing: " + this.storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;

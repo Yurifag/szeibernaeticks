@@ -15,15 +15,18 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.MetalBonesCapabil
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.Armoury;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ArmouryCapabilityStorage;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.IArmouryCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.entity.EntityBlockMarker;
 import main.de.grzb.szeibernaeticks.tileentity.ModTileEntities;
 import main.de.grzb.szeibernaeticks.world.ModWorldGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -44,10 +47,16 @@ public class CommonProxy {
         ModBlocks.init();
         ModTileEntities.init();
 
-        NetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class, SzeiberCapMessage.class, NetworkWrapper.getId(), Side.CLIENT);
-        NetworkWrapper.INSTANCE.registerMessage(GuiMessage.GuiMessageHandler.class, GuiMessage.class, NetworkWrapper.getId(), Side.SERVER);
+        NetworkWrapper.INSTANCE.registerMessage(SzeiberCapMessage.SzeiberCapMessageHandler.class,
+                SzeiberCapMessage.class, NetworkWrapper.getId(), Side.CLIENT);
+        NetworkWrapper.INSTANCE.registerMessage(GuiMessage.GuiMessageHandler.class, GuiMessage.class,
+                NetworkWrapper.getId(), Side.SERVER);
 
         MinecraftForge.EVENT_BUS.register(new CapabilityAttacher());
+
+        // TODO: Change this, maybe put somewhere else
+        EntityRegistry.registerModEntity(new ResourceLocation(Szeibernaeticks.RESOURCE_PREFIX + "block_marker"),
+                EntityBlockMarker.class, "block_marker", 0, Szeibernaeticks.instance, 20, 3, false);
     }
 
     public void init(FMLInitializationEvent e) {
@@ -56,7 +65,8 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(Szeibernaeticks.instance, new GuiProxy());
 
         CapabilityManager.INSTANCE.register(IArmouryCapability.class, new ArmouryCapabilityStorage(), Armoury.class);
-        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new CapabilityStorage(), MetalBonesCapability.class);
+        CapabilityManager.INSTANCE.register(ISzeibernaetickCapability.class, new CapabilityStorage(),
+                MetalBonesCapability.class);
     }
 
     public void postInit(FMLPostInitializationEvent e) {

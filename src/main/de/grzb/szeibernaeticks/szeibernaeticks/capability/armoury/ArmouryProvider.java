@@ -32,7 +32,10 @@ public class ArmouryProvider implements ICapabilitySerializable<NBTBase> {
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability.equals(ARMOURY_CAP) ? ARMOURY_CAP.cast(this.instance) : null;
+        if(capability.equals(ARMOURY_CAP)) {
+            return ARMOURY_CAP.cast(this.instance);
+        }
+        return null;
     }
 
     @Override

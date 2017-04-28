@@ -8,8 +8,10 @@ import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemMetalBones;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.GeneratorStomachCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SyntheticEyesCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickArchersEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.GeneratorStomachHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SyntheticEyesHandler;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickArchersEyesHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -29,6 +31,7 @@ public final class ModItems {
     public static SzeibernaetickBase dynamo_joints;
     public static SzeibernaetickBase synthetic_eyes;
     public static SzeibernaetickBase generator_stomach;
+    public static SzeibernaetickBase archers_eyes;
 
     /**
      * Initializes the mod items. Configure src/main/resources as source folder
@@ -42,8 +45,12 @@ public final class ModItems {
         metal_bones = register(new ItemMetalBones("metal_bones"));
         conductive_veins = register(new ItemConductiveVeins("conductive_veins"));
         dynamo_joints = register(new ItemDynamoJoints("dynamo_joints"));
-        synthetic_eyes = register(new SzeibernaetickBase("synthetic_eyes", SyntheticEyesCapability.class, SyntheticEyesHandler.class));
-        generator_stomach = register(new SzeibernaetickBase("generator_stomach", GeneratorStomachCapability.class, GeneratorStomachHandler.class));
+        synthetic_eyes = register(
+                new SzeibernaetickBase("synthetic_eyes", SyntheticEyesCapability.class, SyntheticEyesHandler.class));
+        generator_stomach = register(new SzeibernaetickBase("generator_stomach", GeneratorStomachCapability.class,
+                GeneratorStomachHandler.class));
+        archers_eyes = register(new SzeibernaetickBase("archers_eyes", SzeibernaetickArchersEyesCapability.class,
+                SzeibernaetickArchersEyesHandler.class));
     }
 
     private static <T extends Item> T register(T item) {

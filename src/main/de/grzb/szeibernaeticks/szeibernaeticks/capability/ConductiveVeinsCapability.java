@@ -20,14 +20,17 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
     }
 
     public void register(ISzeibernaetickCapability szeiber) {
-        Log.log("Adding " + szeiber.getIdentifier() + " to the Energy Network.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY);
+        Log.log("Adding " + szeiber.getIdentifier() + " to the Energy Network.", LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SZEIBER_ENERGY);
         if(szeiber instanceof IEnergyProducer) {
-            Log.log("It's a Producer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY, LogType.SPECIFIC);
+            Log.log("It's a Producer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
             this.producers.add((IEnergyProducer) szeiber);
         }
 
         if(szeiber instanceof IEnergyConsumer) {
-            Log.log("It's a Consumer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY, LogType.SPECIFIC);
+            Log.log("It's a Consumer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
             this.consumers.add((IEnergyConsumer) szeiber);
         }
     }
@@ -43,7 +46,8 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
     }
 
     @Override
-    public void fromNBT(NBTTagCompound nbt) {}
+    public void fromNBT(NBTTagCompound nbt) {
+    }
 
     @Override
     public BodyPart getBodyPart() {
@@ -51,22 +55,24 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
     }
 
     /**
-     * Handles the given EnergyConsumptionEvent
+     * Handles the given EnergyConsumptionEvent TODO: DOesn't quite work right
+     * now, debug this + Archers eyes
      *
-     * @param e The given Event.
+     * @param e
+     *            The given Event.
      */
     public void handleConsumptionEvent(EnergyConsumptionEvent e) {
-        Log.log("Consuming Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY, LogType.SPAMMY);
+        Log.log("Consuming Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SZEIBER_ENERGY, LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
         EnergyPriority[] prioArray = EnergyPriority.values();
         int length = prioArray.length;
         for(int i = 0; i < length / 2; i++) {
             EnergyPriority temp = prioArray[i];
-            prioArray[i] = prioArray[length - i];
-            prioArray[length - i] = temp;
+            prioArray[i] = prioArray[length - i - 1];
+            prioArray[length - i - 1] = temp;
         }
-        outestLoop:
-        for(EnergyPriority prio : EnergyPriority.values()) {
+        outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;
             // As long as at least one producer of the current prio can still
             // produce, repeat
@@ -92,13 +98,14 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
     /**
      * Handles the given EnergyProductionEvent.
      *
-     * @param e The given Event.
+     * @param e
+     *            The given Event.
      */
     public void handleProductionEvent(EnergyProductionEvent e) {
-        Log.log("Producing Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY, LogType.SPAMMY);
+        Log.log("Producing Energy on Entity: " + e.getEntity().getName(), LogType.DEBUG, LogType.SZEIBER_HANDLER,
+                LogType.SZEIBER_ENERGY, LogType.SPAMMY);
         // Iterate over all Priorities, in order of severance
-        outestLoop:
-        for(EnergyPriority prio : EnergyPriority.values()) {
+        outestLoop: for(EnergyPriority prio : EnergyPriority.values()) {
             boolean canStillProduce = true;
             // As long as at least one producer of the current prio can still
             // produce, repeat

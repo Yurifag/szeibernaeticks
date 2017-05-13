@@ -9,9 +9,11 @@ import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.GeneratorStomachCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SyntheticEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickArchersEyesCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickRadarEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.GeneratorStomachHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SyntheticEyesHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickArchersEyesHandler;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickRadarEyesHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -32,6 +34,7 @@ public final class ModItems {
     public static SzeibernaetickBase synthetic_eyes;
     public static SzeibernaetickBase generator_stomach;
     public static SzeibernaetickBase archers_eyes;
+    public static SzeibernaetickBase radar_eyes;
 
     /**
      * Initializes the mod items. Configure src/main/resources as source folder
@@ -51,6 +54,8 @@ public final class ModItems {
                 GeneratorStomachHandler.class));
         archers_eyes = register(new SzeibernaetickBase("archers_eyes", SzeibernaetickArchersEyesCapability.class,
                 SzeibernaetickArchersEyesHandler.class));
+        radar_eyes = register(new SzeibernaetickBase("radar_eyes", SzeibernaetickRadarEyesCapability.class,
+                SzeibernaetickRadarEyesHandler.class));
     }
 
     private static <T extends Item> T register(T item) {

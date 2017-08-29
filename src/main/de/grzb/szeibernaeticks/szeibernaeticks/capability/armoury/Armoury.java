@@ -1,15 +1,16 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
 
+import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
+
 import main.de.grzb.szeibernaeticks.control.Log;
 import main.de.grzb.szeibernaeticks.control.LogType;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickInstalledEvent;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickRemovedEvent;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Armoury implements IArmouryCapability {
 
@@ -26,8 +27,10 @@ public class Armoury implements IArmouryCapability {
     @Override
     public boolean addSzeibernaetick(ISzeibernaetickCapability szeiber) {
         Log.log("Attempting to add " + szeiber.getIdentifier(), LogType.DEBUG, LogType.SZEIBER_ARM);
-        Log.log("BodyPart is: " + szeiber.getBodyPart().toString(), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
-        Log.log("Szeiber in that Slot is: " + this.bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
+        Log.log("BodyPart is: " + szeiber.getBodyPart().toString(), LogType.DEBUG, LogType.SZEIBER_ARM,
+                LogType.SPECIFIC);
+        Log.log("Szeiber in that Slot is: " + this.bodyMap.get(szeiber.getBodyPart()), LogType.DEBUG,
+                LogType.SZEIBER_ARM, LogType.SPECIFIC);
 
         if(this.bodyMap.get(szeiber.getBodyPart()) == null) {
             Log.log("Body Part is not used.", LogType.DEBUG, LogType.SZEIBER_ARM, LogType.SPECIFIC);
@@ -51,12 +54,13 @@ public class Armoury implements IArmouryCapability {
     }
 
     @Override
-    public ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeibernaetick) {
-        Class<? extends ISzeibernaetickCapability> szeibernaetickClass = szeibernaetick.getClass();
+    public ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeiber) {
+        Class<? extends ISzeibernaetickCapability> szeibernaetickClass = szeiber.getClass();
         if(this.itemMap.get(szeibernaetickClass) != null) {
+            MinecraftForge.EVENT_BUS.post(new SzeibernaetickRemovedEvent(this, szeiber));
             this.itemMap.remove(szeibernaetickClass);
-            this.bodyMap.remove(szeibernaetick.getBodyPart());
-            return szeibernaetick;
+            this.bodyMap.remove(szeiber.getBodyPart());
+            return szeiber;
         }
         return null;
     }

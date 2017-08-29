@@ -120,4 +120,30 @@ public class SzeibernaetickRadarEyesCapability implements ISzeibernaetickCapabil
         return 0;
     }
 
+    @Override
+    public int getMaxEnergy() {
+        return maxStorage;
+    }
+
+    @Override
+    public int getCurrentEnergy() {
+        return storage;
+    }
+
+    @Override
+    public int store(int amountToStore) {
+        int consumed = 0;
+
+        while(consume() != 0) {
+            consumed++;
+        }
+
+        return consumed;
+    }
+
+    @Override
+    public int retrieve(int amountToRetrieve) {
+        return 0;
+    }
+
 }

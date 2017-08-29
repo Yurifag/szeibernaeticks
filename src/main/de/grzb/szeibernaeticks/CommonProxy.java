@@ -16,6 +16,7 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.Armoury;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.ArmouryCapabilityStorage;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury.IArmouryCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.entity.EntityBlockMarker;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.overlay.EnergyOverlay;
 import main.de.grzb.szeibernaeticks.tileentity.ModTileEntities;
 import main.de.grzb.szeibernaeticks.world.ModWorldGenerator;
 import net.minecraft.item.Item;
@@ -70,7 +71,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-
+        MinecraftForge.EVENT_BUS.register(new EnergyOverlay());
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {

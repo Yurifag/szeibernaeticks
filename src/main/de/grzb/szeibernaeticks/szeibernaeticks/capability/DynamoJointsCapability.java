@@ -64,10 +64,12 @@ public class DynamoJointsCapability implements ISzeibernaetickCapability, IEnerg
 
     @Override
     public int consume() {
-        Log.log("[DynJointsCap] DynJoints attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[DynJointsCap] DynJoints attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(this.canStillConsume()) {
             this.storage++;
-            Log.log("[DynJointsCap] DynJoints consuming energy! Now storing: " + this.storage, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[DynJointsCap] DynJoints consuming energy! Now storing: " + this.storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;
@@ -87,10 +89,12 @@ public class DynamoJointsCapability implements ISzeibernaetickCapability, IEnerg
 
     @Override
     public int produceAdHoc() {
-        Log.log("[DynJointsCap] DynJoints attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[DynJointsCap] DynJoints attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(this.canStillProduce()) {
             this.storage--;
-            Log.log("[DynJointsCap] DynJoints produced energy! Remaining storage: " + this.storage, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[DynJointsCap] DynJoints produced energy! Remaining storage: " + this.storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;
@@ -99,8 +103,10 @@ public class DynamoJointsCapability implements ISzeibernaetickCapability, IEnerg
     /**
      * Produces energy based on the given fall height.
      *
-     * @param height How far this fell.
-     * @param entity The entity this happend on
+     * @param height
+     *            How far this fell.
+     * @param entity
+     *            The entity this happend on
      * @return The amount of energy produced.
      */
     public int produce(float height, Entity entity) {
@@ -110,7 +116,8 @@ public class DynamoJointsCapability implements ISzeibernaetickCapability, IEnerg
             energyProduced = (int) this.fractionalStorage;
             this.fractionalStorage = this.fractionalStorage - energyProduced;
         }
-        Log.log("[DynJointsCap] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP);
+        Log.log("[DynJointsCap] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP);
         EnergyProductionEvent production = new EnergyProductionEvent(entity, energyProduced);
         MinecraftForge.EVENT_BUS.post(production);
 
@@ -118,6 +125,32 @@ public class DynamoJointsCapability implements ISzeibernaetickCapability, IEnerg
             entity.attackEntityFrom(new EnergyFeedbackDamage(this), production.getRemainingAmount());
         }
         return energyProduced;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return maxStorage;
+    }
+
+    @Override
+    public int getCurrentEnergy() {
+        return storage;
+    }
+
+    @Override
+    public int store(int amountToStore) {
+        int consumed = 0;
+
+        while(consume() != 0) {
+            consumed++;
+        }
+
+        return consumed;
+    }
+
+    @Override
+    public int retrieve(int amountToRetrieve) {
+        return 0;
     }
 
 }

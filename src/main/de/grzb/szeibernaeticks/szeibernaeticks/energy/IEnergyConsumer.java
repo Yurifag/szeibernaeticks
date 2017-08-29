@@ -1,6 +1,6 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.energy;
 
-public interface IEnergyConsumer {
+public interface IEnergyConsumer extends IEnergyStorer {
     /**
      * Returns with what priority this Consumer currently needs to consume
      * energy.

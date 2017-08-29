@@ -35,6 +35,23 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
         }
     }
 
+    public void unregister(ISzeibernaetickCapability szeiber) {
+        Log.log("Removing " + szeiber.getIdentifier() + " from the Energy Network.", LogType.DEBUG,
+                LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY);
+
+        if(szeiber instanceof IEnergyProducer) {
+            Log.log("It's a Producer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
+            this.producers.remove(szeiber);
+        }
+
+        if(szeiber instanceof IEnergyConsumer) {
+            Log.log("It's a Consumer.", LogType.DEBUG, LogType.SZEIBER_HANDLER, LogType.SZEIBER_ENERGY,
+                    LogType.SPECIFIC);
+            this.consumers.remove(szeiber);
+        }
+    }
+
     @Override
     public String getIdentifier() {
         return "VeinsCapability";
@@ -126,5 +143,46 @@ public class ConductiveVeinsCapability implements ISzeibernaetickCapability {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the amount of energy currently existing within all
+     * Szeibernaeticks attached to these veins.
+     *
+     * @return
+     */
+    public int getCurrentEnergy() {
+        int total = 0;
+
+        for(IEnergyConsumer c : consumers) {
+            total += c.getCurrentEnergy();
+        }
+
+        for(IEnergyProducer p : producers) {
+            total += p.getCurrentEnergy();
+        }
+
+        return total;
+    }
+
+    /**
+     * Returns the amount of energy storable within all Szeibernaeticks attached
+     * to these veins.
+     *
+     * @return
+     */
+    public int getMaxEnergy() {
+        int total = 0;
+
+        for(IEnergyConsumer c : consumers) {
+            total += c.getMaxEnergy();
+        }
+
+        for(IEnergyProducer p : producers) {
+            total += p.getMaxEnergy();
+        }
+
+        return total;
+
     }
 }

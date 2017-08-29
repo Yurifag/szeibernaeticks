@@ -1,8 +1,8 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks;
 
-import io.netty.util.internal.ConcurrentSet;
-
 import javax.vecmath.Vector2d;
+
+import io.netty.util.internal.ConcurrentSet;
 
 public final class BodyPart {
 
@@ -13,6 +13,7 @@ public final class BodyPart {
     public static final BodyPart EYES;
     public static final BodyPart JOINTS;
     public static final BodyPart VEINS;
+    public static final BodyPart LIVER;
 
     private String name;
     private Vector2d location;
@@ -28,6 +29,7 @@ public final class BodyPart {
         EYES = createBodyPart("eyes", new Vector2d());
         JOINTS = createBodyPart("joints", new Vector2d());
         VEINS = createBodyPart("veins", new Vector2d());
+        LIVER = createBodyPart("liver", new Vector2d());
     }
 
     /**
@@ -36,8 +38,10 @@ public final class BodyPart {
      * <br>
      * If such a BodyPart does exists, this return that one instead.
      *
-     * @param name     The name of the BodyPart.
-     * @param location The Vector describing its location on a image of a Entity.
+     * @param name
+     *            The name of the BodyPart.
+     * @param location
+     *            The Vector describing its location on a image of a Entity.
      * @return A BodyPart with the specified name.
      */
     public static BodyPart createBodyPart(String name, Vector2d location) {

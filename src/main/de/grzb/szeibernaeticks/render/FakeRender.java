@@ -11,7 +11,7 @@ public class FakeRender<T extends Entity> extends Render<T> {
         super(renderManager);
     }
 
-    // TODO: Try adding an entirely transperent Texture
+    // TODO: Try adding an entirely transparent Texture
     @Override
     protected ResourceLocation getEntityTexture(T entity) {
         return null;

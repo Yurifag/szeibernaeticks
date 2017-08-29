@@ -48,4 +48,8 @@ public class ArmouryProvider implements ICapabilitySerializable<NBTBase> {
         ARMOURY_CAP.getStorage().readNBT(ARMOURY_CAP, this.instance, null, nbt);
     }
 
+    public Entity getEntity() {
+        return attachedTo;
+    }
+
 }

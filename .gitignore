@@ -3,6 +3,8 @@
 *.class
 *.iml
 *.launch
+*.pfcolors
+*.pxf
 *.sh
 *.txt
 *.xcf

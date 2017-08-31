@@ -9,7 +9,7 @@ package main.de.grzb.szeibernaeticks.szeibernaeticks.energy;
  *
  * @author DemRat
  */
-public interface IEnergyProducer {
+public interface IEnergyProducer extends IEnergyStorer {
     /**
      * Returns with what priority this Producer currently needs to get rid of
      * its energy.

@@ -1,10 +1,10 @@
 package main.de.grzb.szeibernaeticks.szeibernaeticks.capability.armoury;
 
+import java.util.Collection;
+
 import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.ISzeibernaetickCapability;
 import net.minecraft.entity.Entity;
-
-import java.util.Collection;
 
 /**
  * Stores {@code ISzeibernaeticksCapabilities}.<br>
@@ -26,7 +26,8 @@ public interface IArmouryCapability {
     /**
      * Adds the given ISzeibernaetickCapability to storage.
      *
-     * @param szeibernaetick The {@code ISzeibernaetickCapability} to add to this Storage.
+     * @param szeibernaetick
+     *            The {@code ISzeibernaetickCapability} to add to this Storage.
      * @return True if successful
      */
     boolean addSzeibernaetick(ISzeibernaetickCapability szeibernaetick);
@@ -35,9 +36,10 @@ public interface IArmouryCapability {
      * Returns the instance of the given {@code ISzeibernaetickCapability}, or
      * null if it is none is installed.
      *
-     * @param szeiberClass The class of the {@code ISzeibernaetickCapability} to look up.
+     * @param szeiberClass
+     *            The class of the {@code ISzeibernaetickCapability} to look up.
      * @return The {@code ISzeibernaetickCapability} instance of the given
-     * class, or null
+     *         class, or null
      */
     ISzeibernaetickCapability getSzeibernaetick(Class<? extends ISzeibernaetickCapability> szeiberClass);
 
@@ -53,9 +55,10 @@ public interface IArmouryCapability {
      * Removes the given {@code ISzeibernaetick}, if it is installed, and
      * returns its {@code ItemStack}.
      *
-     * @param szeibernaetick The {@code ISzeibernaetick} to remove.
+     * @param szeibernaetick
+     *            The {@code ISzeibernaetick} to remove.
      * @return A copy of the {@code ItemStack} of the removed
-     * {@code ISzeibernaetick}, or null if it wasn't installed.
+     *         {@code ISzeibernaetick}, or null if it wasn't installed.
      */
     ISzeibernaetickCapability removeSzeibernaetick(ISzeibernaetickCapability szeibernaetick);
 
@@ -63,9 +66,10 @@ public interface IArmouryCapability {
      * Returns the {@code ISzeibernaetickCapability} associated with this
      * BodyPart.
      *
-     * @param bodyPart The {@code BodyPart} being asked for.
+     * @param bodyPart
+     *            The {@code BodyPart} being asked for.
      * @return The {@code ISzeibernaetickCapability} stored for the given
-     * {@code BodyPart}.
+     *         {@code BodyPart}.
      */
     ISzeibernaetickCapability getBodyPart(BodyPart bodyPart);
 

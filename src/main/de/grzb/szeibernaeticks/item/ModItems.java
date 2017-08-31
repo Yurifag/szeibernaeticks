@@ -7,10 +7,12 @@ import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemDynamoJoints;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.ItemMetalBones;
 import main.de.grzb.szeibernaeticks.item.szeibernaetick.SzeibernaetickBase;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.GeneratorStomachCapability;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.RunnersLegsCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SyntheticEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickArchersEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.capability.SzeibernaetickRadarEyesCapability;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.GeneratorStomachHandler;
+import main.de.grzb.szeibernaeticks.szeibernaeticks.event.RunnersLegsHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SyntheticEyesHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickArchersEyesHandler;
 import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickRadarEyesHandler;
@@ -28,13 +30,20 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public final class ModItems {
 
     public static ItemBase ingot_copper;
+
     public static SzeibernaetickBase metal_bones;
+
     public static SzeibernaetickBase conductive_veins;
+
+    public static SzeibernaetickBase runners_legs;
+
     public static SzeibernaetickBase dynamo_joints;
+
     public static SzeibernaetickBase synthetic_eyes;
-    public static SzeibernaetickBase generator_stomach;
     public static SzeibernaetickBase archers_eyes;
     public static SzeibernaetickBase radar_eyes;
+
+    public static SzeibernaetickBase generator_stomach;
 
     /**
      * Initializes the mod items. Configure src/main/resources as source folder
@@ -56,6 +65,8 @@ public final class ModItems {
                 SzeibernaetickArchersEyesHandler.class));
         radar_eyes = register(new SzeibernaetickBase("radar_eyes", SzeibernaetickRadarEyesCapability.class,
                 SzeibernaetickRadarEyesHandler.class));
+        runners_legs = register(
+                new SzeibernaetickBase("runners_legs", RunnersLegsCapability.class, RunnersLegsHandler.class));
     }
 
     private static <T extends Item> T register(T item) {

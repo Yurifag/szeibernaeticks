@@ -9,6 +9,7 @@ public final class BodyPart {
     private static ConcurrentSet<BodyPart> bodySet;
 
     public static final BodyPart BONES;
+    public static final BodyPart LEGS;
     public static final BodyPart STOMACH;
     public static final BodyPart EYES;
     public static final BodyPart JOINTS;
@@ -25,6 +26,7 @@ public final class BodyPart {
     static {
         bodySet = new ConcurrentSet<BodyPart>();
         BONES = createBodyPart("bones", new Vector2d(0, 0));
+        LEGS = createBodyPart("legs", new Vector2d(0, 0));
         STOMACH = createBodyPart("stomach", new Vector2d());
         EYES = createBodyPart("eyes", new Vector2d());
         JOINTS = createBodyPart("joints", new Vector2d());

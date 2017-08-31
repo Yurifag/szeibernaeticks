@@ -51,10 +51,12 @@ public class GeneratorStomachCapability implements ISzeibernaetickCapability, IE
 
     @Override
     public int consume() {
-        Log.log("[GenStomach] GenStomach attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[GenStomach] GenStomach attempting to consume energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(this.canStillConsume()) {
             this.storage++;
-            Log.log("[GenStomach] GenStomach consuming energy! Now storing: " + this.storage, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[GenStomach] GenStomach consuming energy! Now storing: " + this.storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;
@@ -74,17 +76,20 @@ public class GeneratorStomachCapability implements ISzeibernaetickCapability, IE
 
     @Override
     public int produceAdHoc() {
-        Log.log("[GenStomach] GenStomach attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+        Log.log("[GenStomach] GenStomach attempting to produce energy!", LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP, LogType.SPAMMY);
         if(this.canStillProduce()) {
             this.storage--;
-            Log.log("[GenStomach] GenStomach produced energy! Remaining storage: " + this.storage, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
+            Log.log("[GenStomach] GenStomach produced energy! Remaining storage: " + this.storage, LogType.DEBUG,
+                    LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP, LogType.SPAMMY);
             return 1;
         }
         return 0;
     }
 
     public int produce(int energyProduced, Entity entity) {
-        Log.log("[GenStomach] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY, LogType.SZEIBER_CAP);
+        Log.log("[GenStomach] Producing energy: " + energyProduced, LogType.DEBUG, LogType.SZEIBER_ENERGY,
+                LogType.SZEIBER_CAP);
         EnergyProductionEvent production = new EnergyProductionEvent(entity, energyProduced);
         MinecraftForge.EVENT_BUS.post(production);
 
@@ -92,6 +97,38 @@ public class GeneratorStomachCapability implements ISzeibernaetickCapability, IE
             entity.attackEntityFrom(new EnergyFeedbackDamage(this), production.getRemainingAmount());
         }
         return energyProduced;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return maxStorage;
+    }
+
+    @Override
+    public int getCurrentEnergy() {
+        return storage;
+    }
+
+    @Override
+    public int store(int amountToStore) {
+        int consumed = 0;
+
+        while(consume() != 0) {
+            consumed++;
+        }
+
+        return consumed;
+    }
+
+    @Override
+    public int retrieve(int amountToRetrieve) {
+        int retrieved = 0;
+
+        while(produceAdHoc() != 0) {
+            retrieved++;
+        }
+
+        return retrieved;
     }
 
 }

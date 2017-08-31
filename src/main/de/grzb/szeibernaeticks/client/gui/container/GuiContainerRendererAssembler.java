@@ -2,8 +2,14 @@ package main.de.grzb.szeibernaeticks.client.gui.container;
 
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
+import main.de.grzb.szeibernaeticks.control.Log;
+import main.de.grzb.szeibernaeticks.control.LogType;
+import main.de.grzb.szeibernaeticks.networking.GuiMessage;
+import main.de.grzb.szeibernaeticks.networking.NetworkWrapper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiInventory;
+
+import java.io.IOException;
 
 public class GuiContainerRendererAssembler extends GuiContainerRendererBase {
 
@@ -20,6 +26,14 @@ public class GuiContainerRendererAssembler extends GuiContainerRendererBase {
         int y = this.guiTop + GuiLayoutDefinition.BORDER_SIZE + GuiLayoutDefinition.NAME_FIELD_HEIGHT + 108 - height;
         this.buttonList.add(new GuiButton(0, x, y, width, height, "INSTALL"));
     }
+
+
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        Log.log("Player pressed INSTALL", LogType.INFO);
+        NetworkWrapper.INSTANCE.sendToServer(new GuiMessage("Player pressed INSTALL"));
+    }
+
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {

@@ -1,22 +1,27 @@
+*.bat
+*.bmp
 *.class
+*.iml
+*.launch
+*.sh
+*.txt
+*.xcf
 
-#Directories to exclude
+# directories to exclude
 .gradle/
+.idea/
 .settings/
 bin/
 build/
 forge-*/
 gradle/
+out/
 run/
 
-#Specific files to exclude
-gradlew
+# specific files to exclude
 .classpath
 .project
-*.bat
-*.sh
-*.launch
-*.xcf
+gradlew
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

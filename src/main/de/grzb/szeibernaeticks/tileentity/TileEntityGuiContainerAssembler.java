@@ -17,16 +17,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class TileEntityGuiContainerAssembler extends TileEntityGuiContainerBase {
+    private static final int SLOTS_PER_ROW = 6;
 
     public TileEntityGuiContainerAssembler() {
-        this("assembler", null, 6);
+        this(null);
     }
 
     public TileEntityGuiContainerAssembler(Block block) {
-        this("assembler", block, 6);
+        this("assembler", block, BodyPart.getBodySet().size());
     }
 
     public TileEntityGuiContainerAssembler(String tileEntityName, Block block, int slotSize) {
@@ -44,20 +44,18 @@ public class TileEntityGuiContainerAssembler extends TileEntityGuiContainerBase 
         int x = 0;
         int y = 0;
         int i = 0;
-        for(Iterator<BodyPart> iterator = bodyParts.iterator(); iterator.hasNext(); ) {
-            BodyPart bodyPart = iterator.next();
-            if(i < 6) {
+        for(BodyPart bodyPart : bodyParts) {
+            if(i < TileEntityGuiContainerAssembler.SLOTS_PER_ROW) {
                 x = 0;
                 y = i * GuiLayoutDefinition.ITEM_SLOT_SIZE;
             }
             else {
                 x = width - GuiLayoutDefinition.ITEM_SLOT_SIZE;
-                y = (i - 6) * GuiLayoutDefinition.ITEM_SLOT_SIZE;
+                y = (i - TileEntityGuiContainerAssembler.SLOTS_PER_ROW) * GuiLayoutDefinition.ITEM_SLOT_SIZE;
             }
 
             ItemStack itemStack = ItemStack.EMPTY;
-            for(Iterator<ISzeibernaetickCapability> iterator2 = szeibernaeticks.iterator(); iterator2.hasNext(); ) {
-                ISzeibernaetickCapability capability = iterator2.next();
+            for(ISzeibernaetickCapability capability : szeibernaeticks) {
                 if(bodyPart.equals(capability.getBodyPart())) {
                     itemStack = new ItemStack(SzeibernaetickMapper.instance.getItemFromIdentifier(capability.getIdentifier()));
                 }

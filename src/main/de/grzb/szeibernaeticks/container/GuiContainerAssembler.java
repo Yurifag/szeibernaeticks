@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class GuiContainerAssembler extends GuiContainerBase {
 
@@ -26,18 +25,15 @@ public class GuiContainerAssembler extends GuiContainerBase {
         IArmouryCapability playerCapability = player.getCapability(ArmouryProvider.ARMOURY_CAP, null);
         Collection<ISzeibernaetickCapability> playerSzeibernaeticks = playerCapability.getSzeibernaeticks();
 
-        for(Iterator<ISzeibernaetickCapability> iter = playerSzeibernaeticks.iterator(); iter.hasNext(); ) {
-            ISzeibernaetickCapability szeibernaetick = iter.next();
+        for(ISzeibernaetickCapability szeibernaetick : playerSzeibernaeticks) {
             playerCapability.removeSzeibernaetick(szeibernaetick);
         }
 
-        for(Iterator<Slot> iter = this.inventorySlots.iterator(); iter.hasNext(); ) {
-            Slot slot = iter.next();
+        for(Slot slot : this.inventorySlots) {
             if(slot instanceof SlotBodyPart && slot.getStack().hasCapability(CapabilityProvider.SZEIBER_CAP, null)) {
                 ISzeibernaetickCapability szeibernaetick = slot.getStack().getCapability(CapabilityProvider.SZEIBER_CAP, null);
                 boolean installed = false;
-                for(Iterator<ISzeibernaetickCapability> iter2 = playerSzeibernaeticks.iterator(); iter2.hasNext(); ) {
-                    ISzeibernaetickCapability playerSzeibernaetick = iter2.next();
+                for(ISzeibernaetickCapability playerSzeibernaetick : playerSzeibernaeticks) {
                     if(playerSzeibernaetick.equals(szeibernaetick)) {
                         // player didn't modify this slot; reattach the player's Szeibernaetick, NOT a new one
                         playerCapability.addSzeibernaetick(playerSzeibernaetick);

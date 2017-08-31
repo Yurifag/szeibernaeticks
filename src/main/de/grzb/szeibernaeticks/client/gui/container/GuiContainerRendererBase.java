@@ -2,15 +2,8 @@ package main.de.grzb.szeibernaeticks.client.gui.container;
 
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
 import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
-import main.de.grzb.szeibernaeticks.control.Log;
-import main.de.grzb.szeibernaeticks.control.LogType;
-import main.de.grzb.szeibernaeticks.networking.GuiMessage;
-import main.de.grzb.szeibernaeticks.networking.NetworkWrapper;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
-
-import java.io.IOException;
 
 /**
  * Base class to create a GUI for a container. Not relevant for the server.
@@ -25,12 +18,6 @@ public abstract class GuiContainerRendererBase extends GuiContainer {
         this.xSize = container.getLayoutDefinition().getWidth();
         this.ySize = container.getLayoutDefinition().getHeight();
         this.background = container.getGuiBackground();
-    }
-
-    @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
-        Log.log("nice", LogType.INFO);
-        NetworkWrapper.INSTANCE.sendToServer(new GuiMessage("1nice"));
     }
 
     @Override

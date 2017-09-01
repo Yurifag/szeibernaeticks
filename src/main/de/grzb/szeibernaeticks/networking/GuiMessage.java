@@ -31,10 +31,10 @@ public class GuiMessage extends NBTMessage {
         @Override
         public IMessage onMessage(GuiMessage message, MessageContext context) {
             // check if we are on the server side, then if we have an EntityPlayerMP
-            if(context.side.isServer() && context.getServerHandler().playerEntity != null) {
+            if(context.side.isServer() && context.getServerHandler().player != null) {
                 final String text = message.text;
                 // tell the server to execute our task in the main thread
-                context.getServerHandler().playerEntity.getServerWorld().addScheduledTask(new Runnable() {
+                context.getServerHandler().player.getServerWorld().addScheduledTask(new Runnable() {
                     @Override
                     public void run() {
                         Log.log(text, LogType.INFO);

@@ -50,7 +50,7 @@ public class GuiContainerRendererAssembler extends GuiContainerRendererBase {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRendererObj.drawString("Assembler", GuiLayoutDefinition.BORDER_SIZE, GuiLayoutDefinition.BORDER_SIZE, 4210752);
+        this.fontRenderer.drawString("Assembler", GuiLayoutDefinition.BORDER_SIZE, GuiLayoutDefinition.BORDER_SIZE, 4210752);
     }
 
 }

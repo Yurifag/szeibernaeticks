@@ -18,6 +18,7 @@ public class EntityBlockMarker extends Entity {
         this.isImmuneToFire = true;
         this.glowing = true;
         this.setNoGravity(true);
+        this.setSilent(true);
         this.setSize(1, 1);
     }
 
@@ -35,7 +36,7 @@ public class EntityBlockMarker extends Entity {
     public void onUpdate() {
         super.onUpdate();
         if(ticksExisted > 1) {
-            this.kill();
+            this.setDead();
         }
     }
 

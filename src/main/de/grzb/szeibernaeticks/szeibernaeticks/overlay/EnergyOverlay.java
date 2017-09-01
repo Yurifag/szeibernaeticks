@@ -27,7 +27,7 @@ public class EnergyOverlay {
                     int width = scaled.getScaledWidth();
                     int height = scaled.getScaledHeight();
 
-                    drawCenteredString(mc.fontRendererObj, cEnergy + "/" + mEnergy, width / 2, 0,
+                    drawCenteredString(mc.fontRenderer, cEnergy + "/" + mEnergy, width / 2, 0,
                             Integer.parseInt("FFAA00", 16));
                 }
             }

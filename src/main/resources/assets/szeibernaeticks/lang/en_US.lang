@@ -1,5 +1,10 @@
+item.archers_eyes.name=Archer's Eyes
+item.conductive_veins.name=Conductive Veins
+item.dynamo_joints.name=Dynamo Joints
+item.generator_stomach.name=Generator Stomach
 item.ingot_copper.name=Copper Ingot
 item.metal_bones.name=Metal Bones
+item.radar_eyes.name=Radar Eyes
 tile.assembler.name=Assembler
 tile.ore_copper.name=Copper Ore
 

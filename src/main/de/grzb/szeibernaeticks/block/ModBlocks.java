@@ -1,8 +1,10 @@
 package main.de.grzb.szeibernaeticks.block;
 
+import main.de.grzb.szeibernaeticks.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Initializes the mod blocks and creates corresponding ItemBlocks. Configure
@@ -13,10 +15,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
  */
 public final class ModBlocks {
+    public static IForgeRegistry<Block> blockRegistry;
+
     public static BlockBase ore_copper;
     public static BlockBase assembler;
 
     public static void init() {
+        ModBlocks.blockRegistry = GameRegistry.findRegistry(Block.class);
+
         ore_copper = register(new BlockOreCopper());
         assembler = register(new BlockTileEntityGuiContainerAssembler());
     }
@@ -29,8 +35,8 @@ public final class ModBlocks {
      * @return {@link BlockBase}
      */
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
-        GameRegistry.register(block);
-        GameRegistry.register(itemBlock);
+        ModBlocks.blockRegistry.register(block);
+        ModItems.itemRegistry.register(itemBlock);
 
         if(block instanceof BlockBase) {
             ((BlockBase) block).registerItemModel(itemBlock);

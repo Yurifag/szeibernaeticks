@@ -4,7 +4,37 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.BodyPart;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
- * Stores and retrieves the Data behind an Szeibernaetick.
+ * Stores and retrieves the data behind a Szeibernaetick.
+ *
+ *
+ * Structure of an NBTTag containing a Szeibernaeticks Tag:
+ * {
+ *     OtherTag : Value,
+ *     "Szeibernaeticks" : {
+ *         Unlocalized Name : {
+ *             "Properties" : {
+ *                 "damage" : The damage value,
+ *                 Item Specific Properties : Their value
+ *             }
+ *         }
+ *     },
+ *     AnotherTag : Value
+ * }
+ *
+ * When passing this between methods/objects, the "Szeibernaeticks" Compound Tag is the base tag:
+ * {
+ *     Unlocalized Name : {
+ *         "Properties" : {
+ *             "damage" : The damage value,
+ *             Item Specific Properties : Their value
+ *         }
+ *     }
+ * }
+ *
+ * Naming convention:
+ * Compound Tags are written in PascalCase : "Properties", "ThisIsAdvancedStuff"
+ * Primitive Tags are written in camelCase : "damage", "advancedValue"
+ *
  *
  * @author DemRat
  */

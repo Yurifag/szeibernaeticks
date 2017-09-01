@@ -19,6 +19,7 @@ import main.de.grzb.szeibernaeticks.szeibernaeticks.event.SzeibernaetickRadarEye
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 /**
  * Registers all mod items during pre-init. Configure src/main/resources as
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @see main.de.grzb.szeibernaeticks.CommonProxy CommonProxy
  */
 public final class ModItems {
+    public static IForgeRegistry<Item> itemRegistry;
 
     public static ItemBase ingot_copper;
 
@@ -52,25 +54,22 @@ public final class ModItems {
      * This is called from {@link main.de.grzb.szeibernaeticks.CommonProxy}
      */
     public static void init() {
+        ModItems.itemRegistry = GameRegistry.findRegistry(Item.class);
+
         Log.log("Initiating items!", LogType.DEBUG, LogType.SETUP);
         ingot_copper = register(new ItemBase("ingot_copper").setCreativeTab(CreativeTabs.MATERIALS));
         metal_bones = register(new ItemMetalBones("metal_bones"));
         conductive_veins = register(new ItemConductiveVeins("conductive_veins"));
         dynamo_joints = register(new ItemDynamoJoints("dynamo_joints"));
-        synthetic_eyes = register(
-                new SzeibernaetickBase("synthetic_eyes", SyntheticEyesCapability.class, SyntheticEyesHandler.class));
-        generator_stomach = register(new SzeibernaetickBase("generator_stomach", GeneratorStomachCapability.class,
-                GeneratorStomachHandler.class));
-        archers_eyes = register(new SzeibernaetickBase("archers_eyes", SzeibernaetickArchersEyesCapability.class,
-                SzeibernaetickArchersEyesHandler.class));
-        radar_eyes = register(new SzeibernaetickBase("radar_eyes", SzeibernaetickRadarEyesCapability.class,
-                SzeibernaetickRadarEyesHandler.class));
-        runners_legs = register(
-                new SzeibernaetickBase("runners_legs", RunnersLegsCapability.class, RunnersLegsHandler.class));
+        synthetic_eyes = register(new SzeibernaetickBase("synthetic_eyes", SyntheticEyesCapability.class, SyntheticEyesHandler.class));
+        generator_stomach = register(new SzeibernaetickBase("generator_stomach", GeneratorStomachCapability.class, GeneratorStomachHandler.class));
+        archers_eyes = register(new SzeibernaetickBase("archers_eyes", SzeibernaetickArchersEyesCapability.class, SzeibernaetickArchersEyesHandler.class));
+        radar_eyes = register(new SzeibernaetickBase("radar_eyes", SzeibernaetickRadarEyesCapability.class, SzeibernaetickRadarEyesHandler.class));
+        runners_legs = register(new SzeibernaetickBase("runners_legs", RunnersLegsCapability.class, RunnersLegsHandler.class));
     }
 
     private static <T extends Item> T register(T item) {
-        GameRegistry.register(item);
+        ModItems.itemRegistry.register(item);
 
         if(item instanceof ItemBase) {
             ((ItemBase) item).registerItemModel();

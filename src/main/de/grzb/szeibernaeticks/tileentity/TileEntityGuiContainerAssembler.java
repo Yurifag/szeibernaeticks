@@ -41,8 +41,7 @@ public class TileEntityGuiContainerAssembler extends TileEntityGuiContainerBase 
 
         ConcurrentSet<BodyPart> bodyParts = BodyPart.getBodySet();
         SlotBodyPartDefinition[] slotBodyPartDefinitions = new SlotBodyPartDefinition[bodyParts.size()];
-        int x = 0;
-        int y = 0;
+        int x, y;
         int i = 0;
         for(BodyPart bodyPart : bodyParts) {
             if(i < TileEntityGuiContainerAssembler.SLOTS_PER_ROW) {

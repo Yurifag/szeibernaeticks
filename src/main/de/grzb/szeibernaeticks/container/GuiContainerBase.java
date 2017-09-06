@@ -9,7 +9,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Base class to create container GUIs.
@@ -39,7 +39,6 @@ public abstract class GuiContainerBase extends ContainerBase {
         }
     }
 
-    @Nullable
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -70,6 +69,7 @@ public abstract class GuiContainerBase extends ContainerBase {
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public boolean canInteractWith(EntityPlayer player) {
         return ((TileEntityGuiContainerBase) this.tileEntityContainer).canInteractWith(player);
     }

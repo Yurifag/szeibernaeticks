@@ -49,9 +49,9 @@ public class GuiLayoutDefinition {
         int x;
         int yMax = 0;
         int xMax = 0;
-        for(int i = 0; i < slotDefinitions.length; i++) {
-            x = slotDefinitions[i].x;
-            y = slotDefinitions[i].y;
+        for(SlotDefinition slotDefinition : slotDefinitions) {
+            x = slotDefinition.x;
+            y = slotDefinition.y;
             if(x > xMax) xMax = x;
             if(y > yMax) yMax = y;
         }
@@ -69,7 +69,7 @@ public class GuiLayoutDefinition {
 
         Slot[] slots = new Slot[this.slotDefinitions.length + PLAYER_INVENTORY_ROWS * PLAYER_INVENTORY_COLUMNS + PLAYER_HOTBAR_SLOTS];
 
-        /**
+        /*
          * Hotbar slots
          */
         y = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight + PLAYER_INVENTORY_HEIGHT + HOTBAR_MARGIN_TOP + 1;
@@ -80,7 +80,7 @@ public class GuiLayoutDefinition {
         }
 
         int yOffset = BORDER_SIZE + NAME_FIELD_HEIGHT + this.innerSectionHeight;
-        /**
+        /*
          * Main inventory slots
          */
         for(int row = 0; row < PLAYER_INVENTORY_ROWS; ++row) {

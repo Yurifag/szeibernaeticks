@@ -1,7 +1,7 @@
 package main.de.grzb.szeibernaeticks.client.gui.container;
 
+import main.de.grzb.szeibernaeticks.client.gui.Colours;
 import main.de.grzb.szeibernaeticks.container.GuiContainerBase;
-import main.de.grzb.szeibernaeticks.container.layout.GuiLayoutDefinition;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
@@ -27,8 +27,33 @@ public abstract class GuiContainerRendererBase extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRenderer.drawString("", GuiLayoutDefinition.BORDER_SIZE, GuiLayoutDefinition.BORDER_SIZE, 4210752);
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
     }
 
+    protected void drawPoint(int x, int y, int colour) {
+        this.drawHorizontalLine(x, x, y, colour);
+    }
+
+    protected void drawLine(int x1, int y1, int x2, int y2, int colour) {
+        double m = (double) (y2 - y1) / (double) (x2 - x1);
+        int y;
+        int yPrev = y1;
+        int sign;
+        for(int x = 0; x < x2 - x1; x++) {
+            y = (int) (m * x + y1);
+            this.drawPoint(x + x1, y, Colours.BLACK);
+
+            sign = (int) Math.signum(yPrev - y);
+            if(sign * (yPrev - y) > 1) {
+                for(int i = 0; i < sign * (yPrev - y) / 2; i++) {
+                    this.drawPoint(x + x1, y + sign * i, Colours.BLACK);
+                    this.drawPoint(x - 1 + x1, y + sign * i + (yPrev - y) / 2, Colours.BLACK);
+                }
+            }
+
+            yPrev = y;
+        }
+    }
 }
